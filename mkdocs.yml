@@ -1,0 +1,107 @@
+site_name: Documentation Site
+site_author: Martin Donath
+site_description: >-
+  A Collection of Documentations from Shivam Anand
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tracking
+    # - navigation.sections
+    # - navigation.expand
+    - navigation.path
+    - navigation.top
+    # - navigation.top
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  # - toc:
+  #     permalink: true
+  language: en
+  palette:
+    - scheme: default
+      primary: teal
+      accent: purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home:
+      - About me: index.md
+  - Cheat Sheets:
+      - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
+      - Cloudformation Cheat Sheet: CheatSheets/CloudFormationCheatsheet.md
+      - Docker Cheat Sheet: CheatSheets/DockerCheatSheet.md
+      - Git Cheat Sheet: CheatSheets/GitCheatSheet.md
+      - Kubernetes Cheat Sheet: CheatSheets/kubectl-cheat-sheet.md
+  # - Projects:
+  #     - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
+  - Tutorials:
+      - Linux Commands: Tutorials/LinuxCommands.md
+      - Setup Ansible: Tutorials/AnsibleAWS.md
+      - Generate SSH Key pair & Add to Agent: Tutorials/GenerateKeysAndSSH.md
+      - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
+  # - Automation Scripts Snippets & Files:
+  #     - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
+
+plugins:
+  - search:
+      lang: en
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/anandshivam44
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/anandshivam44
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/anandshivam44/
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:anand.shivam44@yahoo.com
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - attr_list
+  - md_in_html
+
+copyright: |
+  &copy; 2023 <a href="https://github.com/anandshivam44"  target="_blank" rel="noopener">Shivam Anand</a>
