@@ -129,3 +129,16 @@ Note: The new changes will be commited into the working branch
 ```bash
 git cherry-pick -n <hash>
 ```
+#### git cherry pick fast
+```bash
+# Get hash from the branch
+HASH=$(git rev-parse HEAD)
+
+# switch branch then
+git cherry-pick -n $HASH
+
+# verify the changes then make the commit
+git restore --staged *
+git restore *
+git cherry-pick  $HASH
+```
