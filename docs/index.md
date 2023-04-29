@@ -13,20 +13,26 @@
 - My Colleagues are [Anubhaw Sharma](https://github.com/Anubhaw19), [Suraj Mahto](https://github.com/suraj-sloth) and [Anjani Kumar](https://github.com/anjanik012).
    We belive, we are engineers. Our approach to optimize and solve problems
 
+<br>
+<br/>
+<img align="left" src="assets/Home/ACE.png" width="10%" />  
 
-<img align="left" src="assets/Home/ACE.png" width="128" style="margin-right: 25px"/>
 ### Check out my GCP ACE credentials [here](https://www.credential.net/afaad28e-25df-49a8-8c24-b78e445a40b6)
+
+<br>
 <br/>
+<br>
 <br/>
-<img align="left" src="assets/Home/az-400.png" width="128" style="margin-right: 25px"/>
+
+<img align="left" src="assets/Home/az-400.png" width="10%" />   
+
 ### Check out my AZ-400 credentials [here](https://www.credential.net/afaad28e-25df-49a8-8c24-b78e445a40b6)
+<br>
+<br/>
+<br>
+<br/>
 
-
-
-
-
-
-[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=anandshivam44&count_private=true&show_icons=true)](https://github.com/anandshivam44)
+[![Shivam's github stats](https://github-readme-stats.vercel.app/api?username=anandshivam44&count_private=true&show_icons=true)](https://github.com/anandshivam44)
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=anandshivam44&langs_count=6&layout=compact)](https://github.com/anandshivam44)
 
