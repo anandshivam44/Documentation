@@ -1,25 +1,20 @@
-site_name: Documentation Site
-site_author: Martin Donath
+site_name: Shivam Anand's Site
+site_author: Shivam Anand
 site_description: >-
-  A Collection of Documentations from Shivam Anand
+  A Collections from from Shivam Anand
 theme:
   name: material
   features:
     - navigation.tabs
     - navigation.tracking
-    # - navigation.sections
-    # - navigation.expand
     - navigation.path
     - navigation.top
-    # - navigation.top
     - toc.integrate
     - search.suggest
     - search.highlight
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
-  # - toc:
-  #     permalink: true
   language: en
   palette:
     - scheme: default
