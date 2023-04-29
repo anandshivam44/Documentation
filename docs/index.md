@@ -1,25 +1,27 @@
 ### Hi there I'm Shivam Anand 👋
-<img align="right" alt="GIF" src="Home/me.gif" width="500"/>
+<img align="right" alt="GIF" src="assets/Home/me.gif" width="500"/>
 
 <h3> 👨🏻‍💻 About Me </h3>
 
-- President at [HnCC](https://github.com/hnccbits)
 - Interested in DevOps, DevSecOps and SRE
-- Undergraduate from [BIT Sindri, Dhanbad](http://bitsindri.ac.in/)
-- Also interested in Web Technologies like React and Bootstrap
+- If you are a business, know me more here shivamanand.com/resume
+- Alma mater from [BIT Sindri, Dhanbad](http://bitsindri.ac.in/)
+- Former President at [HnCC](https://github.com/hnccbits)
+- On a personal level I've made substantial impact though technology, ask me how on a call contact@shivamanand.com
+- Engaged in Building & Making High Impact through technology
 - Loves to watch Web Series
 - My Colleagues are [Anubhaw Sharma](https://github.com/Anubhaw19), [Suraj Mahto](https://github.com/suraj-sloth) and [Anjani Kumar](https://github.com/anjanik012).
    We belive, we are engineers. Our approach to optimize and solve problems
 
 
-<br>
-<img align="left" src="Home/ACE.png" width="128" style="margin-right: 25px"/>
-<br>
-
-# I am now Google Cloud Certified Associate Cloud Engineer
-<br>
+<img align="left" src="assets/Home/ACE.png" width="128" style="margin-right: 25px"/>
 ### Check out my GCP ACE credentials [here](https://www.credential.net/afaad28e-25df-49a8-8c24-b78e445a40b6)
-<br>
+<br/>
+<br/>
+<img align="left" src="assets/Home/az-400.png" width="128" style="margin-right: 25px"/>
+### Check out my AZ-400 credentials [here](https://www.credential.net/afaad28e-25df-49a8-8c24-b78e445a40b6)
+
+
 
 
 
