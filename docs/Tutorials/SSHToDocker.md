@@ -1,4 +1,5 @@
 ## SSH to Docker Container from Host and from outside the Host Remotely
+### Docker Port Binding Example
 
 #### Create an VM in AWS/GCP/Azure
 I've created an ec2 in aws with ubuntu image
@@ -124,7 +125,7 @@ Since my VM/ec2 is in a public subnet, I can SSH to the Docker Container remotel
 ```bash
 ssh -p 2022  -i ./docker_ssh sshuser@PUBLIC_IP 
 ```
-Make sure the port 22 is open in Security Groups attached to the VM
+Make sure the port 2022 is open in Security Groups attached to the VM
 
 
 #### Cleaning Up
