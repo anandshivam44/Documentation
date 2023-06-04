@@ -389,6 +389,11 @@ Use `netstat -tulpn | grep LISTEN` to get the list of all open ports. Helpful wh
 sudo netstat -tulpn | grep LISTEN
 ```
 ![netstat](images/netstat.png)
+Other similar commands
+```bash
+sudo ss -tulpn
+sudo lsof -i -P -n | grep LISTEN
+```
 ___
 ### dmesg
 `dmesg` stands for driver message. It gets boot time logs. If your system faces a boot time error. You can read the logs and try to identify the error.
