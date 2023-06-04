@@ -2,7 +2,12 @@
 #### Step 1
 Generate key in your client machine/laptop
 ```bash
-ssh-keygen -t rsa -b 4096 -C [USERNAME_OF_YOUR_CHOICE]
+ssh-keygen -t rsa -b 4096 -C <comment>
+```
+or non-interactively
+```bash
+FILENAME=ssh_key
+ssh-keygen -t ed25519 -a 100 -C $FILENAME -f ~/.ssh/$FILENAME -N ''
 ```
 #### Step 2
 ##### Step 2: Linux & Mac
