@@ -48,7 +48,7 @@ nav:
       - Linux Commands: Tutorials/LinuxCommands.md
       - Setup Ansible: Tutorials/AnsibleAWS.md
       - Generate SSH Key pair & Add to Agent: Tutorials/GenerateKeysAndSSH.md
-      - Generate SSH to Docker: Tutorials/SSHToDocker.md
+      - SSH to Docker: Tutorials/SSHToDocker.md
       - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
   # - Automation Scripts Snippets & Files:
   #     - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
