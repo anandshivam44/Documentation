@@ -1,4 +1,8 @@
 ## AWS Cli Cheat Sheet  
+#### Get caller identity / get current user details
+```bash
+aws sts get-caller-identity
+```
 #### Quick create a bucket
 ```bash
 BUCKET_NAME=my-bucket-$(date +%s)
@@ -38,4 +42,25 @@ aws s3 rb s3://$BUCKET_NAME
 #### Copy a folder from local repo to s3 bucket or s3 folder
 ```bash
  aws s3 cp $LOCAL_PATH\ s3://$BUCKET_NAME/folder1/folder2/ --recursive
+```
+
+#### Expand disk aws ec2
+```bash
+INSTANCE_ID=
+VOLUME_ID=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID | jq -r '.Reservations[0].Instances[0].BlockDeviceMappings[0].Ebs.VolumeId')
+
+aws ec2 modify-volume --size 40 --volume-id $VOLUME_ID
+```
+#### Get Internal Ip of ec2 with a specific tag
+```bash
+aws ec2 describe-instances --filters Name=tag:created_by,Values=shivam   | jq -r '.Reservations[]?.Instances[]? | .PrivateIpAddress'
+```
+#### Execute Lambda Remotely
+```bash
+aws lambda invoke \
+    --cli-binary-format raw-in-base64-out \
+    --function-name FUNCTION_NAME \
+    --log-type Tail \
+    --payload '{"key": "value"}' \
+    response.json
 ```
