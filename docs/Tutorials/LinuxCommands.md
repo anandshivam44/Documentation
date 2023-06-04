@@ -520,4 +520,8 @@ Every Bash script has a return code. The code could be as follows:-
  ___
 ### Ctrl + r (Windows and Linux)
 Ctrl+R: Recall the last command matching the characters you provide. It will search BASH/sh history with the matching works you type. Helps save a lot of time and you should definitely learn to use it.
+### Linux SSH without entering password
+```bash
+sshpass -p PASSWORD ssh user@IP
+```
 
