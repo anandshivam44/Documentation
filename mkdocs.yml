@@ -2,6 +2,8 @@ site_name: Shivam Anand's Site
 site_author: Shivam Anand
 site_description: >-
   A Collections from from Shivam Anand
+repo_name: github
+repo_url: https://github.com/anandshivam44/Documentation
 theme:
   name: material
   features:
@@ -46,6 +48,7 @@ nav:
       - Linux Commands: Tutorials/LinuxCommands.md
       - Setup Ansible: Tutorials/AnsibleAWS.md
       - Generate SSH Key pair & Add to Agent: Tutorials/GenerateKeysAndSSH.md
+      - Generate SSH to Docker: Tutorials/SSHToDocker.md
       - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
   # - Automation Scripts Snippets & Files:
   #     - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md

@@ -1,5 +1,5 @@
 ## SSH from one ec2 to another ec2. Generate key and SSH from one VM to another VM.
-#### Step 1
+##### Step 1
 Generate key in your client machine/laptop
 ```bash
 ssh-keygen -t ed25519 -a 100 -C [add a comment or username]
@@ -34,19 +34,19 @@ Get-Service ssh-agent
 ssh-add ~\.ssh\id_rsa
 ```
 
-#### Step 3
+##### Step 3
 Now copy the contents of the file `id_rsa.pub` to the clipboard.
 ```bash
 cat ~/.ssh/id_rsa.pub
 ```
-#### Step 4
+##### Step 4
 In the remote server in which you want to SSH/setup SSH.
 It might sound funny/confusing, but yes you need to access this system (i.e. login with SSH or user-password) and modify some files. Without this, you cannot proceed further.
 
 ```bash
 echo "PASTE CONTENTS OF id_rsa.pub FILE HERE" >> ~/.ssh/authorized_keys
 ```
-#### Step 5
+##### Step 5
 Now everything is ready
 You can now ssh from your client to a remote machine with just one command. Replace `username` with your remote machine username and replace your IP address. 
 ```bash
