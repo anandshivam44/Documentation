@@ -4,3 +4,6 @@
 ```bash
 ^abc.*xyz$
 ```
+```bash
+^abc(.*)xyz$
+```
