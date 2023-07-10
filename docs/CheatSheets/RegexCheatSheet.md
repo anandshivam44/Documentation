@@ -7,7 +7,7 @@
 ```bash
 ^abc(.*)xyz$
 ```
-#### Anywhere anything between abc and ends with xyz including  abc and xyz
+#### Anywhere anything between ABC and xyx & includes  abc and xyz
 ```bash
 abc.*xyz
 ```
