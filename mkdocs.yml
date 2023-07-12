@@ -37,21 +37,31 @@ nav:
   - Home:
       - About me: index.md
   - Cheat Sheets:
-      - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
-      - Cloudformation Cheat Sheet: CheatSheets/CloudFormationCheatsheet.md
-      - Docker Cheat Sheet: CheatSheets/DockerCheatSheet.md
-      - Git Cheat Sheet: CheatSheets/GitCheatSheet.md
-      - Kubernetes Cheat Sheet: CheatSheets/kubectl-cheat-sheet.md
-  # - Projects:
-  #     - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
+      - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCliCheatSheet.md
+      - Cloudformation Cheat Sheet: CheatSheetsAndSnippets/CloudFormationCheatsheet.md
+      - Docker Cheat Sheet: CheatSheetsAndSnippets/DockerCheatSheet.md
+      - Git Cheat Sheet: CheatSheetsAndSnippets/GitCheatSheet.md
+      - Kubernetes Cheat Sheet: CheatSheetsAndSnippets/kubectl-cheat-sheet.md
+      - Linux Cheat Sheet: CheatSheetsAndSnippets/LinuxCheatSheet.md
+      - Regex Cheat Sheet: CheatSheetsAndSnippets/RegexCheatSheet.md
+
+  - Snippets:
+      - Snippets Set 1: Snippets/Snippets1.md
+      - One Click Install Apache on Ubuntu: AutomationScriptsSnippets&Files/shell-scripts/install-apache-ubuntu.sh
+
+  - Projects:
+      - Encrypt EC2 From CloudFormation: Projects/EncryptEC2FromCloudFormation/EBSEncryption.md
+      - Save Cost on EC2 - ShutDown All EC2 at Night: Projects/ShutDownAllEC2EqualIntervalsOfTime/README.md
+
   - Tutorials:
       - Linux Commands: Tutorials/LinuxCommands.md
       - Setup Ansible: Tutorials/AnsibleAWS.md
       - Generate SSH Key pair & Add to Agent: Tutorials/GenerateKeysAndSSH.md
       - SSH to Docker: Tutorials/SSHToDocker.md
       - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
+      - EncryptEC2FromCloudFormation: Projects/EncryptEC2FromCloudFormation/EBSEncryption.md
   # - Automation Scripts Snippets & Files:
-  #     - aws cli Cheat Sheet: CheatSheets/AwsCliCheatSheet.md
+  #     - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCliCheatSheet.md
 
 plugins:
   - search:
