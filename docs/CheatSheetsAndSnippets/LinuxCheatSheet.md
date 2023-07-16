@@ -18,4 +18,9 @@ find . -name "*.txt-e" -type f -delete
 find ./ -type f -exec sed -e 's/Hello/Linux/g' {} \;
 ```
 
+#### Find a folder and copy a folder inside the folder
+```bash
+find . -type d -name "04-*" -exec cp -r <folder path> '{}' \;
+```
+
 
