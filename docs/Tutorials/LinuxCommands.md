@@ -239,6 +239,14 @@ gives the disk space occupied by a directory in human-readable format
 ```bash
 du -sh /var/
 ```
+Get all files and folders size of a Folder
+```bash
+du -sh /var/*
+``` 
+Get all files and folders size of a Folder & Sort by ascending order
+```bash
+du -sh /var/* | sort -h
+``` 
 ![du](images/du.png)
 ___
 ### grep 
