@@ -15,7 +15,7 @@ find . -name "*.txt-e" -type f -delete
 ```
 #### Find and replace a word in all files in a folder
 ```bash
-find ./ -type f -exec sed -e 's/Hello/Linux/g' {} \;
+find ./ -type f -exec sed -i -e 's/Hello/Linux/g' {} \;
 ```
 
 #### Find a folder and copy a folder inside the folder
