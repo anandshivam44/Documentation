@@ -145,3 +145,7 @@ git restore --staged *
 git restore *
 git cherry-pick  $HASH
 ```
+#### git abort merge if stuck in merge conflict
+```bash
+git merge --abort
+```
