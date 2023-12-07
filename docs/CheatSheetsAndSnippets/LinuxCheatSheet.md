@@ -14,13 +14,31 @@ Use with precaution
 find . -name "*.txt-e" -type f -delete
 ```
 #### Find and replace a word in all files in a folder
+Only on MacOS if find command doesn't work
+```
+export LC_CTYPE=C 
+export LANG=C
+```
+
 ```bash
-find ./ -type f -exec sed -i -e 's/Hello/Linux/g' {} \;
+find ./ -type f -exec sed -i '' -e 's/Hello/Linux/g' {} \;
 ```
 
 #### Find a folder and copy a folder inside the folder
 ```bash
 find . -type d -name "04-*" -exec cp -r <folder path> '{}' \;
+```
+#### For loop with String Numbers
+```bash
+for ((i = "1"; i <= "6"; i++)); do 
+   echo "$i"
+done
+```
+#### For loop with Numbers
+```bash
+for ((i = 1; i <= 6; i++)); do 
+   echo "$i"
+done
 ```
 
 
