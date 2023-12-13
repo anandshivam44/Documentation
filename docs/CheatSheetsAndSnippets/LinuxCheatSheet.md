@@ -40,5 +40,13 @@ for ((i = 1; i <= 6; i++)); do
    echo "$i"
 done
 ```
+#### Generate SHA512 Password and set password using HASH
+```bash
+PASSWORD='password'
+LINUX_USER='root'
+HASH=$(openssl passwd -1 $PASSWORD)
+echo $HASH
+usermod -p "$HASH" $LINUX_USER
+```
 
 
