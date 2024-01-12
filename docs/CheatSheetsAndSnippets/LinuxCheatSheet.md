@@ -48,5 +48,9 @@ HASH=$(openssl passwd -1 $PASSWORD)
 echo $HASH
 usermod -p "$HASH" $LINUX_USER
 ```
+#### Get list of larget files in a folder recursively
+```bash
+find . -type f -exec du -h {} + | sort -rh | head -n 10
+```
 
 
