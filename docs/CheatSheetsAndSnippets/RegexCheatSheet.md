@@ -11,3 +11,10 @@
 ```bash
 abc.*xyz
 ```
+```bash
+abc(.*)xyz
+```
+#### Find pattern between multiple lines
+```bash
+abc((.|\n)*)xyx
+```
