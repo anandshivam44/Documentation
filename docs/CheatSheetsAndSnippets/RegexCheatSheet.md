@@ -18,3 +18,14 @@ abc(.*)xyz
 ```bash
 abc((.|\n)*)xyx
 ```
+
+#### Find pattern between multiple lines
+Regex pattern to find
+```bash
+abc((.|\n)*)lmn((.|\n)*)xyz
+```
+Regex pattern to replace. Each pattern corresponds to equivalent $n
+```bash
+def$1opq$2wxy
+```
+
