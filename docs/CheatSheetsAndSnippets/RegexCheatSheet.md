@@ -29,3 +29,10 @@ Regex pattern to replace. Each pattern corresponds to equivalent $n
 def$1opq$2wxy
 ```
 
+#### Make Regex non-greedy, select only the first occurence
+Regex pattern to find
+```bash
+abc((.|\n)*?)lmn
+abc(.*?)xyz
+```
+
