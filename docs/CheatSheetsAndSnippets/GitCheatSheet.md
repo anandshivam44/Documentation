@@ -4,6 +4,7 @@
 ```bash
 git fetch --all
 branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+echo $branch
 git reset --hard origin/$branch
 ```
 #### Squash previous N commits into 1
