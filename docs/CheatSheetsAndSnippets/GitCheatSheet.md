@@ -149,3 +149,13 @@ git cherry-pick  $HASH
 ```bash
 git merge --abort
 ```
+#### git accept all incoming changes
+Overwrite any current changes and accept all conflicts from incoming changes, you can use the theirs strategy instead:
+```bash
+git merge [branch] --strategy-option theirs
+```
+#### git accept all current changes
+Accept all current changes and ignore any incoming changes
+```bash
+git merge [branch] --strategy-option ours
+```
