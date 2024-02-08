@@ -3,11 +3,7 @@
 #### To keep in sync with remote branch (You may loose your local changes in the branch)
 ```bash
 git fetch --all
-```
-```bash
 branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-```
-```bash
 git reset --hard origin/$branch
 ```
 #### Squash previous N commits into 1
