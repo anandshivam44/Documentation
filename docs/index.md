@@ -4,7 +4,6 @@
 <h3> 👨🏻‍💻 About Me </h3>
 
 - Interested in DevOps, DevSecOps and SRE
-- If you are a business, know me more here shivamanand.com/resume
 - Alma mater from [BIT Sindri, Dhanbad](http://bitsindri.ac.in/)
 - Former President at [HnCC](https://github.com/hnccbits)
 - On a personal level I've made substantial impact though technology, ask me how on a call contact@shivamanand.com
