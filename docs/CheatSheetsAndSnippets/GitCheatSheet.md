@@ -156,3 +156,11 @@ Accept all current changes and ignore any incoming changes
 ```bash
 git merge [branch] --strategy-option ours
 ```
+####  prune all stale branches from your local repository
+This will delete all local branches that already have been removed from the remote
+```bash
+git remote prune origin --dry-run
+```
+```bash
+git remote prune origin
+```
