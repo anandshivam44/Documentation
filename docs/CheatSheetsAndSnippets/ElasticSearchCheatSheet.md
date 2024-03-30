@@ -66,6 +66,12 @@ curl -X GET "$ELASTICSEARCH_URL/_mapping?pretty"
 ```
 
 
+#### Get all plugins
+```bash
+curl -XGET "$ELASTICSEARCH_URL/_cat/plugins?v&s=component"
+```
+
+
 #### Format Elastic Search Output
 ```bash
 curl -X GET "$ELASTICSEARCH_URL/_cluster/health?format=yaml"
@@ -79,6 +85,8 @@ curl -X GET "$ELASTICSEARCH_URL/_cluster/health?format=txt"
 ```bash
 curl -X GET "$ELASTICSEARCH_URL/_cluster/health?format=json&pretty"
 ```
+
+
 
 ## Elastic Search DataBase Operations
 
@@ -255,7 +263,7 @@ curl -X PUT "$ELASTICSEARCH_URL/$SOURCE_INDEX/_settings" -H 'Content-Type: appli
 ```
 
 #### Backup an index
-SOURCE_INDEX="<copy from index>"
+SOURCE_INDEX="<copy from index>"  
 DESTINATION_INDEX="<copy to index>"
 
 Mandatory step to block write to the source index / make the index read only
@@ -271,7 +279,7 @@ curl -X GET "$ELASTICSEARCH_URL/$SOURCE_INDEX/_settings?pretty"
 ```
 Copy data from source to destination
 ```bash
-curl -XPOST "$ELASTICSEARCH_URL/$SOURCE/_clone/$DESTINATION_INDEX?pretty" 
+curl -XPOST "$ELASTICSEARCH_URL/$SOURCE_INDEX/_clone/$DESTINATION_INDEX?pretty" 
 ```
 Verify data is copied to destination
 ```bash
