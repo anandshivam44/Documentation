@@ -13,6 +13,11 @@ ELASTICSEARCH_URL="<cluster url with protocol and optinally port number>"
 curl -X GET "$ELASTICSEARCH_URL/_cluster/health?pretty"
 ```
 
+#### Get cluster stats
+```bash
+curl -s -X GET "$ELASTICSEARCH_URL/_cluster/stats?pretty&human=true" 
+```
+
 #### Get the cluster state
 ```bash
 curl -XGET "$ELASTICSEARCH_URL/_cluster/state?pretty"
@@ -23,7 +28,12 @@ curl -XGET "$ELASTICSEARCH_URL/_cluster/state?pretty"
 curl GET -v $ELASTICSEARCH_URL
 ```
 
-#### Get Size of Elastic Search data
+#### Get Size of all indices
+```bash
+curl -s -X GET "$ELASTICSEARCH_URL/_cluster/stats?pretty&human=true" | jq -r '.indices.store.size'
+```
+
+#### Get Size of Elastic Search data on each node vs node size
 ```bash
 curl -XGET "$ELASTICSEARCH_URL/_cat/allocation?v"
 ```
