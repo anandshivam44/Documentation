@@ -40,9 +40,12 @@ nav:
       - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCliCheatSheet.md
       - Cloudformation Cheat Sheet: CheatSheetsAndSnippets/CloudFormationCheatsheet.md
       - Docker Cheat Sheet: CheatSheetsAndSnippets/DockerCheatSheet.md
+      - Elastic Search Cheat Sheet: CheatSheetsAndSnippets/ElasticSearchCheatSheet.md
+      - gcloud command line Cheat Sheet: CheatSheetsAndSnippets/gcloud-cheat-sheet.md
       - Git Cheat Sheet: CheatSheetsAndSnippets/GitCheatSheet.md
       - Kubernetes Cheat Sheet: CheatSheetsAndSnippets/kubectl-cheat-sheet.md
       - Linux Cheat Sheet: CheatSheetsAndSnippets/LinuxCheatSheet.md
+      - Networking Commands Cheat Sheet: CheatSheetsAndSnippets/NetworkingCheatSheet.md
       - Regex Cheat Sheet: CheatSheetsAndSnippets/RegexCheatSheet.md
 
   - Snippets:
