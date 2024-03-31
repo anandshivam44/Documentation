@@ -81,8 +81,13 @@ curl -X GET "$ELASTICSEARCH_URL/_mapping?pretty"
 curl -XGET "$ELASTICSEARCH_URL/_cat/plugins?v&s=component"
 ```
 
+#### Total Free Space in the CLuster
+```bash
+curl -s -X GET "$ELASTICSEARCH_URL/_cluster/stats?pretty&human=true" | jq -r '.nodes.fs.free'
+```
 
-#### Format Elastic Search Output
+
+#### Format Elastic Search Output; Examples
 ```bash
 curl -X GET "$ELASTICSEARCH_URL/_cluster/health?format=yaml"
 ```
