@@ -1,9 +1,9 @@
 site_name: Shivam Anand's Site
 site_author: Shivam Anand
 site_description: >-
-  A Collections from from Shivam Anand
-repo_name: github
-repo_url: https://github.com/anandshivam44/Documentation
+  Shivam Anand's Personal Documentation Site
+# repo_name: github
+# repo_url: https://github.com/anandshivam44/Documentation
 theme:
   name: material
   features:
