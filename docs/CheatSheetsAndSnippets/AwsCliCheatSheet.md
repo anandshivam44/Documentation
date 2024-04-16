@@ -64,3 +64,16 @@ aws lambda invoke \
     --payload '{"key": "value"}' \
     response.json
 ```
+#### Iterate through all files in an s3 bucket and validate all cloudformation templates
+```bash
+yml_objects=$(aws s3api list-objects --bucket $BUCKET_NAME --prefix $ENVIRONMENT_NAME_ALIAS/templates --query "Contents[].Key" --output json --profile $PROFILE)
+
+
+for file in $(echo $yml_objects | jq -r '.[]'); do
+  if [[ $file == *.yml ]]; then
+    TEMPLATE_URL="https://${BUCKET_NAME}.s3.amazonaws.com/${file}"
+    echo "URL: $TEMPLATE_URL"
+    aws cloudformation validate-template --template-url "${TEMPLATE_URL}" --profile $PROFILE 1>/dev/null
+  fi
+done 
+```
