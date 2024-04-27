@@ -37,7 +37,7 @@ nav:
   - Home:
       - About me: index.md
   - Cheat Sheets:
-      - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCliCheatSheet.md
+      - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCheatSheet.md
       - Cloudformation Cheat Sheet: CheatSheetsAndSnippets/CloudFormationCheatsheet.md
       - Docker Cheat Sheet: CheatSheetsAndSnippets/DockerCheatSheet.md
       - Elastic Search Cheat Sheet: CheatSheetsAndSnippets/ElasticSearchCheatSheet.md
@@ -47,6 +47,7 @@ nav:
       - Linux Cheat Sheet: CheatSheetsAndSnippets/LinuxCheatSheet.md
       - Networking Commands Cheat Sheet: CheatSheetsAndSnippets/NetworkingCheatSheet.md
       - Regex Cheat Sheet: CheatSheetsAndSnippets/RegexCheatSheet.md
+      - SQL Cheat Sheet: CheatSheetsAndSnippets/SQLCheatSheet.md
 
   - Snippets:
       - Snippets Set 1: Snippets/Snippets1.md
