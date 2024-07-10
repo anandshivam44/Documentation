@@ -1,5 +1,21 @@
 ## Docker Cheat Sheet
 
+#### Login to custom/private repository
+```bash
+REPOSITORY_URL=<repo url like artifactory.shivamanand.com>
+REPOSITORY_USERNAME=<username>
+REPOSITORY_PASSWORD=<password or token>
+
+docker login $REPOSITORY_URL --username $REPOSITORY_USERNAME --password $REPOSITORY_PASSWORD
+```
+#### Login to dockerhub
+```bash
+REPOSITORY_USERNAME=<username>
+REPOSITORY_PASSWORD=<password or token>
+
+docker login --username $REPOSITORY_USERNAME --password $REPOSITORY_PASSWORD
+```
+
 #### Run docker without sudo
 ```bash
 sudo groupadd docker
