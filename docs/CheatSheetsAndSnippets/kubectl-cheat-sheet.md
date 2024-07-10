@@ -299,6 +299,32 @@ kubectl get serviceaccount
 kubectl describe serviceaccount dashboard-sa
 kubectl describe secret dashboard-sa-token
 ```
+#### Kubernetes Tool: kubectx & kubens
+kubectx - change k8s context fast  
+kubens - change namespace fast  
+Install
+```bash
+brew install kubectx
+brew install fzf #optional, used for easy search
+```
+use kubectx
+```bash
+kubectx
+```
+use kubens
+```bash
+kubens
+```
+#### Kubernetes Tool: kube-ps1
+```bash
+kubeon     : turn on kube-ps1 status for this shell.  Takes precedence over
+             global setting for current session
+kubeon -g  : turn on kube-ps1 status globally
+kubeoff    : turn off kube-ps1 status for this shell. Takes precedence over
+             global setting for current session
+kubeoff -g : turn off kube-ps1 status globally
+```
+
 
 
 
