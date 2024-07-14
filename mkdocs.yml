@@ -43,6 +43,7 @@ nav:
       - elastic search cheat sheet: cheat-sheet-and-snippets/elastic-search-cheat-sheet.md
       - gcp gcloud cheat sheet: cheat-sheet-and-snippets/gcloud-cheat-sheet.md
       - git cheat sheet: cheat-sheet-and-snippets/git-cheat-sheet.md
+      - helm cheat sheet: cheat-sheet-and-snippets/helm-cheat-sheet.md
       - k8s kubernetes cheat sheet: cheat-sheet-and-snippets/kubectl-cheat-sheet.md
       - linux cheat sheet: cheat-sheet-and-snippets/linux-cheat-sheet.md
       - networking commands cheat sheet: cheat-sheet-and-snippets/networking-cheat-sheet.md
