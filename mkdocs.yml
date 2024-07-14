@@ -37,17 +37,17 @@ nav:
   - Home:
       - About me: index.md
   - Cheat Sheets:
-      - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCheatSheet.md
-      - Cloudformation Cheat Sheet: CheatSheetsAndSnippets/CloudFormationCheatsheet.md
-      - Docker Cheat Sheet: CheatSheetsAndSnippets/DockerCheatSheet.md
-      - Elastic Search Cheat Sheet: CheatSheetsAndSnippets/ElasticSearchCheatSheet.md
-      - gcloud command line Cheat Sheet: CheatSheetsAndSnippets/gcloud-cheat-sheet.md
-      - Git Cheat Sheet: CheatSheetsAndSnippets/GitCheatSheet.md
-      - Kubernetes Cheat Sheet: CheatSheetsAndSnippets/kubectl-cheat-sheet.md
-      - Linux Cheat Sheet: CheatSheetsAndSnippets/LinuxCheatSheet.md
-      - Networking Commands Cheat Sheet: CheatSheetsAndSnippets/NetworkingCheatSheet.md
-      - Regex Cheat Sheet: CheatSheetsAndSnippets/RegexCheatSheet.md
-      - SQL Cheat Sheet: CheatSheetsAndSnippets/SQLCheatSheet.md
+      - aws cli cheat sheet: cheat-sheet-and-snippets/aws-cheat-sheet.md
+      - cloudformation cheat sheet: cheat-sheet-and-snippets/cloudformation-cheat-sheet.md
+      - docker cheat sheet: cheat-sheet-and-snippets/docker-cheat-sheet.md
+      - elastic search cheat sheet: cheat-sheet-and-snippets/elastic-search-cheat-sheet.md
+      - gcp gcloud cheat sheet: cheat-sheet-and-snippets/gcloud-cheat-sheet.md
+      - git cheat sheet: cheat-sheet-and-snippets/git-cheat-sheet.md
+      - k8s kubernetes cheat sheet: cheat-sheet-and-snippets/kubectl-cheat-sheet.md
+      - linux cheat sheet: cheat-sheet-and-snippets/linux-cheat-sheet.md
+      - networking commands cheat sheet: cheat-sheet-and-snippets/networking-cheat-sheet.md
+      - regex cheat sheet: cheat-sheet-and-snippets/regex-cheat-sheet.md
+      - sql cheat sheet: cheat-sheet-and-snippets/sql-cheat-sheet.md
 
   - Snippets:
       - Snippets Set 1: Snippets/Snippets1.md
@@ -65,7 +65,7 @@ nav:
       - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
       - EncryptEC2FromCloudFormation: Projects/EncryptEC2FromCloudFormation/EBSEncryption.md
   # - Automation Scripts Snippets & Files:
-  #     - aws cli Cheat Sheet: CheatSheetsAndSnippets/AwsCliCheatSheet.md
+  #     - aws cli Cheat Sheet: cheat-sheet-and-snippets/AwsCliCheatSheet.md
 
 plugins:
   - search:
