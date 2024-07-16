@@ -40,7 +40,9 @@ docker run -it ubuntu:latest
 docker run -it ubuntu:latest /bin/bash
 
 # Docker port binding
-docker run -p 80:80 flask-hello-world
+HOST_PORT=80
+CONTAINER_PORT=5000
+docker run -p $HOST_PORT:$CONTAINER_PORT flask-hello-world:v1
 
 # Docker multiple port binding
 docker run  -p 80:5000 -p 8080:8080 -p 443:443 crud-flask:v1
