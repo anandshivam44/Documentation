@@ -33,12 +33,24 @@ openssl asn1parse -i -in certificate-signing-request-for-certificate-authority.c
 #### OpenSSL - Create an ECDSA Certificate Signing Request(CSR)
 ```bash
 openssl req -new -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -nodes -keyout ecdsa-domain-private.key -out ecdsa-certificate-signing-request-for-certificate-authority.csr -config certificate-metadata.cnf
+
 # or
+
 openssl ecparam -name secp521r1 -genkey -noout -out ecdsa-domain-private.key
 openssl req -new -sha256 -key ecdsa-domain-private.key -out ecdsa-certificate-signing-request-for-certificate-authority.csr -config certificate-metadata.cnf
+
 # or
+
 openssl req -new -newkey ec -pkeyopt ec_paramgen_curve:P-256 -nodes -keyout ecdsa-domain-private.key -out ecdsa-certificate-signing-request-for-certificate-authority.csr -config certificate-metadata.cnf
+
+# or 
+# very generic
+# Generate ECDSA key. curve is to be replaced with: prime256v1, secp384r1, secp521r1, or any other supported elliptic curve:
+
+openssl ecparam -genkey -name prime256v1 | openssl ec -out ecdsa-domain-private.key
+openssl req -new -sha256 -key ecdsa-domain-private.key -out ecdsa-certificate-signing-request-for-certificate-authority.csr -config certificate-metadata.cnf
 ```
+
 secp256r1 and prime256v1 refer to the same elliptic curve. Both terms are used interchangeably in different contexts, but they describe the same curve parameters.
 
 In summary, these terms describe the same curve, but they come from different naming conventions.
@@ -75,5 +87,16 @@ for cert in *.pem; do
         newname=$(openssl x509 -noout -subject -in $cert | sed -nE 's/.*CN ?= ?(.*)/\1/; s/[ ,.*]/_/g; s/__/_/g; s/_-_/-/; s/^_//g;p' | tr '[:upper:]' '[:lower:]').pem
         echo "${newname}"; mv "${cert}" "${newname}" 
 done
+```
+#### OpenSSL - Verify combinations
+```bash
+# Private Key
+openssl rsa -noout -modulus -in domain-private-key.key | openssl md5
+
+# CSR 
+openssl req -noout -modulus -in certificate-signing-request-for-certificate-authority.csr | openssl md5
+
+# Certificate from CA
+openssl x509 -noout -modulus -in certificate.crt | openssl md5
 ```
 
