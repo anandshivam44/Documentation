@@ -49,6 +49,7 @@ nav:
       - networking commands cheat sheet: cheat-sheet-and-snippets/networking-cheat-sheet.md
       - regex cheat sheet: cheat-sheet-and-snippets/regex-cheat-sheet.md
       - sql cheat sheet: cheat-sheet-and-snippets/sql-cheat-sheet.md
+      - openssl cheat sheet: cheat-sheet-and-snippets/openssl-cheat-sheet.md
 
   - Snippets:
       - Snippets Set 1: Snippets/Snippets1.md
