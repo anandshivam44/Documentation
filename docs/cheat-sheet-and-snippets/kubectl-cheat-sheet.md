@@ -123,6 +123,12 @@ kubectl describe node kubermaster | grep Taint
 kubectl taint nodes controlplane key=value:NoSchedule-
 ```
 
+#### Port Forwarding to local machine to test deployment and pods, works with remote kubernetes deployments also
+```bash
+k port-forward svc/<service-name> local-machine-port:target-port
+# or
+k port-forward <pod-name> local-machine-port:target-port
+```
 #### Node selector
 ```bash
 kubectl label nodes node-name key=value
