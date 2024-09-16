@@ -53,7 +53,7 @@ openssl req -new -sha256 -key ecdsa-domain-private.key -out ecdsa-certificate-si
 
 secp256r1 and prime256v1 refer to the same elliptic curve. Both terms are used interchangeably in different contexts, but they describe the same curve parameters.
 
-In summary, these terms describe the same curve, but they come from different naming conventions.
+In summary, these terms describe the same curve, but they come from different naming conventions. 
 #### OpenSSL - Get Certificate details of a domain 
 ```bash
 openssl s_client -connect shivamanand.com:443 -showcerts </dev/null | openssl x509 -outform pem > public_data
