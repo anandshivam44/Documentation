@@ -156,7 +156,7 @@ Accept all current changes and ignore any incoming changes
 ```bash
 git merge [branch] --strategy-option ours
 ```
-####  prune all stale branches from your local repository
+#### prune all stale branches from your local repository
 This will delete all local branches that already have been removed from the remote
 ```bash
 git remote prune origin --dry-run
@@ -164,3 +164,39 @@ git remote prune origin --dry-run
 ```bash
 git remote prune origin
 ```
+#### Remove sensitive files and their commits from Git history
+These commands will re-write git history and therefore advisibale to create a backup  
+
+This will delete all local branches that already have been removed from the remote
+```bash
+PATH_TO_FILE="/a/b/c"
+
+# If multiple branch has the secret
+git filter-branch --force --index-filter \
+  "git rm --cached --ignore-unmatch $PATH_TO_FILE" \
+  --prune-empty --tag-name-filter cat -- --all
+
+# If only one branch has the secret
+BRANCH_CONTAINING_FILE="main"
+git filter-branch --force --index-filter \
+"git rm --cached --ignore-unmatch $PATH_TO_FILE" \
+--prune-empty --tag-name-filter cat -- $BRANCH_CONTAINING_FILE
+
+```
+ force-push your local changes to overwrite your remote repository, as well as all the branches you've pushed up
+```bash
+git push --force --verbose --dry-run
+git push origin --force
+```
+In order to remove the sensitive file from your tagged releases, you'll also need to force-push against your Git tags
+```bash
+git push origin --force --tags
+```
+When others try pull down your latest changes after this, they'll get a message indicating that the changes can't be applied because it's not a fast-forward.
+
+To fix this, they'll have to either delete their existing repository and re-clone it, or do a re-base
+```bash
+git rebase --interactive
+```
+
+Complete breakdown of commands [here](https://dev.to/arthvhanesa/how-to-remove-secrets-from-a-git-repository-36e4)
