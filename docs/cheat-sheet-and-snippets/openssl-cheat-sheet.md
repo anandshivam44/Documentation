@@ -96,10 +96,10 @@ openssl asn1parse -i -in ecdsa-certificate-signing-request-for-certificate-autho
 openssl ec -in ecdsa-domain-private.key -pubout | openssl md5
 
 # CSR 
-openssl req -noout -modulus -in openssl req -in ecdsa-certificate-signing-request-for-certificate-authority.csr -noout -pubkey | openssl md5
+openssl req -in ecdsa-certificate-signing-request-for-certificate-authority.csr -noout -pubkey | openssl md5
 
 # Certificate from CA (Certificate Chain or Leaf Certificate, both will give same result)
-openssl x509 -in certificate-chain.crt -pubkey -noout | openssl md5
+openssl x509 -in ecdsa-certificate-chain.crt -pubkey -noout | openssl md5
 ```
 6. Keep the private key very safe
 #### OpenSSL - Get Certificate details of a domain 
