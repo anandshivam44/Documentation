@@ -200,3 +200,44 @@ git rebase --interactive
 ```
 
 Complete breakdown of commands [here](https://dev.to/arthvhanesa/how-to-remove-secrets-from-a-git-repository-36e4)
+
+#### git setup diffferent configuration for different folders
+
+Setup `~/.gitconfig`  
+point differnt directories to respective gitconfig
+```bash
+[includeIf "gitdir:~/personal/"]
+    path = ~/personal/.gitconfig
+
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
+
+
+[init]
+ defaultBranch = main
+```
+Setup `~/personal/.gitconfig` 
+add directory specific configuration here
+```bash
+[user]
+        email = anand.shivam44@yahoo.com
+        name = Shivam Anand
+[pull]
+        rebase = true
+
+[core]
+        editor = vim
+        sshCommand = ssh -i ~/.ssh/shivam_personal_laptop_ubuntu
+```
+Setup `~/work/.gitconfig` 
+add directory specific configuration here
+```bash
+[user]
+        email = shivam.anand@work-email.company
+        name = S Anand
+[pull]
+        rebase = true 
+[core]
+        editor = vim
+        sshCommand = ssh -i ~/.ssh/shivam-work
+```
