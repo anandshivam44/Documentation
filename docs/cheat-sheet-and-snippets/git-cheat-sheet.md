@@ -241,3 +241,8 @@ add directory specific configuration here
         editor = vim
         sshCommand = ssh -i ~/.ssh/shivam-work
 ```
+#### git delete remote branch
+Accept all current changes and ignore any incoming changes
+```bash
+git push origin -d <branch-name>
+```
