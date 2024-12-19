@@ -1,0 +1,2076 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Shivam Anand's Personal Documentation Site">
+      
+      
+        <meta name="author" content="Shivam Anand">
+      
+      
+      
+        <link rel="prev" href="../docker-cheat-sheet/">
+      
+      
+        <link rel="next" href="../gcloud-cheat-sheet/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>elastic search cheat sheet - Shivam Anand's Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#elastic-search-cheat-sheet-with-kibana-rest-curl-commands" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Shivam Anand&#39;s Site" class="md-header__button md-logo" aria-label="Shivam Anand's Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Shivam Anand's Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              elastic search cheat sheet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../aws-cheat-sheet/" class="md-tabs__link">
+          
+  
+  Cheat Sheets
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Snippets/Snippets1/" class="md-tabs__link">
+          
+  
+  Snippets
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Playbooks/EncryptEC2FromCloudFormation/EBSEncryption/" class="md-tabs__link">
+          
+  
+  PlayBooks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Tutorials/LinuxCommands/" class="md-tabs__link">
+          
+  
+  Articles
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Shivam Anand&#39;s Site" class="md-nav__button md-logo" aria-label="Shivam Anand's Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Shivam Anand's Site
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About me
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Cheat Sheets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheat Sheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    aws cli cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloudformation-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cloudformation cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    docker cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    elastic search cheat sheet
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    elastic search cheat sheet
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elastic-search-cheat-sheet-with-kibana-rest-curl-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elastic Search Cheat Sheet with Kibana REST &amp; curl commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Elastic Search Cheat Sheet with Kibana REST & curl commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elastic-search-administration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elastic Search Administration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Elastic Search Administration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-health-of-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the health of the cluster
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-cluster-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get cluster stats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-the-cluster-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the cluster state
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-size-of-all-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Size of all indices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-size-of-elastic-search-data-on-each-node-vs-node-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Size of Elastic Search data on each node vs node size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-node-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Node information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-thread-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Thread Pool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-total-number-of-shards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get total number of shards
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-total-number-of-indices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get total number of indices
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-list-of-pending-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get List of Pending Tasks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-list-of-all-mappings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get List of All mappings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#total-free-space-in-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Total Free Space in the CLuster
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-elastic-search-output-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format Elastic Search Output; Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elastic-search-database-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elastic Search DataBase Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Elastic Search DataBase Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-index-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an index (default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-index-with-mappings-and-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create an index with mappings and settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-a-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add a document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-index-mappings-and-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get index mappings and settings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empty an index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete an index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-indices-most-useful-sort-by-descending-order-of-size-show-header-and-important-columns-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      List All Indices (Most useful), Sort by descending order of size, show header and important columns only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-all-indices-with-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      List All Indices with metadata
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-indices-list-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get All Indices list only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-indices-sorted-in-descending-order-of-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get All Indices sorted in descending order of size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-list-of-all-aliases-sort-by-index-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get List of All aliases , Sort by index name
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-list-of-all-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get List of All aliases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-data-inside-the-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all data inside the index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-an-entire-doc-by-it-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update an entire doc by it ID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-specific-field-document-in-an-index-by-its-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update a specific field document in an index by its id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-all-document-in-an-index-by-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update all document in an index by script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk-operation-using-bulk-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bulk Operation using bulk API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-document-count-in-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get document count in an index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-an-index-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Make an index read-only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup-an-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup an index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-and-close-indexes-to-save-memory-and-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open and close indexes to save memory and CPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-index-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Index Stats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-index-segments-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Index Segments Information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-index-recovery-status-human-readable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Index Recovery Status (Human Readable)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clear-index-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clear Index Cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh Index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flush-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flush Index
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#force-merge-index-segments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Force Merge Index Segments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gcloud-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gcp gcloud cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    git cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helm-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    helm cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubectl-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    k8s kubernetes cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    linux cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    networking commands cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    regex cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sql-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sql cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openssl-cheat-sheet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    openssl cheat sheet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Snippets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Snippets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Snippets/Snippets1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snippets Set 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AutomationScriptsSnippets%26Files/shell-scripts/install-apache-ubuntu.sh" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    One Click Install Apache on Ubuntu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    PlayBooks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            PlayBooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Playbooks/EncryptEC2FromCloudFormation/EBSEncryption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt EC2 From CloudFormation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Playbooks/ShutDownAllEC2EqualIntervalsOfTime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Save Cost on EC2 - ShutDown All EC2 at Night
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Articles
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Articles
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tutorials/LinuxCommands/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux Commands
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tutorials/AnsibleAWS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setup Ansible
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tutorials/GenerateKeysAndSSH/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generate SSH Key pair & Add to Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tutorials/SSHToDocker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH to Docker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tutorials/KubernetesWithKubeadm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install Kubernetes with KubeAdm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Playbooks/EncryptEC2FromCloudFormation/EBSEncryption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Encrypt EC2 From CloudFormation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>elastic search cheat sheet</h1>
+
+<h2 id="elastic-search-cheat-sheet-with-kibana-rest-curl-commands">Elastic Search Cheat Sheet with Kibana REST &amp; curl commands</h2>
+<p>First Set ELASTICSEARCH URL
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">ELASTICSEARCH_URL</span><span class="o">=</span><span class="s2">&quot;&lt;cluster url with protocol and optinally port number&gt;&quot;</span>
+</code></pre></div></p>
+<h3 id="elastic-search-administration">Elastic Search Administration</h3>
+<h4 id="get-the-health-of-the-cluster">Get the health of the cluster</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">health</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/health?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="get-cluster-stats">Get cluster stats</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/stats?pretty&amp;human=true&quot;</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">stats</span><span class="o">?</span><span class="n">human</span><span class="o">=</span><span class="k">true</span>
+</code></pre></div></p>
+<h4 id="get-the-cluster-state">Get the cluster state</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="k">state</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/state?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="cluster-information">Cluster Information</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="nv">$ELASTICSEARCH_URL</span>
+</code></pre></div></p>
+<h4 id="get-size-of-all-indices">Get Size of all indices</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/stats?pretty&amp;human=true&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.indices.store.size&#39;</span>
+</code></pre></div>
+<h4 id="get-size-of-elastic-search-data-on-each-node-vs-node-size">Get Size of Elastic Search data on each node vs node size</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">allocation</span><span class="o">?</span><span class="n">v</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/allocation?v&quot;</span>
+</code></pre></div></p>
+<h4 id="get-node-information">Get Node information</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">nodes</span><span class="o">?</span><span class="n">v</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/nodes?v&quot;</span>
+</code></pre></div></p>
+<h4 id="get-thread-pool">Get Thread Pool</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">thread_pool</span><span class="o">?</span><span class="n">v</span><span class="o">&amp;</span><span class="n">s</span><span class="o">=</span><span class="n">active</span><span class="p">:</span><span class="k">desc</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/thread_pool?v&amp;s=active:desc&quot;</span>
+</code></pre></div></p>
+<h4 id="get-total-number-of-shards">Get total number of shards</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>GET<span class="w"> </span>_cluster/stats?filter_path<span class="o">=</span>indices.shards.total
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/stats?filter_path=indices.shards.total&amp;pretty&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/shards&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div></p>
+<h4 id="get-total-number-of-indices">Get total number of indices</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>curl<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/indices?h=index&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div>
+<h4 id="get-list-of-pending-tasks">Get List of Pending Tasks</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">pending_tasks</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/pending_tasks?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="get-list-of-all-mappings">Get List of All mappings</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_mapping</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_mapping?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="get-all-plugins">Get all plugins</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">plugins</span><span class="o">?</span><span class="n">v</span><span class="o">&amp;</span><span class="n">s</span><span class="o">=</span><span class="n">component</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/plugins?v&amp;s=component&quot;</span>
+</code></pre></div></p>
+<h4 id="total-free-space-in-the-cluster">Total Free Space in the CLuster</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/stats?pretty&amp;human=true&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.nodes.fs.free&#39;</span>
+</code></pre></div>
+<h4 id="format-elastic-search-output-examples">Format Elastic Search Output; Examples</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">health</span><span class="o">?</span><span class="n">format</span><span class="o">=</span><span class="n">yaml</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/health?format=yaml&quot;</span>
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">health</span><span class="o">?</span><span class="n">format</span><span class="o">=</span><span class="n">csv</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/health?format=csv&quot;</span>
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">health</span><span class="o">?</span><span class="n">format</span><span class="o">=</span><span class="n">txt</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/health?format=txt&quot;</span>
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cluster</span><span class="o">/</span><span class="n">health</span><span class="o">?</span><span class="n">format</span><span class="o">=</span><span class="n">json</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cluster/health?format=json&amp;pretty&quot;</span>
+</code></pre></div></p>
+<h2 id="elastic-search-database-operations">Elastic Search DataBase Operations</h2>
+<p>Set Index Name
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nv">INDEX_NAME</span><span class="o">=</span><span class="s2">&quot;&lt;index name&gt;&quot;</span>
+</code></pre></div></p>
+<h4 id="create-an-index-default">Create an index (default)</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>PUT<span class="w"> </span>/&lt;index-name&gt;<span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<h4 id="create-an-index-with-mappings-and-settings">Create an index with mappings and settings</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">PUT</span><span class="w"> </span><span class="o">/</span><span class="k">index</span><span class="o">-</span><span class="n">name</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="err">{</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">  </span><span class="ss">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span><span class="ss">&quot;number_of_shards&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="w">    </span><span class="ss">&quot;number_of_replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="w">  </span><span class="err">}</span><span class="p">,</span>
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="w">  </span><span class="ss">&quot;mappings&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="w">    </span><span class="ss">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="w">      </span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="w">        </span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;text&quot;</span>
+<a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="w">      </span><span class="err">}</span><span class="p">,</span>
+<a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a><span class="w">      </span><span class="ss">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-38-13" name="__codelineno-38-13" href="#__codelineno-38-13"></a><span class="w">        </span><span class="ss">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;integer&quot;</span>
+<a id="__codelineno-38-14" name="__codelineno-38-14" href="#__codelineno-38-14"></a><span class="w">      </span><span class="err">}</span>
+<a id="__codelineno-38-15" name="__codelineno-38-15" href="#__codelineno-38-15"></a><span class="w">    </span><span class="err">}</span>
+<a id="__codelineno-38-16" name="__codelineno-38-16" href="#__codelineno-38-16"></a><span class="w">  </span><span class="err">}</span>
+<a id="__codelineno-38-17" name="__codelineno-38-17" href="#__codelineno-38-17"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="s1">  &quot;settings&quot;: {</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="s1">    &quot;number_of_shards&quot;: 1,</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="s1">    &quot;number_of_replicas&quot;: 1</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="s1">  },</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="s1">  &quot;mappings&quot;: {</span>
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="s1">    &quot;properties&quot;: {</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="s1">      &quot;name&quot;: {</span>
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="s1">        &quot;type&quot;: &quot;text&quot;</span>
+<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="s1">      },</span>
+<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="s1">      &quot;price&quot;: {</span>
+<a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="s1">        &quot;type&quot;: &quot;integer&quot;</span>
+<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="s1">      }</span>
+<a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a><span class="s1">    }</span>
+<a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a><span class="s1">  }</span>
+<a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="add-a-document">Add a document</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_doc</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="err">{</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">  </span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;Shivam&quot;</span><span class="p">,</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">  </span><span class="ss">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_doc&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="s1">  &quot;name&quot;: &quot;Shivam&quot;,</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="s1">  &quot;age&quot;: 24</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="get-index-mappings-and-settings">Get index mappings and settings</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="empty-an-index">Empty an index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_delete_by_query</span><span class="o">?</span><span class="n">q</span><span class="o">=*</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_delete_by_query?q=*&quot;</span>
+</code></pre></div></p>
+<h4 id="delete-an-index">Delete an index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>DELETE<span class="w"> </span>/&lt;index-name&gt;<span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<h4 id="list-all-indices-most-useful-sort-by-descending-order-of-size-show-header-and-important-columns-only">List All Indices (Most useful), Sort by descending order of size, show header and important columns only</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">indices</span><span class="o">?</span><span class="n">v</span><span class="o">&amp;</span><span class="n">s</span><span class="o">=</span><span class="n">store</span><span class="p">.</span><span class="k">size</span><span class="p">:</span><span class="k">desc</span><span class="o">&amp;</span><span class="n">h</span><span class="o">=</span><span class="k">index</span><span class="p">,</span><span class="n">pri</span><span class="p">,</span><span class="n">rep</span><span class="p">,</span><span class="n">docs</span><span class="p">.</span><span class="k">count</span><span class="p">,</span><span class="n">docs</span><span class="p">.</span><span class="n">deleted</span><span class="p">,</span><span class="n">store</span><span class="p">.</span><span class="k">size</span><span class="p">,</span><span class="n">pri</span><span class="p">.</span><span class="n">store</span><span class="p">.</span><span class="k">size</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/indices?v&amp;s=store.size:desc&amp;h=index,pri,rep,docs.count,docs.deleted,store.size,pri.store.size&quot;</span>
+</code></pre></div></p>
+<h4 id="list-all-indices-with-metadata">List All Indices with metadata</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">indices</span><span class="o">?</span><span class="n">v</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/indices?v&quot;</span>
+</code></pre></div></p>
+<h4 id="get-all-indices-list-only">Get All Indices list only</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">indices</span><span class="o">?</span><span class="n">h</span><span class="o">=</span><span class="k">index</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="nv">$ELASTICSEARCH_URL</span>/_cat/indices?h<span class="o">=</span>index
+</code></pre></div></p>
+<h4 id="get-all-indices-sorted-in-descending-order-of-size">Get All Indices sorted in descending order of size</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">indices</span><span class="o">?</span><span class="n">v</span><span class="o">&amp;</span><span class="n">s</span><span class="o">=</span><span class="n">store</span><span class="p">.</span><span class="k">size</span><span class="p">:</span><span class="k">desc</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/indices?v&amp;s=store.size:desc&quot;</span>
+</code></pre></div></p>
+<h4 id="get-list-of-all-aliases-sort-by-index-name">Get List of All aliases , Sort by index name</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">aliases</span><span class="o">?</span><span class="n">v</span><span class="o">&amp;</span><span class="n">s</span><span class="o">=</span><span class="k">index</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/aliases?v&amp;s=index&quot;</span>
+</code></pre></div></p>
+<h4 id="get-list-of-all-aliases">Get List of All aliases</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/</span><span class="n">_cat</span><span class="o">/</span><span class="n">aliases</span><span class="o">?</span><span class="n">v</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/_cat/aliases?v&quot;</span>
+</code></pre></div></p>
+<h4 id="get-all-data-inside-the-index">Get all data inside the index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_search</span><span class="o">?</span><span class="n">pretty</span>
+<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="err">{</span>
+<a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a><span class="w">  </span><span class="ss">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a><span class="w">    </span><span class="ss">&quot;match_all&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{}</span>
+<a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a><span class="w">  </span><span class="err">}</span>
+<a id="__codelineno-60-6" name="__codelineno-60-6" href="#__codelineno-60-6"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_search?pretty&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="s1">&#39;</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="s1">{</span>
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="s1">    &quot;query&quot;: {</span>
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a><span class="s1">        &quot;match_all&quot;: {}</span>
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="s1">    }</span>
+<a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="update-an-entire-doc-by-it-id">Update an entire doc by it ID</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="n">PUT</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_doc</span><span class="o">/&lt;</span><span class="n">doc</span><span class="o">-</span><span class="n">id</span><span class="o">&gt;</span>
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="err">{</span>
+<a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a><span class="w">  </span><span class="ss">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;Anand&quot;</span><span class="p">,</span>
+<a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="w">  </span><span class="ss">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span>
+<a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_doc/</span><span class="nv">$DOC_ID</span><span class="s2">&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="s1">  &quot;name&quot;: &quot;Anand&quot;,</span>
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="s1">  &quot;age&quot;: 25</span>
+<a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="update-a-specific-field-document-in-an-index-by-its-id">Update a specific field document in an index by its id</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_update</span><span class="o">/&lt;</span><span class="n">doc</span><span class="o">-</span><span class="n">id</span><span class="o">&gt;</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="err">{</span>
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="w">  </span><span class="ss">&quot;doc&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a><span class="w">    </span><span class="ss">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span>
+<a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="w">  </span><span class="err">}</span>
+<a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="nv">DOC_ID</span><span class="o">=</span><span class="s2">&quot;&lt;Get document id&gt;&quot;</span>
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_update/</span><span class="nv">$DOC_ID</span><span class="s2">&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a><span class="s1">  &quot;doc&quot;: {</span>
+<a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a><span class="s1">    &quot;age&quot;: 99</span>
+<a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a><span class="s1">  }</span>
+<a id="__codelineno-65-6" name="__codelineno-65-6" href="#__codelineno-65-6"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="update-all-document-in-an-index-by-script">Update all document in an index by script</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_update_by_query</span>
+<a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a><span class="err">{</span>
+<a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a><span class="w">  </span><span class="ss">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a><span class="w">    </span><span class="ss">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;ctx._source.age += params.count&quot;</span><span class="p">,</span>
+<a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a><span class="w">    </span><span class="ss">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;painless&quot;</span><span class="p">,</span>
+<a id="__codelineno-66-6" name="__codelineno-66-6" href="#__codelineno-66-6"></a><span class="w">    </span><span class="ss">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-66-7" name="__codelineno-66-7" href="#__codelineno-66-7"></a><span class="w">      </span><span class="ss">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<a id="__codelineno-66-8" name="__codelineno-66-8" href="#__codelineno-66-8"></a><span class="w">    </span><span class="err">}</span>
+<a id="__codelineno-66-9" name="__codelineno-66-9" href="#__codelineno-66-9"></a><span class="w">  </span><span class="err">}</span>
+<a id="__codelineno-66-10" name="__codelineno-66-10" href="#__codelineno-66-10"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_update_by_query&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="s1">&#39;</span>
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a><span class="s1">{</span>
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a><span class="s1">  &quot;script&quot; : {</span>
+<a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a><span class="s1">    &quot;source&quot;: &quot;ctx._source.age += params.count&quot;,</span>
+<a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a><span class="s1">    &quot;lang&quot;: &quot;painless&quot;,</span>
+<a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a><span class="s1">    &quot;params&quot; : {</span>
+<a id="__codelineno-67-7" name="__codelineno-67-7" href="#__codelineno-67-7"></a><span class="s1">      &quot;count&quot; : 10</span>
+<a id="__codelineno-67-8" name="__codelineno-67-8" href="#__codelineno-67-8"></a><span class="s1">    }</span>
+<a id="__codelineno-67-9" name="__codelineno-67-9" href="#__codelineno-67-9"></a><span class="s1">  }</span>
+<a id="__codelineno-67-10" name="__codelineno-67-10" href="#__codelineno-67-10"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="bulk-operation-using-bulk-api">Bulk Operation using bulk API</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_update_by_query</span>
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a><span class="err">{</span>
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a><span class="w">  </span><span class="ss">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a><span class="w">    </span><span class="ss">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;ctx._source.age += params.count&quot;</span><span class="p">,</span>
+<a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a><span class="w">    </span><span class="ss">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;painless&quot;</span><span class="p">,</span>
+<a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a><span class="w">    </span><span class="ss">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-68-7" name="__codelineno-68-7" href="#__codelineno-68-7"></a><span class="w">      </span><span class="ss">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<a id="__codelineno-68-8" name="__codelineno-68-8" href="#__codelineno-68-8"></a><span class="w">    </span><span class="err">}</span>
+<a id="__codelineno-68-9" name="__codelineno-68-9" href="#__codelineno-68-9"></a><span class="w">  </span><span class="err">}</span>
+<a id="__codelineno-68-10" name="__codelineno-68-10" href="#__codelineno-68-10"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_bulk?pretty&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;</span>
+<a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="s1">{&quot;index&quot;:{&quot;_id&quot;:&quot;1&quot;}</span>
+<a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a><span class="s1">{&quot;name&quot;: &quot;Ramu&quot;,&quot;age&quot;: 45}</span>
+<a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a><span class="s1">{&quot;index&quot;:{&quot;_id&quot;:&quot;2&quot;}</span>
+<a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a><span class="s1">{&quot;name&quot;: &quot;Lemon&quot;,&quot;age&quot;: 1}</span>
+<a id="__codelineno-69-6" name="__codelineno-69-6" href="#__codelineno-69-6"></a><span class="s1">{&quot;delete&quot;:{&quot;_id&quot;:&quot;1&quot;}}</span>
+<a id="__codelineno-69-7" name="__codelineno-69-7" href="#__codelineno-69-7"></a><span class="s1">{&quot;update&quot;:{&quot;_id&quot;:&quot;2&quot;}}</span>
+<a id="__codelineno-69-8" name="__codelineno-69-8" href="#__codelineno-69-8"></a><span class="s1">{&quot;doc&quot;:{&quot;name&quot;:&quot;Orange&quot;}}</span>
+<a id="__codelineno-69-9" name="__codelineno-69-9" href="#__codelineno-69-9"></a><span class="s1">&#39;</span>
+</code></pre></div></p>
+<h4 id="get-document-count-in-an-index">Get document count in an index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_count</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_count?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="make-an-index-read-only">Make an index read-only</h4>
+<p>Block write to the source index / make the index read only
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="n">PUT</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_settings</span><span class="o">?</span><span class="n">pretty</span>
+<a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a><span class="err">{</span>
+<a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a><span class="w">  </span><span class="ss">&quot;index.blocks.write&quot;</span><span class="p">:</span><span class="w"> </span><span class="k">true</span>
+<a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_settings?pretty&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="s1">{</span>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a><span class="s1">   &quot;index.blocks.write&quot;: true</span>
+<a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="s1">}&#39;</span>
+</code></pre></div>
+Verify write is blocked
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_settings</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_settings?pretty&quot;</span>
+</code></pre></div></p>
+<p>Undo block write / Undo read-only mode
+<div class="highlight"><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="n">PUT</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">source</span><span class="o">-</span><span class="k">index</span><span class="o">&gt;/</span><span class="n">_settings</span>
+<a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a><span class="err">{</span>
+<a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a><span class="w">  </span><span class="ss">&quot;index.blocks.write&quot;</span><span class="p">:</span><span class="w"> </span><span class="k">false</span>
+<a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$SOURCE_INDEX</span><span class="s2">/_settings&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;</span>
+<a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a><span class="s1">{</span>
+<a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a><span class="s1">   &quot;index.blocks.write&quot;: false</span>
+<a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="backup-an-index">Backup an index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="nv">SOURCE_INDEX</span><span class="o">=</span><span class="s2">&quot;&lt;copy from index&gt;&quot;</span><span class="w">  </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="nv">DESTINATION_INDEX</span><span class="o">=</span><span class="s2">&quot;&lt;copy to index&gt;&quot;</span>
+</code></pre></div></p>
+<p>Mandatory step to block write to the source index / make the index read only
+<div class="highlight"><pre><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="n">PUT</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">source</span><span class="o">-</span><span class="k">index</span><span class="o">&gt;/</span><span class="n">_settings</span><span class="o">?</span><span class="n">pretty</span>
+<a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a><span class="err">{</span>
+<a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a><span class="w">  </span><span class="ss">&quot;index.blocks.write&quot;</span><span class="p">:</span><span class="w"> </span><span class="k">true</span>
+<a id="__codelineno-80-4" name="__codelineno-80-4" href="#__codelineno-80-4"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$SOURCE_INDEX</span><span class="s2">/_settings?pretty&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;</span>
+<a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a><span class="s1">{</span>
+<a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a><span class="s1">   &quot;index.blocks.write&quot;: true</span>
+<a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a><span class="s1">}&#39;</span>
+</code></pre></div>
+Verify write is blocked
+<div class="highlight"><pre><span></span><code><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">source</span><span class="o">-</span><span class="k">index</span><span class="o">&gt;/</span><span class="n">_settings</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$SOURCE_INDEX</span><span class="s2">/_settings?pretty&quot;</span>
+</code></pre></div>
+Copy data from source to destination
+<div class="highlight"><pre><span></span><code><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">source</span><span class="o">-</span><span class="k">index</span><span class="o">&gt;/</span><span class="n">_clone</span><span class="o">/&lt;</span><span class="n">destination</span><span class="o">-</span><span class="k">index</span><span class="o">&gt;?</span><span class="n">pretty</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$SOURCE_INDEX</span><span class="s2">/_clone/</span><span class="nv">$DESTINATION_INDEX</span><span class="s2">?pretty&quot;</span><span class="w"> </span>
+</code></pre></div>
+Verify data is copied to destination
+<div class="highlight"><pre><span></span><code><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_search</span><span class="o">?</span><span class="n">pretty</span>
+<a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a><span class="err">{</span>
+<a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a><span class="w">  </span><span class="ss">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{</span>
+<a id="__codelineno-86-4" name="__codelineno-86-4" href="#__codelineno-86-4"></a><span class="w">    </span><span class="ss">&quot;match_all&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">{}</span>
+<a id="__codelineno-86-5" name="__codelineno-86-5" href="#__codelineno-86-5"></a><span class="w">  </span><span class="err">}</span>
+<a id="__codelineno-86-6" name="__codelineno-86-6" href="#__codelineno-86-6"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$DESTINATION_INDEX</span><span class="s2">/_search?pretty&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="s1">&#39;</span>
+<a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a><span class="s1">{</span>
+<a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a><span class="s1">    &quot;query&quot;: {</span>
+<a id="__codelineno-87-4" name="__codelineno-87-4" href="#__codelineno-87-4"></a><span class="s1">        &quot;match_all&quot;: {}</span>
+<a id="__codelineno-87-5" name="__codelineno-87-5" href="#__codelineno-87-5"></a><span class="s1">    }</span>
+<a id="__codelineno-87-6" name="__codelineno-87-6" href="#__codelineno-87-6"></a><span class="s1">}&#39;</span>
+</code></pre></div>
+Undo block write / Undo read-only mode
+<div class="highlight"><pre><span></span><code><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a><span class="n">PUT</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">source</span><span class="o">-</span><span class="k">index</span><span class="o">&gt;/</span><span class="n">_settings</span>
+<a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a><span class="err">{</span>
+<a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a><span class="w">  </span><span class="ss">&quot;index.blocks.write&quot;</span><span class="p">:</span><span class="w"> </span><span class="k">false</span>
+<a id="__codelineno-88-4" name="__codelineno-88-4" href="#__codelineno-88-4"></a><span class="err">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$SOURCE_INDEX</span><span class="s2">/_settings&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;</span>
+<a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a><span class="s1">{</span>
+<a id="__codelineno-89-3" name="__codelineno-89-3" href="#__codelineno-89-3"></a><span class="s1">   &quot;index.blocks.write&quot;: false</span>
+<a id="__codelineno-89-4" name="__codelineno-89-4" href="#__codelineno-89-4"></a><span class="s1">}&#39;</span>
+</code></pre></div></p>
+<h4 id="open-and-close-indexes-to-save-memory-and-cpu">Open and close indexes to save memory and CPU</h4>
+<p>close: A closed index is essentially frozen. Search and write operations are blocked.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_close</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_close&quot;</span>
+</code></pre></div>
+open: An open index is available for search and write operations. This is the typical state for an index you're actively using for data storage and retrieval.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_open</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_open&quot;</span>
+</code></pre></div></p>
+<h4 id="get-index-stats">Get Index Stats</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_stats</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_stats?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="get-index-segments-information">Get Index Segments Information</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_segments</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_segments?pretty&quot;</span>
+</code></pre></div></p>
+<h4 id="get-index-recovery-status-human-readable">Get Index Recovery Status (Human Readable)</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a><span class="k">GET</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_recovery</span><span class="o">&amp;</span><span class="n">human</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-XGET<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_recovery?pretty&amp;human&quot;</span>
+</code></pre></div></p>
+<h4 id="clear-index-cache">Clear Index Cache</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_cache</span><span class="o">/</span><span class="n">clear</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_cache/clear&quot;</span>
+</code></pre></div></p>
+<h4 id="refresh-index">Refresh Index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_refresh</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_refresh&quot;</span>
+</code></pre></div></p>
+<h4 id="flush-index">Flush Index</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_flush</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_flush&quot;</span>
+</code></pre></div></p>
+<h4 id="force-merge-index-segments">Force Merge Index Segments</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a><span class="n">POST</span><span class="w"> </span><span class="o">/&lt;</span><span class="k">index</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;/</span><span class="n">_forcemerge</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>curl<span class="w"> </span>-XPOST<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ELASTICSEARCH_URL</span><span class="s2">/</span><span class="nv">$INDEX_NAME</span><span class="s2">/_forcemerge&quot;</span>
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/anandshivam44"  target="_blank" rel="noopener">Shivam Anand</a>
+
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/anandshivam44" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/anandshivam44" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/anandshivam44/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="mailto:anand.shivam44@yahoo.com" target="_blank" rel="noopener" title="" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M498.1 5.6c10.1 7 15.4 19.1 13.5 31.2l-64 416c-1.5 9.7-7.4 18.2-16 23s-18.9 5.4-28 1.6L284 427.7l-68.5 74.1c-8.9 9.7-22.9 12.9-35.2 8.1S160 493.2 160 480v-83.6c0-4 1.5-7.8 4.2-10.8l167.6-182.8c5.8-6.3 5.6-16-.4-22s-15.7-6.4-22-.7L106 360.8l-88.3-44.2C7.1 311.3.3 300.7 0 288.9s5.9-22.8 16.1-28.7l448-256c10.7-6.1 23.9-5.5 34 1.4"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tracking", "navigation.path", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
