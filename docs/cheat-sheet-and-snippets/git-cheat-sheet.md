@@ -246,3 +246,8 @@ Accept all current changes and ignore any incoming changes
 ```bash
 git push origin -d <branch-name>
 ```
+#### git check previous N log commits with consice view 
+Accept all current changes and ignore any incoming changes
+```bash
+git log -2 --oneline
+```
