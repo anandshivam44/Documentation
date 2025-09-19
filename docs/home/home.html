@@ -1,0 +1,389 @@
+{% extends "main.html" %}
+{% block tabs %}
+  {{ super() }}
+  <style>
+    .md-header { position: initial }
+    .md-main__inner { margin: 0 }
+    .md-content { display: none }
+    @media screen and (min-width: 60em) {
+      .md-sidebar--secondary { display: none }
+    }
+    @media screen and (min-width: 76.25em) {
+      .md-sidebar--primary { display: none }
+    }
+    /* Typing effect styles */
+    .hero-subtitle { display: flex; align-items: center; gap: 0.25rem }
+    .typing-text {
+      white-space: nowrap;
+      display: inline-block;
+      will-change: contents;
+      contain: layout paint;
+      font-variant-ligatures: none;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transform: translateZ(0); /* promote to its own layer to reduce paint flicker */
+    }
+    /* Use a CSS caret (pseudo-element) to avoid layout shifts */
+
+  </style>
+
+  
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+      <div class="hero-container">
+          <div class="hero-content">
+              <div class="hero-text">
+                  <h1 class="hero-title">
+                      
+                      <span class="name">Shivam Anand</span>
+                  </h1>
+                  <div class="hero-subtitle">
+                      <span class="typing-text"></span>
+                      <span class="cursor"></span>
+                  </div>
+
+
+                  <div class="social-links">
+                      <a href="https://www.linkedin.com/in/anandshivam44/" target="_blank" class="social-link">
+                          <i class="fab fa-linkedin-in"></i>
+                      </a>
+                      <a href="https://github.com/anandshivam44" target="_blank" class="social-link">
+                          <i class="fab fa-github"></i>
+                      </a>
+                      <a href="mailto:your.email@example.com" class="social-link">
+                          <i class="fas fa-envelope"></i>
+                      </a>
+                  </div>
+              </div>
+              <div class="hero-image">
+                  <div class="image-container">
+                      <img src="{{ 'home/assets/images/shivam-image.png' | url }}" alt="Shivam Anand" class="profile-image">
+                      <div class="image-bg"></div>
+                      <div class="floating-elements">
+                          <div class="floating-element element-1">
+                              <i class="fab fa-react"></i>
+                          </div>
+                          <div class="floating-element element-2">
+                              <i class="fab fa-python"></i>
+                          </div>
+                          <div class="floating-element element-3">
+                              <i class="fab fa-js-square"></i>
+                          </div>
+                          <div class="floating-element element-4">
+                              <i class="fas fa-database"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="scroll-indicator">
+              <div class="scroll-arrow">
+                  <i class="fas fa-chevron-down"></i>
+              </div>
+          </div>
+      </div>
+      <div class="hero-bg">
+          <div class="bg-shape shape-1"></div>
+          <div class="bg-shape shape-2"></div>
+          <div class="bg-shape shape-3"></div>
+      </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">About Me</h2>
+              <p class="section-subtitle">Get to know me better</p>
+          </div>
+          <div class="about-content">
+              <div class="about-text">
+                  <h3>Passionate Developer & Problem Solver</h3>
+                  <p>
+                      I'm a dedicated software developer with a passion for creating innovative solutions 
+                      that make a difference. With expertise in modern web technologies and a keen eye for 
+                      user experience, I bring ideas to life through clean, efficient code.
+                  </p>
+                  <p>
+                      My journey in technology has been driven by curiosity and a constant desire to learn. 
+                      I enjoy tackling complex challenges and collaborating with teams to build products 
+                      that users love.
+                  </p>
+                  <div class="stats">
+                      <div class="stat">
+                          <span class="stat-number">50+</span>
+                          <span class="stat-label">Projects Completed</span>
+                      </div>
+                      <div class="stat">
+                          <span class="stat-number">3+</span>
+                          <span class="stat-label">Years Experience</span>
+                      </div>
+                      <div class="stat">
+                          <span class="stat-number">100%</span>
+                          <span class="stat-label">Client Satisfaction</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="about-skills">
+                  <h3>What I Do</h3>
+                  <div class="skills-grid">
+                      <div class="skill-card">
+                          <div class="skill-icon">
+                              <i class="fas fa-code"></i>
+                          </div>
+                          <h4>Web Development</h4>
+                          <p>Creating responsive, modern web applications with the latest technologies.</p>
+                      </div>
+                      <div class="skill-card">
+                          <div class="skill-icon">
+                              <i class="fas fa-mobile-alt"></i>
+                          </div>
+                          <h4>Mobile Development</h4>
+                          <p>Building cross-platform mobile applications for iOS and Android.</p>
+                      </div>
+                      <div class="skill-card">
+                          <div class="skill-icon">
+                              <i class="fas fa-database"></i>
+                          </div>
+                          <h4>Backend Development</h4>
+                          <p>Designing scalable server-side solutions and database architectures.</p>
+                      </div>
+                      <div class="skill-card">
+                          <div class="skill-icon">
+                              <i class="fas fa-paint-brush"></i>
+                          </div>
+                          <h4>UI/UX Design</h4>
+                          <p>Creating intuitive and beautiful user interfaces and experiences.</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Technical Skills</h2>
+              <p class="section-subtitle">Technologies I work with</p>
+          </div>
+          <div class="skills-container">
+              <div class="skill-category">
+                  <h3>Frontend</h3>
+                  <div class="skill-items">
+                      <div class="skill-item">
+                          <i class="fab fa-react"></i>
+                          <span>React</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fab fa-js-square"></i>
+                          <span>JavaScript</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fab fa-html5"></i>
+                          <span>HTML5</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fab fa-css3-alt"></i>
+                          <span>CSS3</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="skill-category">
+                  <h3>Backend</h3>
+                  <div class="skill-items">
+                      <div class="skill-item">
+                          <i class="fab fa-python"></i>
+                          <span>Python</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fab fa-node-js"></i>
+                          <span>Node.js</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fas fa-database"></i>
+                          <span>MongoDB</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fas fa-server"></i>
+                          <span>Express.js</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="skill-category">
+                  <h3>Tools & Others</h3>
+                  <div class="skill-items">
+                      <div class="skill-item">
+                          <i class="fab fa-git-alt"></i>
+                          <span>Git</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fab fa-docker"></i>
+                          <span>Docker</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fab fa-aws"></i>
+                          <span>AWS</span>
+                      </div>
+                      <div class="skill-item">
+                          <i class="fas fa-cloud"></i>
+                          <span>Cloud Services</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Featured Projects</h2>
+              <p class="section-subtitle">Some of my recent work</p>
+          </div>
+          <div class="projects-grid">
+              <div class="project-card">
+                  <div class="project-image">
+                      <div class="project-overlay">
+                          <div class="project-links">
+                              <a href="#" class="project-link">
+                                  <i class="fas fa-external-link-alt"></i>
+                              </a>
+                              <a href="#" class="project-link">
+                                  <i class="fab fa-github"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="project-content">
+                      <h3>E-Commerce Platform</h3>
+                      <p>A full-stack e-commerce solution with modern UI and secure payment integration.</p>
+                      <div class="project-tech">
+                          <span class="tech-tag">React</span>
+                          <span class="tech-tag">Node.js</span>
+                          <span class="tech-tag">MongoDB</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="project-card">
+                  <div class="project-image">
+                      <div class="project-overlay">
+                          <div class="project-links">
+                              <a href="#" class="project-link">
+                                  <i class="fas fa-external-link-alt"></i>
+                              </a>
+                              <a href="#" class="project-link">
+                                  <i class="fab fa-github"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="project-content">
+                      <h3>Task Management App</h3>
+                      <p>A collaborative task management application with real-time updates and team features.</p>
+                      <div class="project-tech">
+                          <span class="tech-tag">Vue.js</span>
+                          <span class="tech-tag">Python</span>
+                          <span class="tech-tag">PostgreSQL</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="project-card">
+                  <div class="project-image">
+                      <div class="project-overlay">
+                          <div class="project-links">
+                              <a href="#" class="project-link">
+                                  <i class="fas fa-external-link-alt"></i>
+                              </a>
+                              <a href="#" class="project-link">
+                                  <i class="fab fa-github"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="project-content">
+                      <h3>Data Analytics Dashboard</h3>
+                      <p>An interactive dashboard for data visualization and business intelligence.</p>
+                      <div class="project-tech">
+                          <span class="tech-tag">React</span>
+                          <span class="tech-tag">D3.js</span>
+                          <span class="tech-tag">Python</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+      <div class="container">
+          <div class="section-header">
+              <h2 class="section-title">Get In Touch</h2>
+              <p class="section-subtitle">Let's work together</p>
+          </div>
+          <div class="contact-content">
+              <div class="contact-info">
+                  <h3>Let's Connect</h3>
+                  <p>
+                      I'm always interested in new opportunities and exciting projects. 
+                      Whether you have a question or just want to say hi, feel free to reach out!
+                  </p>
+                  <div class="contact-details">
+                      <div class="contact-item">
+                          <i class="fas fa-envelope"></i>
+                          <span>your.email@example.com</span>
+                      </div>
+                      <div class="contact-item">
+                          <i class="fas fa-phone"></i>
+                          <span>+1 (555) 123-4567</span>
+                      </div>
+                      <div class="contact-item">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>Your City, Country</span>
+                      </div>
+                  </div>
+              </div>
+              <form class="contact-form">
+                  <div class="form-group">
+                      <input type="text" id="name" name="name" placeholder="Your Name" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="email" id="email" name="email" placeholder="Your Email" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                  </div>
+                  <div class="form-group">
+                      <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                      <i class="fas fa-paper-plane"></i>
+                      Send Message
+                  </button>
+              </form>
+          </div>
+      </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+      <div class="container">
+          <div class="footer-content">
+              <p>&copy; 2024 Shivam Anand. All rights reserved.</p>
+              <div class="footer-links">
+                  <a href="#home">Home</a>
+                  <a href="#about">About</a>
+                  <a href="#projects">Projects</a>
+                  <a href="#contact">Contact</a>
+              </div>
+          </div>
+      </div>
+  </footer>
+ 
+ {% endblock %}
+ {% block content %}{% endblock %}
+ {% block footer %}{% endblock %}

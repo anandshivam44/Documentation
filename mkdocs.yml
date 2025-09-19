@@ -2,40 +2,137 @@ site_name: Shivam Anand's Site
 site_author: Shivam Anand
 site_description: >-
   Shivam Anand's Personal Documentation Site
-# repo_name: github
-# repo_url: https://github.com/anandshivam44/Documentation
+repo_name: anandshivam44/Documentation
+repo_url: https://github.com/anandshivam44/Documentation
+
 theme:
   name: material
+  custom_dir: docs/home
   features:
-    - navigation.tabs
-    - navigation.tracking
-    - navigation.path
-    - navigation.top
-    - toc.integrate
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-    - content.code.annotation
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
     - content.code.copy
-  language: en
-  palette:
-    - scheme: default
-      primary: teal
-      accent: purple
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
+    - content.tooltips
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.tabs
 
-    - scheme: slate
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.png
+  icon:
+    logo: logo
+
+extra_css:
+  - home/assets/stylesheets/extra.css
+  - 'home/assets/stylesheets/portfolio/styles.css'
+
+extra_javascript:
+  - 'home/assets/javascript/script.js'
+
+plugins:
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/anandshivam44
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/anandshivam44
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/anandshivam44/
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:anand.shivam44@yahoo.com
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
 
 nav:
-  - Home:
-      - About me: index.md
+  - Home: index.md
   - Cheat Sheets:
       - aws cli cheat sheet: cheat-sheet-and-snippets/aws-cheat-sheet.md
       - cloudformation cheat sheet: cheat-sheet-and-snippets/cloudformation-cheat-sheet.md
@@ -66,56 +163,6 @@ nav:
       - SSH to Docker: Tutorials/SSHToDocker.md
       - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
       - EncryptEC2FromCloudFormation: Playbooks/EncryptEC2FromCloudFormation/EBSEncryption.md
-  # - Automation Scripts Snippets & Files:
-  #     - aws cli Cheat Sheet: cheat-sheet-and-snippets/AwsCliCheatSheet.md
-
-plugins:
-  - search:
-      lang: en
-  - glightbox:
-      touchNavigation: true
-      loop: false
-      effect: zoom
-      slide_effect: slide
-      width: 100%
-      height: auto
-      zoomable: true
-      draggable: true
-      skip_classes:
-        - custom-skip-class-name
-      auto_caption: false
-      caption_position: bottom
-
-extra:
-  generator: false
-  social:
-    - icon: fontawesome/brands/github-alt
-      link: https://github.com/anandshivam44
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/anandshivam44
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/in/anandshivam44/
-    - icon: fontawesome/solid/paper-plane
-      link: mailto:anand.shivam44@yahoo.com
-
-markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - admonition
-  - pymdownx.arithmatex:
-      generic: true
-  - footnotes
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.mark
-  - attr_list
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - attr_list
-  - md_in_html
 
 copyright: |
   &copy; 2023 <a href="https://github.com/anandshivam44"  target="_blank" rel="noopener">Shivam Anand</a>
