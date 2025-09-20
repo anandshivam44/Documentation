@@ -1,24 +1,9 @@
-# Core requirements from mkdocs-material
-jinja2~=3.1
-markdown~=3.2
+# Direct dependencies used by MkDocs setup
 mkdocs~=1.6
 mkdocs-material
 mkdocs-material-extensions~=1.3
-pygments~=2.16
 pymdown-extensions~=10.2
 
-# Plugin requirements from mkdocs-material
-babel~=2.10
-colorama~=0.4
-paginate~=0.5
-backrefs~=5.7.post1
-requests~=2.26
-
-# Pinned dependency from mkdocs-material
-click<8.2.2
-
-# User's existing plugin
+# Plugins explicitly configured in mkdocs.yml
 mkdocs-glightbox
-
-# Plugin for minification
 mkdocs-minify-plugin
