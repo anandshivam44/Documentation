@@ -479,85 +479,71 @@
   .skills-carousel {
     position: relative;
     margin: 1.5rem auto 0;
-    max-width: 520px;
+    max-width: 560px;
   }
-  .skills-carousel .carousel-viewport {
+  .skills-carousel .vc-viewport {
     position: relative;
-    height: 260px;
+    height: 300px; /* ~5-6 items visible */
     overflow: hidden;
     margin-inline: auto;
-    -webkit-mask-image: none;
-    mask-image: none;
+    /* Top/bottom gradient fade for a smooth, modern look */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
   }
-  .skills-carousel .carousel-track {
+  .skills-carousel .vc-track {
+    list-style: none;
+    margin: 0;
+    padding: 0.25rem 0;
     will-change: transform;
     transform: translate3d(0, 0, 0);
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .skills-carousel .carousel-item {
+  .skills-carousel .vc-item {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.6rem 0.75rem;
+    padding: 0.65rem 0.85rem;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(100, 116, 139, 0.15); /* subtle border */
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
-    margin: 0.35rem auto;
+    margin: 0.4rem auto;
     width: 92%;
     color: var(--md-default-fg-color);
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
     min-height: 52px;
   }
-  .skills-carousel .carousel-item.is-highlighted {
-    box-shadow: 0 0 20px -5px rgba(80, 150, 255, 0.5),
-      0 4px 15px rgba(0, 0, 0, 0.1);
+  .skills-carousel .vc-item:hover,
+  .skills-carousel .vc-item:focus-within {
+    border-color: rgba(37, 99, 235, 0.5); /* #2563eb */
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08), 0 1px 1px rgba(0, 0, 0, 0.06);
+    background: rgba(37, 99, 235, 0.06);
   }
-  .skills-carousel .carousel-item img,
-  .skills-carousel .carousel-item svg {
+  .skills-carousel .vc-item img,
+  .skills-carousel .vc-item svg {
     width: 22px;
     height: 22px;
     object-fit: contain;
     display: inline-block;
   }
-  .skills-carousel .carousel-item .text {
+  .skills-carousel .vc-item .text {
     font-size: 0.95rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .skills-carousel .carousel-viewport:focus {
-    outline: 2px solid rgba(59, 130, 246, 0.6);
+  .skills-carousel .vc-viewport:focus {
+    outline: 2px solid rgba(37, 99, 235, 0.55);
     outline-offset: 2px;
   }
-  .skills-carousel .controls {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-  .skills-carousel .btn {
-    appearance: none;
-    -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: inherit;
-    padding: 0.35rem 0.6rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-  }
-  .skills-carousel .btn:hover {
-    border-color: rgba(59, 130, 246, 0.35);
-  }
+  /* Reduced motion: disable JS-driven movement; allow manual scroll with snap */
   @media (prefers-reduced-motion: reduce) {
-    .skills-carousel .carousel-track,
-    .skills-carousel .carousel-item {
-      transition: none;
+    .skills-carousel .vc-viewport {
+      overflow: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+      scroll-snap-type: y mandatory;
     }
+    .skills-carousel .vc-item { scroll-snap-align: start; }
   }
 
   /* Animated gradient background for Technology Orbit section (#stack / #stack-2) */
@@ -838,13 +824,10 @@
         </div>
       </div>
       <div class="about-summary">
-        <!-- Vertical Skills Carousel (moved here) -->
-        <div
-          class="skills-carousel"
-          aria-label="Vertically scrolling list of key skills with logos"
-        >
-          <div class="carousel-viewport" tabindex="0">
-            <div class="carousel-track" role="list"></div>
+        <!-- Vertical Skills Ticker (redesigned) -->
+        <div class="skills-carousel" aria-label="Vertically scrolling list of key skills">
+          <div class="vc-viewport" tabindex="0">
+            <ul class="vc-track" role="list"></ul>
           </div>
         </div>
       </div>
@@ -1080,7 +1063,7 @@
     <div class="footer-content">
       <p>&copy; 2025 Shivam Anand. All rights reserved.</p>
       <div class="footer-links">
-        <a href="#stack">Home</a>
+        
       </div>
     </div>
   </div>

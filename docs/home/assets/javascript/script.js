@@ -125,248 +125,124 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Vertical Skills Carousel: build from #skills list, animate in Technology Orbit section (Observo-like)
+// Vertical Skills: smooth, continuous vertical ticker (fresh build)
 document.addEventListener('DOMContentLoaded', () => {
-    const carouselRoot = document.querySelector('.tech-orbit .skills-carousel');
-    const track = carouselRoot?.querySelector('.carousel-track');
-    const viewport = carouselRoot?.querySelector('.carousel-viewport');
-    const btnUp = carouselRoot?.querySelector('.btn-up');
-    const btnDown = carouselRoot?.querySelector('.btn-down');
-    if (!carouselRoot || !track || !viewport) return;
+    const root = document.querySelector('.tech-orbit .skills-carousel');
+    const track = root?.querySelector('.vc-track');
+    const viewport = root?.querySelector('.vc-viewport');
+    if (!root || !track || !viewport) return;
 
-    // Source skills from existing grid
-    const sourceItems = Array.from(document.querySelectorAll('#skills-data .skill-pill'));
-    if (sourceItems.length === 0) return;
+    const rm = prefersReducedMotion;
+    // Source skills
+    const source = Array.from(document.querySelectorAll('#skills-data .skill-pill'));
+    if (source.length === 0) return;
 
-    // Build item elements
-    function createItemFrom(btn) {
-        const item = document.createElement('div');
-        item.className = 'carousel-item';
-        item.setAttribute('role', 'listitem');
+    function createItem(btn) {
+        const li = document.createElement('li');
+        li.className = 'vc-item';
+        li.setAttribute('role', 'listitem');
         const label = btn.getAttribute('aria-label') || btn.querySelector('.label')?.textContent?.trim() || 'Skill';
-
-        // icon: prefer img.brand-icon then svg
         const img = btn.querySelector('img.brand-icon');
         const svg = btn.querySelector('svg');
         if (img) {
             const icon = img.cloneNode(true);
             icon.removeAttribute('class');
             icon.setAttribute('aria-hidden', 'true');
-            item.appendChild(icon);
+            icon.setAttribute('width', '22');
+            icon.setAttribute('height', '22');
+            icon.setAttribute('decoding', 'async');
+            li.appendChild(icon);
         } else if (svg) {
             const icon = svg.cloneNode(true);
             icon.removeAttribute('width');
             icon.removeAttribute('height');
             icon.setAttribute('aria-hidden', 'true');
-            item.appendChild(icon);
+            li.appendChild(icon);
         }
         const text = document.createElement('span');
         text.className = 'text';
         text.textContent = label;
-        item.appendChild(text);
-        return item;
+        li.appendChild(text);
+        return li;
     }
-
-    // Populate track with duplicates for seamless loop
-    const items = sourceItems.map(createItemFrom);
-    const DUP = 3; // head/tail duplicates (>= visible count to hide seams)
+    
+    // Initial population: two segments (base + clone) for seamless modular wrap
+    const baseItems = source.map(createItem);
     const frag = document.createDocumentFragment();
-    // tail duplicates
-    for (let i = 0; i < DUP; i++) items.forEach(it => frag.appendChild(it.cloneNode(true)));
-    // main
-    items.forEach(it => frag.appendChild(it));
-    // head duplicates
-    for (let i = 0; i < DUP; i++) items.forEach(it => frag.appendChild(it.cloneNode(true)));
+    baseItems.forEach(n => frag.appendChild(n));
     track.appendChild(frag);
+    const frag2 = document.createDocumentFragment();
+    baseItems.forEach(n => frag2.appendChild(n.cloneNode(true)));
+    track.appendChild(frag2);
 
-    // Measurements
-    const rm = prefersReducedMotion;
-    let itemHeights = [];
-    let itemGap = 0; // inferred from margin
-    let totalHeight = 0;
-    let startIndex = items.length * DUP; // start at first item of main segment
-    // Step-based animation config
-    const STEP_INTERVAL = 1200; // ms
+    if (rm) {
+        // Reduced motion: no auto-scroll, allow manual scroll
+        return;
+    }
+
+    // rAF ticker using modular wrap (no per-frame DOM reparenting)
+    let last = performance.now();
     let y = 0;
-    let targetY = 0;
-    let animationInterval = null;
-
-    function measure() {
-        const rendered = Array.from(track.children);
-        itemHeights = rendered.map(el => el.getBoundingClientRect().height);
-        // estimate gap using first item's margin
-        const first = rendered[0];
-        const cs = first ? getComputedStyle(first) : null;
-        itemGap = first ? (parseFloat(cs.marginTop) + parseFloat(cs.marginBottom)) - (parseFloat(cs.height) - first.clientHeight) : 0;
-        totalHeight = rendered.reduce((acc, el) => acc + el.getBoundingClientRect().height + itemGap, 0);
-        // Ensure at least 5 items visible by setting viewport height dynamically
-        const step = getAvgItemStepFrom(rendered);
-        if (viewport && step > 0) {
-            viewport.style.height = `${step * 5}px`;
+    const SPEED = 28; // px/s, slightly slower for smoothness
+    let running = true;
+    function computeBaseHeight() {
+        const children = Array.from(track.children).slice(0, baseItems.length);
+        let total = 0;
+        for (const el of children) {
+            const rect = el.getBoundingClientRect();
+            const cs = getComputedStyle(el);
+            const mt = parseFloat(cs.marginTop) || 0;
+            const mb = parseFloat(cs.marginBottom) || 0;
+            total += rect.height + mt + mb;
         }
+        return total || (children.length * 48);
     }
-    // Helper for measurement using provided node list to avoid recursion
-    function getAvgItemStepFrom(nodes) {
-        const n = Math.min(5, nodes.length);
-        if (n === 0) return 48;
-        let h = 0;
-        for (let i = 0; i < n; i++) h += nodes[i].getBoundingClientRect().height + itemGap;
-        return h / n;
+    let baseHeight = computeBaseHeight();
+    
+    function tick(now) {
+        if (!running) { last = now; requestAnimationFrame(tick); return; }
+        const dt = (now - last) / 1000;
+        last = now;
+        y -= SPEED * dt;
+        if (y <= -baseHeight) y += baseHeight;
+        track.style.transform = `translate3d(0, ${y.toFixed(3)}px, 0)`;
+        requestAnimationFrame(tick);
     }
-    measure();
+    requestAnimationFrame(tick);
 
-    // Set initial offset so that we are aligned to the main segment
-    function getSegmentHeight(n) {
-        const rendered = Array.from(track.children);
-        let h = 0;
-        for (let i = 0; i < n && i < rendered.length; i++) {
-            h += rendered[i].getBoundingClientRect().height + itemGap;
-        }
-        return h;
-    }
-    const offsetToMain = getSegmentHeight(startIndex);
-    y = -offsetToMain;
-    targetY = y;
-    track.style.transform = `translate3d(0, ${y}px, 0)`;
+    // Pause on hover/focus
+    root.addEventListener('mouseenter', () => { running = false; });
+    root.addEventListener('mouseleave', () => { running = true; last = performance.now(); });
+    viewport.addEventListener('focusin', () => { running = false; });
+    viewport.addEventListener('focusout', () => { running = true; last = performance.now(); });
 
-    function advanceCarousel() {
-        const step = getAvgItemStepFrom(Array.from(track.children));
-        targetY -= step;
-
-        // Loop track by resetting position
-        const mainSegmentHeight = getSegmentHeight(items.length);
-        if (targetY < -offsetToMain - mainSegmentHeight) {
-            // Jump back to the start without animation
-            track.style.transition = 'none';
-            const diff = targetY + offsetToMain + mainSegmentHeight;
-            y = -offsetToMain + diff;
-            targetY = y;
-            track.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
-            // Force a reflow to apply the transform immediately
-            track.offsetHeight;
-            // And then re-enable the transition for the next step
-            track.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        }
-
-        track.style.transform = `translate3d(0, ${targetY.toFixed(2)}px, 0)`;
-        requestAnimationFrame(updateEmphasis);
-    }
-
-    function startAnimation() {
-        if (rm || animationInterval) return;
-        animationInterval = setInterval(advanceCarousel, STEP_INTERVAL);
-    }
-
-    function stopAnimation() {
-        clearInterval(animationInterval);
-        animationInterval = null;
-    }
-
-    // Pause on hover
-    carouselRoot.addEventListener('mouseenter', stopAnimation);
-    carouselRoot.addEventListener('mouseleave', startAnimation);
-
-
-
-    // Emphasis tiers (concave, Observo-like): center largest/brightest, others taper smaller/dimmer
-    function updateEmphasis() {
-        const rect = viewport.getBoundingClientRect();
-        const centerY = rect.top + rect.height / 2;
-        const children = Array.from(track.children);
-        // Find the child whose center is closest to viewport center
-        let minD = Infinity, centerIdx = 0;
-        children.forEach((el, idx) => {
-            const b = el.getBoundingClientRect();
-            const c = b.top + b.height / 2;
-            const d = Math.abs(c - centerY);
-            if (d < minD) { minD = d; centerIdx = idx; }
-        });
-        children.forEach((el, idx) => {
-            const dist = Math.abs(idx - centerIdx);
-            let scale = 0.80, opacity = 0.5;
-            el.classList.remove('is-highlighted');
-
-            if (dist === 0) {
-                scale = 1.05;
-                opacity = 1.0;
-                el.classList.add('is-highlighted');
-            } else if (dist === 1) {
-                scale = 0.90;
-                opacity = 0.7;
-            } else if (dist === 2) {
-                scale = 0.85;
-                opacity = 0.6;
-            }
-
-            el.style.transform = `scale(${scale})`;
-            el.style.opacity = opacity;
-        });
-    }
-
-    // Helpers to compute height of one logical step (average of first N)
-    function getAvgItemStep() {
-        const rendered = Array.from(track.children);
-        const n = Math.min(5, rendered.length);
-        if (n === 0) return 40;
-        let h = 0;
-        for (let i = 0; i < n; i++) h += rendered[i].getBoundingClientRect().height + itemGap;
-        return h / n;
-    }
-    // Advance target to next item height (top -> down)
-    function stepForward() { targetY += getAvgItemStep(); }
-
-    // Animation loop (step-based snapping with easing)
-    if (!rm) {
-        startAnimation();
-        // Also update emphasis immediately on load
-        setTimeout(updateEmphasis, 50);
-
-    } else {
-        // reduced motion: center emphasis once, no auto-scroll
-        updateEmphasis();
-    }
-
-    // Pause on hover/focus, page hide
-    viewport.addEventListener('mouseenter', () => running = false);
-    viewport.addEventListener('mouseleave', () => { if (!rm) running = true; lastStep = performance.now(); });
-    viewport.addEventListener('focusin', () => running = false);
-    viewport.addEventListener('focusout', () => { if (!rm) running = true; });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) running = false; else if (!rm) running = true; });
-
-    // Drag/touch to scroll
-    let dragging = false, lastY = 0;
-    function onDown(e) { dragging = true; lastY = (e.touches ? e.touches[0].clientY : e.clientY); running = false; }
-    function onMove(e) {
-        if (!dragging) return;
-        const cy = (e.touches ? e.touches[0].clientY : e.clientY);
-        const dy = cy - lastY; lastY = cy;
-        y += dy; // natural drag
-        track.style.transform = `translate3d(0, ${y}px, 0)`;
-        if (!rm) updateEmphasis();
-    }
-    function onUp() { dragging = false; if (!rm) { running = true; targetY = y; lastStep = performance.now(); } }
-    viewport.addEventListener('mousedown', onDown);
-    viewport.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    viewport.addEventListener('touchstart', onDown, { passive: true });
-    viewport.addEventListener('touchmove', onMove, { passive: true });
-    window.addEventListener('touchend', onUp);
-
-    // Keyboard controls
+    // Keyboard controls and resize handling
     viewport.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); targetY -= getAvgItemStep(); lastStep = performance.now(); }
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); targetY += getAvgItemStep(); lastStep = performance.now(); }
-        if (e.key === 'Home') { e.preventDefault(); targetY = -offsetToMain; lastStep = performance.now(); }
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            e.preventDefault();
+            const first = track.firstElementChild;
+            const step = first ? first.getBoundingClientRect().height : 48;
+            y -= step;
+            last = performance.now();
+            track.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            const first = track.firstElementChild;
+            const step = first ? first.getBoundingClientRect().height : 48;
+            y += step;
+            last = performance.now();
+            track.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            y = 0;
+            track.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+            last = performance.now();
+        }
     });
-
-    // Button controls
-    btnUp?.addEventListener('click', () => { targetY -= getAvgItemStep(); lastStep = performance.now(); });
-    btnDown?.addEventListener('click', () => { targetY += getAvgItemStep(); lastStep = performance.now(); });
-
-    // Resize handling
     window.addEventListener('resize', () => {
-        measure();
-        updateEmphasis();
+        baseHeight = computeBaseHeight();
+        if (y <= -baseHeight) y = y % baseHeight;
+        track.style.transform = `translate3d(0, ${y.toFixed(3)}px, 0)`;
     });
 });
 
