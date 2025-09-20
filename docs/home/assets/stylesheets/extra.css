@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* Extra site styles (loaded via mkdocs.yml -> extra_css) */
 
- /* Re-enable Material header (shows search in the top bar)
+/* Re-enable Material header (shows search in the top bar)
     If you want to hide the header only on specific pages, scope this rule accordingly. */
- /* .md-header, .md-header-nav { display: none !important; } */
+/* .md-header, .md-header-nav { display: none !important; } */
 
 .mdx-container.hero {
   background-color: var(--sa-surface);
@@ -10,9 +12,13 @@
   border-bottom: 1px solid var(--sa-surface-border);
 }
 
-.mdx-hero { align-items: center; }
+.mdx-hero {
+  align-items: center;
+}
 
-.mdx-section { padding: 2rem 0 3rem; }
+.mdx-section {
+  padding: 2rem 0 3rem;
+}
 
 /* Hero content */
 .hero-title {
@@ -42,61 +48,114 @@
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
 }
 .hero-avatar {
   border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* Section header */
-.section-header {
-  display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem;
+#stack-title {
+  font-family: 'Inter', sans-serif;
 }
-.section-header h2 { margin: 0; }
-.view-all { font-size: .9rem; }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+.section-header h2 {
+  margin: 0;
+}
+.view-all {
+  font-size: 0.9rem;
+}
 
 /* Recent posts */
-.posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1rem; }
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
 .post-card {
   background: var(--sa-surface);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--sa-surface-border);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .post-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
-.post-card .meta { color: var(--sa-text-secondary); margin: .25rem 0 .75rem; font-size: .9rem; }
-.post-card .excerpt { margin: 0; }
+.post-card .meta {
+  color: var(--sa-text-secondary);
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.9rem;
+}
+.post-card .excerpt {
+  margin: 0;
+}
 
 /* Featured works */
-.works-list { display: grid; gap: 1rem; }
-.work-item { display: grid; grid-template-columns: 120px 1fr; gap: 1rem; align-items: start; padding: 1rem; border-bottom: 1px solid var(--sa-surface-border); }
-.work-item:last-child { border-bottom: 0; }
-.work-item .thumb { border-radius: .4rem; box-shadow: 0 6px 12px rgba(0,0,0,.06); }
-.work-body h3 { margin: 0 0 .25rem; }
-.work-meta { display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; color: var(--sa-text-secondary); }
+.works-list {
+  display: grid;
+  gap: 1rem;
+}
+.work-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+  border-bottom: 1px solid var(--sa-surface-border);
+}
+.work-item:last-child {
+  border-bottom: 0;
+}
+.work-item .thumb {
+  border-radius: 0.4rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+}
+.work-body h3 {
+  margin: 0 0 0.25rem;
+}
+.work-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--sa-text-secondary);
+}
 .badge {
   display: inline-block;
   background: var(--sa-accent);
   color: var(--sa-accent-contrast);
-  padding: .2rem .6rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.4;
 }
 
 @media (max-width: 600px) {
-  .mdx-hero { text-align: left; }
-  .work-item { grid-template-columns: 1fr; }
+  .mdx-hero {
+    text-align: left;
+  }
+  .work-item {
+    grid-template-columns: 1fr;
+  }
 }
 /* --- "Aurora" Theme --- */
 
@@ -117,22 +176,61 @@
 
 [data-md-color-scheme="slate"] {
   /* Dark Mode Palette */
-  --sa-bg-gradient: linear-gradient(120deg, #1A202C 0%, #2D3748 100%);
+  --sa-bg-gradient: linear-gradient(120deg, #1a202c 0%, #2d3748 100%);
   --sa-surface: rgba(45, 55, 72, 0.7);
   --sa-surface-border: rgba(255, 255, 255, 0.07);
-  --sa-text-primary: #E2E8F0;
-  --sa-text-secondary: #A0AEC0;
+  --sa-text-primary: #e2e8f0;
+  --sa-text-secondary: #a0aec0;
   --sa-accent: #ed64a6;
-  --sa-accent-contrast: #1A202C;
+  --sa-accent-contrast: #1a202c;
   --sa-chrome: rgba(26, 32, 44, 0.6);
   --sa-chrome-border: rgba(255, 255, 255, 0.09);
-  --sa-chrome-contrast: #E2E8F0;
+  --sa-chrome-contrast: #e2e8f0;
 }
 
 /* Header & nav are intentionally NOT overridden here to keep site-wide
    consistency. Home-specific design should not affect the global
    Material navigation or footer. */
-body { background: var(--sa-bg-gradient); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #0d1117; /* dark base */
+  overflow-x: clip; /* prevent horizontal scroll from oversized background */
+}
+
+.aurora {
+  position: fixed;
+  width: 130%;
+  height: 130%;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 255, 200, 0.10), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(255, 0, 200, 0.06), transparent 60%),
+              radial-gradient(circle at 60% 30%, rgba(0, 100, 255, 0.08), transparent 60%);
+  filter: blur(160px);
+  opacity: 0.06; /* ultra light overall */
+  animation: move 30s ease-in-out infinite alternate;
+  top: -15%;
+  left: -15%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content stacks above the background */
+.md-header,
+.md-main,
+.md-footer {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes move {
+  0% { transform: translate(-10%, -10%) scale(1); }
+  50% { transform: translate(10%, 10%) scale(1.1); }
+  100% { transform: translate(-10%, -10%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora { animation: none; }
+}
 
 /* Navigation and footer overrides removed. If you need to style parts of the
    home page, scope your selectors to elements within the page content (e.g.,
