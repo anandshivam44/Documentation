@@ -51,12 +51,6 @@ theme:
   icon:
     logo: logo
 
-extra_css:
-  - home/assets/stylesheets/extra.css
-  - 'home/assets/stylesheets/portfolio/styles.css'
-
-extra_javascript:
-  - 'home/assets/javascript/script.js'
 
 plugins:
   - search:

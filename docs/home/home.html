@@ -1090,3 +1090,12 @@
 
 {% endblock %} {% block content %}{% endblock %} {% block footer %}{% endblock
 %}
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ 'home/assets/stylesheets/extra.css' | url }}">
+  <link rel="stylesheet" href="{{ 'home/assets/stylesheets/portfolio/styles.css' | url }}">
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'home/assets/javascript/script.js' | url }}"></script>
+{% endblock %}
