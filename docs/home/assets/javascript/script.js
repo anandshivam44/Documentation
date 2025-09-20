@@ -2,6 +2,9 @@
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
+// Respect user's reduced motion preference
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
@@ -21,12 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!typingText) return;
 
     const texts = [
-        'Cybersecurity',
         'Site Reliability Engineering',
-        'Cloud Architect',
-        'Platform Engineering',
-        'DevOps Engineering',
-        'System Design'
+        'Cloud Architecture (AWS & GCP)',
+        'Identity Security',
+        'Kubernetes & Terraform',
+        'Observability',
+        'DevSecOps & GitOps'
     ];
 
     // Stabilize layout: set min-width to longest word to avoid container reflow
@@ -68,6 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // ignore measurement issues
     }
 
+    // Reduce motion: skip typewriter animation and show a stable role
+    if (prefersReducedMotion) {
+        typingText.textContent = 'Site Reliability Engineering';
+        // Disable cursor blink via CSS override
+        const styleRM = document.createElement('style');
+        styleRM.textContent = '@media (prefers-reduced-motion: reduce){ .cursor{ animation: none !important; } }';
+        document.head.appendChild(styleRM);
+        return; // abort typewriter
+    }
+
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -107,16 +120,262 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
             target.scrollIntoView({
-                behavior: 'smooth',
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
                 block: 'start'
             });
         }
     });
 });
 
+// Vertical Skills Carousel: build from #skills list, animate in Technology Orbit section (Observo-like)
+document.addEventListener('DOMContentLoaded', () => {
+    const carouselRoot = document.querySelector('.tech-orbit .skills-carousel');
+    const track = carouselRoot?.querySelector('.carousel-track');
+    const viewport = carouselRoot?.querySelector('.carousel-viewport');
+    const btnUp = carouselRoot?.querySelector('.btn-up');
+    const btnDown = carouselRoot?.querySelector('.btn-down');
+    if (!carouselRoot || !track || !viewport) return;
+
+    // Source skills from existing grid
+    const sourceItems = Array.from(document.querySelectorAll('#skills .skills-grid .skill-pill'));
+    if (sourceItems.length === 0) return;
+
+    // Build item elements
+    function createItemFrom(btn) {
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        item.setAttribute('role', 'listitem');
+        const label = btn.getAttribute('aria-label') || btn.querySelector('.label')?.textContent?.trim() || 'Skill';
+
+        // icon: prefer img.brand-icon then svg
+        const img = btn.querySelector('img.brand-icon');
+        const svg = btn.querySelector('svg');
+        if (img) {
+            const icon = img.cloneNode(true);
+            icon.removeAttribute('class');
+            icon.setAttribute('aria-hidden', 'true');
+            item.appendChild(icon);
+        } else if (svg) {
+            const icon = svg.cloneNode(true);
+            icon.removeAttribute('width');
+            icon.removeAttribute('height');
+            icon.setAttribute('aria-hidden', 'true');
+            item.appendChild(icon);
+        }
+        const text = document.createElement('span');
+        text.className = 'text';
+        text.textContent = label;
+        item.appendChild(text);
+        return item;
+    }
+
+    // Populate track with duplicates for seamless loop
+    const items = sourceItems.map(createItemFrom);
+    const DUP = 3; // head/tail duplicates (>= visible count to hide seams)
+    const frag = document.createDocumentFragment();
+    // tail duplicates
+    for (let i = 0; i < DUP; i++) items.forEach(it => frag.appendChild(it.cloneNode(true)));
+    // main
+    items.forEach(it => frag.appendChild(it));
+    // head duplicates
+    for (let i = 0; i < DUP; i++) items.forEach(it => frag.appendChild(it.cloneNode(true)));
+    track.appendChild(frag);
+
+    // Measurements
+    const rm = prefersReducedMotion;
+    let itemHeights = [];
+    let itemGap = 0; // inferred from margin
+    let totalHeight = 0;
+    let startIndex = items.length * DUP; // start at first item of main segment
+    // Step-based animation config
+    const STEP_INTERVAL = 1200; // ms
+    let y = 0;
+    let targetY = 0;
+    let animationInterval = null;
+
+    function measure() {
+        const rendered = Array.from(track.children);
+        itemHeights = rendered.map(el => el.getBoundingClientRect().height);
+        // estimate gap using first item's margin
+        const first = rendered[0];
+        const cs = first ? getComputedStyle(first) : null;
+        itemGap = first ? (parseFloat(cs.marginTop) + parseFloat(cs.marginBottom)) - (parseFloat(cs.height) - first.clientHeight) : 0;
+        totalHeight = rendered.reduce((acc, el) => acc + el.getBoundingClientRect().height + itemGap, 0);
+        // Ensure at least 5 items visible by setting viewport height dynamically
+        const step = getAvgItemStepFrom(rendered);
+        if (viewport && step > 0) {
+            viewport.style.height = `${step * 5}px`;
+        }
+    }
+    // Helper for measurement using provided node list to avoid recursion
+    function getAvgItemStepFrom(nodes) {
+        const n = Math.min(5, nodes.length);
+        if (n === 0) return 48;
+        let h = 0;
+        for (let i = 0; i < n; i++) h += nodes[i].getBoundingClientRect().height + itemGap;
+        return h / n;
+    }
+    measure();
+
+    // Set initial offset so that we are aligned to the main segment
+    function getSegmentHeight(n) {
+        const rendered = Array.from(track.children);
+        let h = 0;
+        for (let i = 0; i < n && i < rendered.length; i++) {
+            h += rendered[i].getBoundingClientRect().height + itemGap;
+        }
+        return h;
+    }
+    const offsetToMain = getSegmentHeight(startIndex);
+    y = -offsetToMain;
+    targetY = y;
+    track.style.transform = `translate3d(0, ${y}px, 0)`;
+
+    function advanceCarousel() {
+        const step = getAvgItemStepFrom(Array.from(track.children));
+        targetY -= step;
+
+        // Loop track by resetting position
+        const mainSegmentHeight = getSegmentHeight(items.length);
+        if (targetY < -offsetToMain - mainSegmentHeight) {
+            // Jump back to the start without animation
+            track.style.transition = 'none';
+            const diff = targetY + offsetToMain + mainSegmentHeight;
+            y = -offsetToMain + diff;
+            targetY = y;
+            track.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+            // Force a reflow to apply the transform immediately
+            track.offsetHeight;
+            // And then re-enable the transition for the next step
+            track.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        }
+
+        track.style.transform = `translate3d(0, ${targetY.toFixed(2)}px, 0)`;
+        requestAnimationFrame(updateEmphasis);
+    }
+
+    function startAnimation() {
+        if (rm || animationInterval) return;
+        animationInterval = setInterval(advanceCarousel, STEP_INTERVAL);
+    }
+
+    function stopAnimation() {
+        clearInterval(animationInterval);
+        animationInterval = null;
+    }
+
+    // Pause on hover
+    carouselRoot.addEventListener('mouseenter', stopAnimation);
+    carouselRoot.addEventListener('mouseleave', startAnimation);
+
+
+
+    // Emphasis tiers (concave, Observo-like): center largest/brightest, others taper smaller/dimmer
+    function updateEmphasis() {
+        const rect = viewport.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        const children = Array.from(track.children);
+        // Find the child whose center is closest to viewport center
+        let minD = Infinity, centerIdx = 0;
+        children.forEach((el, idx) => {
+            const b = el.getBoundingClientRect();
+            const c = b.top + b.height / 2;
+            const d = Math.abs(c - centerY);
+            if (d < minD) { minD = d; centerIdx = idx; }
+        });
+        children.forEach((el, idx) => {
+            const dist = Math.abs(idx - centerIdx);
+            let scale = 0.80, opacity = 0.5;
+            el.classList.remove('is-highlighted');
+
+            if (dist === 0) {
+                scale = 1.05;
+                opacity = 1.0;
+                el.classList.add('is-highlighted');
+            } else if (dist === 1) {
+                scale = 0.90;
+                opacity = 0.7;
+            } else if (dist === 2) {
+                scale = 0.85;
+                opacity = 0.6;
+            }
+
+            el.style.transform = `scale(${scale})`;
+            el.style.opacity = opacity;
+        });
+    }
+
+    // Helpers to compute height of one logical step (average of first N)
+    function getAvgItemStep() {
+        const rendered = Array.from(track.children);
+        const n = Math.min(5, rendered.length);
+        if (n === 0) return 40;
+        let h = 0;
+        for (let i = 0; i < n; i++) h += rendered[i].getBoundingClientRect().height + itemGap;
+        return h / n;
+    }
+    // Advance target to next item height (top -> down)
+    function stepForward() { targetY += getAvgItemStep(); }
+
+    // Animation loop (step-based snapping with easing)
+    if (!rm) {
+        startAnimation();
+        // Also update emphasis immediately on load
+        setTimeout(updateEmphasis, 50);
+
+    } else {
+        // reduced motion: center emphasis once, no auto-scroll
+        updateEmphasis();
+    }
+
+    // Pause on hover/focus, page hide
+    viewport.addEventListener('mouseenter', () => running = false);
+    viewport.addEventListener('mouseleave', () => { if (!rm) running = true; lastStep = performance.now(); });
+    viewport.addEventListener('focusin', () => running = false);
+    viewport.addEventListener('focusout', () => { if (!rm) running = true; });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) running = false; else if (!rm) running = true; });
+
+    // Drag/touch to scroll
+    let dragging = false, lastY = 0;
+    function onDown(e) { dragging = true; lastY = (e.touches ? e.touches[0].clientY : e.clientY); running = false; }
+    function onMove(e) {
+        if (!dragging) return;
+        const cy = (e.touches ? e.touches[0].clientY : e.clientY);
+        const dy = cy - lastY; lastY = cy;
+        y += dy; // natural drag
+        track.style.transform = `translate3d(0, ${y}px, 0)`;
+        if (!rm) updateEmphasis();
+    }
+    function onUp() { dragging = false; if (!rm) { running = true; targetY = y; lastStep = performance.now(); } }
+    viewport.addEventListener('mousedown', onDown);
+    viewport.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    viewport.addEventListener('touchstart', onDown, { passive: true });
+    viewport.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onUp);
+
+    // Keyboard controls
+    viewport.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); targetY -= getAvgItemStep(); lastStep = performance.now(); }
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); targetY += getAvgItemStep(); lastStep = performance.now(); }
+        if (e.key === 'Home') { e.preventDefault(); targetY = -offsetToMain; lastStep = performance.now(); }
+    });
+
+    // Button controls
+    btnUp?.addEventListener('click', () => { targetY -= getAvgItemStep(); lastStep = performance.now(); });
+    btnDown?.addEventListener('click', () => { targetY += getAvgItemStep(); lastStep = performance.now(); });
+
+    // Resize handling
+    window.addEventListener('resize', () => {
+        measure();
+        updateEmphasis();
+    });
+});
+
 // Navbar background on scroll
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
     if (window.scrollY > 100) {
         navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
@@ -144,30 +403,38 @@ const observer = new IntersectionObserver((entries) => {
 // Observe elements for scroll animations
 document.addEventListener('DOMContentLoaded', () => {
     const animateElements = document.querySelectorAll('.skill-card, .project-card, .stat, .contact-item');
-    
+
     animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+        if (prefersReducedMotion) {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        } else {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        }
     });
 });
 
 // Counter animation for stats
-function animateCounter(element, target, duration = 2000) {
+function animateCounter(element, target, duration = 2000, options = {}) {
+    const { suffix = '', decimals = 0 } = options;
     let start = 0;
     const increment = target / (duration / 16);
-    
+
     function updateCounter() {
         start += increment;
         if (start < target) {
-            element.textContent = Math.floor(start) + '+';
+            const value = decimals > 0 ? start.toFixed(decimals) : Math.floor(start);
+            element.textContent = `${value}${suffix}`;
             requestAnimationFrame(updateCounter);
         } else {
-            element.textContent = target + '+';
+            const value = decimals > 0 ? target.toFixed(decimals) : Math.round(target);
+            element.textContent = `${value}${suffix}`;
         }
     }
-    
+
     updateCounter();
 }
 
@@ -176,9 +443,20 @@ const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const statNumbers = entry.target.querySelectorAll('.stat-number');
+            if (prefersReducedMotion) {
+                // Keep static values without animation
+                statsObserver.unobserve(entry.target);
+                return;
+            }
             statNumbers.forEach(stat => {
-                const target = parseInt(stat.textContent);
-                animateCounter(stat, target);
+                const original = stat.textContent.trim();
+                const hasPercent = original.includes('%');
+                const hasPlus = original.includes('+');
+                const decimalsMatch = original.match(/\.(\d+)/);
+                const decimals = decimalsMatch ? decimalsMatch[1].length : 0;
+                const numeric = parseFloat(original.replace(/[^0-9.]/g, '')) || 0;
+                const suffix = `${hasPercent ? '%' : ''}${hasPlus ? '+' : ''}`;
+                animateCounter(stat, numeric, 2000, { suffix, decimals });
             });
             statsObserver.unobserve(entry.target);
         }
@@ -194,9 +472,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Parallax effect for hero background shapes
 window.addEventListener('scroll', () => {
+    if (prefersReducedMotion) return;
     const scrolled = window.pageYOffset;
     const shapes = document.querySelectorAll('.bg-shape');
-    
+
     shapes.forEach((shape, index) => {
         const speed = 0.5 + (index * 0.1);
         shape.style.transform = `translateY(${scrolled * speed}px)`;
@@ -208,27 +487,27 @@ const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(contactForm);
         const name = formData.get('name');
         const email = formData.get('email');
         const subject = formData.get('subject');
         const message = formData.get('message');
-        
+
         // Simple validation
         if (!name || !email || !subject || !message) {
             alert('Please fill in all fields');
             return;
         }
-        
+
         // Simulate form submission
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
+
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitBtn.disabled = true;
-        
+
         setTimeout(() => {
             alert('Thank you for your message! I\'ll get back to you soon.');
             contactForm.reset();
@@ -243,30 +522,32 @@ document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-15px) scale(1.02)';
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0) scale(1)';
     });
 });
 
 // Add click effect to buttons
-document.querySelectorAll('.btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        let ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        this.appendChild(ripple);
-        
-        let x = e.clientX - e.target.offsetLeft;
-        let y = e.clientY - e.target.offsetTop;
-        
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-        
-        setTimeout(() => {
-            ripple.remove();
-        }, 600);
+if (!prefersReducedMotion) {
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            let ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+
+            let x = e.clientX - e.target.offsetLeft;
+            let y = e.clientY - e.target.offsetTop;
+
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     });
-});
+}
 
 // Add ripple effect CSS
 const rippleCSS = `
@@ -297,6 +578,62 @@ const style = document.createElement('style');
 style.textContent = rippleCSS;
 document.head.appendChild(style);
 
+// Tooltip CSS for orbit satellites (hover/focus)
+const tooltipCSS = `
+.satellite[data-tooltip] {
+    position: absolute;
+}
+.satellite[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(17, 24, 39, 0.95);
+    color: white;
+    font-size: 12px;
+    line-height: 1;
+    padding: 6px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms ease, transform 150ms ease;
+    z-index: 50;
+}
+.satellite[data-tooltip]::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(17, 24, 39, 0.95);
+    opacity: 0;
+    transition: opacity 150ms ease;
+    z-index: 50;
+}
+.satellite[data-tooltip]:hover::after,
+.satellite[data-tooltip]:focus::after,
+.satellite[data-tooltip]:hover::before,
+.satellite[data-tooltip]:focus::before {
+    opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+    .satellite[data-tooltip]::after,
+    .satellite[data-tooltip]::before {
+        transition: none;
+    }
+}
+`;
+
+// Inject tooltip CSS
+const tooltipStyle = document.createElement('style');
+tooltipStyle.textContent = tooltipCSS;
+document.head.appendChild(tooltipStyle);
+
 // Scroll indicator functionality
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
@@ -305,7 +642,7 @@ if (scrollIndicator) {
             behavior: 'smooth'
         });
     });
-    
+
     // Hide scroll indicator after scrolling
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
@@ -371,7 +708,7 @@ document.head.appendChild(preloaderStyle);
 function createParticles() {
     const hero = document.querySelector('.hero');
     const particleCount = 50;
-    
+
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -412,47 +749,120 @@ const particleCSS = `
 `;
 
 // Inject particle CSS and create particles
-const particleStyle = document.createElement('style');
-particleStyle.textContent = particleCSS;
-document.head.appendChild(particleStyle);
-
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(createParticles, 2000);
-});
-
-// Theme toggle functionality (bonus feature)
-function createThemeToggle() {
-    const themeToggle = document.createElement('button');
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    themeToggle.className = 'theme-toggle';
-    themeToggle.style.cssText = `
-        position: fixed;
-        top: 50%;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: none;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        cursor: pointer;
-        z-index: 1000;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-    `;
-    
-    document.body.appendChild(themeToggle);
-    
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-        const icon = themeToggle.querySelector('i');
-        if (document.body.classList.contains('dark-theme')) {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
-        }
+if (!prefersReducedMotion) {
+    const particleStyle = document.createElement('style');
+    particleStyle.textContent = particleCSS;
+    document.head.appendChild(particleStyle);
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(createParticles, 2000);
     });
 }
 
-// Create theme toggle
-document.addEventListener('DOMContentLoaded', createThemeToggle);
+// Theme toggle removed per request (no floating button created)
+
+// Build the Technology Orbit from the Skills grid
+document.addEventListener('DOMContentLoaded', () => {
+    const orbitRoots = Array.from(document.querySelectorAll('.tech-orbit .orbit'));
+    const skills = Array.from(document.querySelectorAll('#skills .skills-grid .skill-pill'));
+    if (orbitRoots.length === 0 || skills.length === 0) return;
+
+    // Respect reduced motion: skip float animations only (rings already disabled via CSS media query)
+    const rm = prefersReducedMotion;
+
+    orbitRoots.forEach((orbitRoot) => {
+        // Gather ring elements and their radii
+        const rings = [
+            orbitRoot.querySelector('.ring-1'),
+            orbitRoot.querySelector('.ring-2'),
+            orbitRoot.querySelector('.ring-3')
+        ].filter(Boolean);
+        if (rings.length === 0) return;
+
+        // Compute radii using actual layout sizes
+        const radii = rings.map(r => (r.getBoundingClientRect().width || r.clientWidth || 0) / 2);
+        const totalRadius = radii.reduce((a, b) => a + b, 0) || 1;
+
+        const total = skills.length;
+        // Distribute satellites proportionally by circumference (radius)
+        let counts = radii.map(r => Math.max(1, Math.floor(total * (r / totalRadius))));
+        // Adjust to match exactly the total count
+        let diff = total - counts.reduce((a, b) => a + b, 0);
+        while (diff !== 0) {
+            if (diff > 0) {
+                // give extra to the largest ring(s)
+                const idx = counts.indexOf(Math.max(...counts));
+                counts[idx] += 1; diff -= 1;
+            } else {
+                // remove from the largest ring(s)
+                const idx = counts.indexOf(Math.max(...counts));
+                if (counts[idx] > 1) { counts[idx] -= 1; diff += 1; } else { break; }
+            }
+        }
+
+        const centerX = orbitRoot.clientWidth / 2;
+        const centerY = orbitRoot.clientHeight / 2;
+
+        let skillIdx = 0; // reset per orbit to render the same set/order for each duplicate
+        rings.forEach((ringEl, ringIdx) => {
+            const count = counts[ringIdx];
+            const radius = radii[ringIdx];
+            if (!count || !radius) return;
+
+            for (let i = 0; i < count; i++) {
+                const btn = skills[skillIdx % total];
+                const label = btn.getAttribute('aria-label') || btn.querySelector('.label')?.textContent?.trim() || 'Skill';
+
+                // Create satellite
+                const sat = document.createElement('div');
+                sat.className = 'satellite';
+                sat.setAttribute('role', 'img');
+                sat.setAttribute('aria-label', label);
+                // Native title for default tooltip fallback
+                sat.title = label;
+                // Custom tooltip content and keyboard focusability
+                sat.setAttribute('data-tooltip', label);
+                sat.tabIndex = 0;
+
+                // Clone icon (img or svg)
+                const img = btn.querySelector('img.brand-icon');
+                const svg = btn.querySelector('svg');
+                if (img) {
+                    const icon = img.cloneNode(true);
+                    icon.removeAttribute('class');
+                    icon.setAttribute('aria-hidden', 'true');
+                    sat.appendChild(icon);
+                } else if (svg) {
+                    const icon = svg.cloneNode(true);
+                    icon.removeAttribute('width');
+                    icon.removeAttribute('height');
+                    icon.setAttribute('aria-hidden', 'true');
+                    sat.appendChild(icon);
+                } else {
+                    const fallback = document.createElement('span');
+                    fallback.textContent = label[0] || '?';
+                    sat.appendChild(fallback);
+                }
+
+                // Position on ring
+                const angle = (i / count) * Math.PI * 2; // radians
+                const satHalf = 20; // approximate half of 40px satellite
+                const effR = Math.max(0, radius - satHalf - 4);
+                const x = centerX + effR * Math.cos(angle) - satHalf;
+                const y = centerY + effR * Math.sin(angle) - satHalf;
+                sat.style.left = `${x}px`;
+                sat.style.top = `${y}px`;
+
+                // Gentle float animation with randomization (skip on reduced motion)
+                if (!rm) {
+                    const useY = Math.random() > 0.5;
+                    const dur = (5 + Math.random() * 3).toFixed(2);
+                    const delay = (Math.random() * 2).toFixed(2);
+                    sat.style.animation = `${useY ? 'float-y' : 'float-x'} ${dur}s ease-in-out ${delay}s infinite`;
+                }
+
+                orbitRoot.appendChild(sat);
+                skillIdx++;
+            }
+        });
+    });
+});

@@ -1,389 +1,1123 @@
-{% extends "main.html" %}
-{% block tabs %}
-  {{ super() }}
-  <style>
-    .md-header { position: initial }
-    .md-main__inner { margin: 0 }
-    .md-content { display: none }
-    @media screen and (min-width: 60em) {
-      .md-sidebar--secondary { display: none }
+{% extends "main.html" %} {% block tabs %} {{ super() }}
+<!-- Devicon icon set for technology logos -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+/>
+<style>
+  .md-header {
+    position: initial;
+  }
+  .md-main__inner {
+    margin: 0;
+  }
+  .md-content {
+    display: none;
+  }
+  @media screen and (min-width: 60em) {
+    .md-sidebar--secondary {
+      display: none;
     }
-    @media screen and (min-width: 76.25em) {
-      .md-sidebar--primary { display: none }
+  }
+  @media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+      display: none;
     }
-    /* Typing effect styles */
-    .hero-subtitle { display: flex; align-items: center; gap: 0.25rem }
-    .typing-text {
-      white-space: nowrap;
-      display: inline-block;
-      will-change: contents;
-      contain: layout paint;
-      font-variant-ligatures: none;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      transform: translateZ(0); /* promote to its own layer to reduce paint flicker */
+  }
+  /* Typing effect styles */
+  .hero-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .typing-text {
+    white-space: nowrap;
+    display: inline-block;
+    will-change: contents;
+    contain: layout paint;
+    font-variant-ligatures: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateZ(
+      0
+    ); /* promote to its own layer to reduce paint flicker */
+  }
+  /* Blinking caret used next to typing text and section titles */
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: currentColor;
+    margin-left: 6px;
+    align-self: center;
+    animation: blink 1s steps(1, end) infinite;
+  }
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 1;
     }
-    /* Use a CSS caret (pseudo-element) to avoid layout shifts */
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cursor {
+      animation: none;
+    }
+  }
+  /* Use a CSS caret (pseudo-element) to avoid layout shifts */
 
-  </style>
+  /* Import Devicon icon set for technology logos */
+  @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
 
-  
+  /* Skills section styles (logo cloud) */
+  .skills {
+    position: relative;
+    padding: 4rem 0;
+  }
+  .skills .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  @media (min-width: 600px) {
+    .skills-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 900px) {
+    .skills-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  .skill-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.03)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    color: var(--md-default-fg-color);
+    transition: transform 200ms ease, background 200ms ease,
+      border-color 200ms ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-clip: padding-box;
+    border-width: 1px;
+    border-style: solid;
+    cursor: default;
+  }
+  .skill-pill i {
+    font-size: 1.15rem;
+  }
+  .skill-pill svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: inline-block;
+    fill: currentColor;
+  }
+  .skill-pill .label {
+    font-size: 0.9rem;
+  }
+  .skill-pill img.brand-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: inline-block;
+    object-fit: contain;
+  }
+  .skill-pill:hover,
+  .skill-pill:focus-within {
+    border-color: rgba(59, 130, 246, 0.35);
+  }
+  .skill-pill:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.6);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .skill-pill:hover {
+      transform: translateY(-2px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skill-pill {
+      transition: none;
+    }
+  }
+  .skills-legend {
+    text-align: center;
+    margin-top: 1rem;
+    opacity: 0.8;
+    font-size: 0.85rem;
+  }
 
-  <!-- Hero Section -->
-  <section id="home" class="hero">
-      <div class="hero-container">
-          <div class="hero-content">
-              <div class="hero-text">
-                  <h1 class="hero-title">
-                      
-                      <span class="name">Shivam Anand</span>
-                  </h1>
-                  <div class="hero-subtitle">
-                      <span class="typing-text"></span>
-                      <span class="cursor"></span>
-                  </div>
+  /* About section: compact, visual, animated (with reduced-motion support) */
+  .about {
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
+  }
+  .about .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 
+  /* Orbit visual */
+  .about-visual {
+    display: grid;
+    place-items: center;
+  }
+  .orbit {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+  .orbit .core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  .orbit .core img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .orbit .orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+  }
+  .orbit .ring-1 {
+    width: 220px;
+    height: 220px;
+    animation: slow-rotate 40s linear infinite;
+  }
+  .orbit .ring-2 {
+    width: 300px;
+    height: 300px;
+    animation: slow-rotate-rev 60s linear infinite;
+  }
+  .orbit .ring-3 {
+    width: 360px;
+    height: 360px;
+    animation: slow-rotate 80s linear infinite;
+  }
+  /* Technology Orbit specific sizing */
+  .tech-orbit .orbit {
+    width: 420px;
+    height: 420px;
+  }
+  .tech-orbit .ring-1 {
+    width: 260px;
+    height: 260px;
+  }
+  .tech-orbit .ring-2 {
+    width: 360px;
+    height: 360px;
+  }
+  .tech-orbit .ring-3 {
+    width: 420px;
+    height: 420px;
+  }
+  .tech-orbit .satellite {
+    width: 40px;
+    height: 40px;
+  }
+  .orbit .satellite {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  .orbit .satellite img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  .orbit .satellite svg {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    fill: currentColor;
+  }
+  /* Satellite positions */
+  .orbit .s1 {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .orbit .s2 {
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+  }
+  .orbit .s3 {
+    bottom: 12px;
+    left: 12px;
+  }
 
-                  <div class="social-links">
-                      <a href="https://www.linkedin.com/in/anandshivam44/" target="_blank" class="social-link">
-                          <i class="fab fa-linkedin-in"></i>
-                      </a>
-                      <a href="https://github.com/anandshivam44" target="_blank" class="social-link">
-                          <i class="fab fa-github"></i>
-                      </a>
-                      <a href="mailto:your.email@example.com" class="social-link">
-                          <i class="fas fa-envelope"></i>
-                      </a>
-                  </div>
-              </div>
-              <div class="hero-image">
-                  <div class="image-container">
-                      <img src="{{ 'home/assets/images/shivam-image.png' | url }}" alt="Shivam Anand" class="profile-image">
-                      <div class="image-bg"></div>
-                      <div class="floating-elements">
-                          <div class="floating-element element-1">
-                              <i class="fab fa-react"></i>
-                          </div>
-                          <div class="floating-element element-2">
-                              <i class="fab fa-python"></i>
-                          </div>
-                          <div class="floating-element element-3">
-                              <i class="fab fa-js-square"></i>
-                          </div>
-                          <div class="floating-element element-4">
-                              <i class="fas fa-database"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="scroll-indicator">
-              <div class="scroll-arrow">
-                  <i class="fas fa-chevron-down"></i>
-              </div>
-          </div>
+  /* Gentle float animations */
+  @keyframes float-y {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes float-x {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  .orbit .s1 {
+    animation: float-y 6s ease-in-out infinite;
+  }
+  .orbit .s2 {
+    animation: float-x 7s ease-in-out infinite;
+  }
+  .orbit .s3 {
+    animation: float-y 5.5s ease-in-out infinite reverse;
+  }
+  @keyframes slow-rotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  @keyframes slow-rotate-rev {
+    from {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  /* Summary side */
+  .about-summary {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+  .about-summary .tagline {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .badge {
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.09),
+      rgba(255, 255, 255, 0.04)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.85rem;
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .tile {
+    padding: 1rem;
+    border-radius: 16px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.03)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: transform 200ms ease;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+  }
+  .tile .stat-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .tile .tile-label {
+    display: block;
+    opacity: 0.85;
+    font-size: 0.8rem;
+    margin-top: 0.15rem;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .orbit .s1,
+    .orbit .s2,
+    .orbit .s3 {
+      animation: none;
+    }
+    .orbit .ring-1,
+    .orbit .ring-2,
+    .orbit .ring-3 {
+      animation: none;
+    }
+    .tile {
+      transition: none;
+    }
+  }
+
+  /* Responsive sizing for Technology Orbit */
+  @media (max-width: 599px) {
+    .tech-orbit .orbit {
+      width: 320px;
+      height: 320px;
+    }
+    .tech-orbit .ring-1 {
+      width: 200px;
+      height: 200px;
+    }
+    .tech-orbit .ring-2 {
+      width: 280px;
+      height: 280px;
+    }
+    .tech-orbit .ring-3 {
+      width: 320px;
+      height: 320px;
+    }
+  }
+
+  /* Vertical Skills Carousel */
+  .skills-carousel {
+    position: relative;
+    margin: 1.5rem auto 0;
+    max-width: 520px;
+  }
+  .skills-carousel .carousel-viewport {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    margin-inline: auto;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 20%,
+      black 80%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 20%,
+      black 80%,
+      transparent 100%
+    );
+  }
+  .skills-carousel .carousel-track {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .skills-carousel .carousel-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 12px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    margin: 0.35rem auto;
+    width: 92%;
+    color: var(--md-default-fg-color);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 52px;
+  }
+  .skills-carousel .carousel-item.is-highlighted {
+    box-shadow: 0 0 20px -5px rgba(80, 150, 255, 0.5),
+      0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  .skills-carousel .carousel-item img,
+  .skills-carousel .carousel-item svg {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: inline-block;
+  }
+  .skills-carousel .carousel-item .text {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .skills-carousel .carousel-viewport:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.6);
+    outline-offset: 2px;
+  }
+  .skills-carousel .controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .skills-carousel .btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: inherit;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  .skills-carousel .btn:hover {
+    border-color: rgba(59, 130, 246, 0.35);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skills-carousel .carousel-track,
+    .skills-carousel .carousel-item {
+      transition: none;
+    }
+  }
+
+  /* Animated gradient background for Technology Orbit section (#stack / #stack-2) */
+  #stack-2,
+  #stack {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate; /* create a stacking context so ::before sits behind content */
+  }
+  #stack-2::before,
+  #stack::before {
+    content: "";
+    position: absolute;
+    inset: -2px; /* slight bleed to avoid seams on transforms */
+    z-index: -1;
+    /* Non-uniform, blotchy pastel field using layered radial gradients */
+    background: radial-gradient(
+        35% 45% at 15% 25%,
+        rgba(253, 224, 217, 0.95),
+        transparent 60%
+      ),
+      radial-gradient(
+        40% 50% at 85% 20%,
+        rgba(216, 227, 255, 0.95),
+        transparent 62%
+      ),
+      radial-gradient(
+        45% 40% at 75% 70%,
+        rgba(243, 217, 255, 0.95),
+        transparent 60%
+      ),
+      radial-gradient(
+        38% 42% at 25% 75%,
+        rgba(228, 255, 235, 0.95),
+        transparent 62%
+      ),
+      radial-gradient(
+        55% 60% at 50% 45%,
+        rgba(255, 231, 184, 0.9),
+        transparent 65%
+      ),
+      linear-gradient(
+        120deg,
+        #fde0d9,
+        #d8e3ff,
+        #ffe7b8,
+        #e4ffeb,
+        #f3d9ff,
+        #fde0d9
+      );
+    background-size: 140% 140%, /* blob 1 */ 160% 160%, /* blob 2 */ 170% 170%,
+      /* blob 3 */ 150% 150%, /* blob 4 */ 180% 180%, /* blob 5 */ 220% 220%; /* base wash */
+    background-position: 12% 28%, 88% 18%, 78% 72%, 22% 78%, 50% 46%, 100% 50%;
+    background-blend-mode: normal, normal, normal, normal, soft-light,
+      soft-light;
+    animation: stack2-blob-move 30s ease-in-out infinite;
+    filter: saturate(115%);
+    opacity: 1;
+    pointer-events: none;
+  }
+  @keyframes stack2-blob-move {
+    0% {
+      background-position: 12% 28%, 88% 18%, 78% 72%, 22% 78%, 50% 46%, 100% 50%;
+    }
+    50% {
+      background-position: 18% 22%, 82% 26%, 72% 66%, 28% 84%, 46% 52%, 0% 50%;
+    }
+    100% {
+      background-position: 12% 28%, 88% 18%, 78% 72%, 22% 78%, 50% 46%, 100% 50%;
+    }
+  }
+  /* Force animation for everyone on this section, even when reduced-motion is enabled */
+  @media (prefers-reduced-motion: reduce) {
+    #stack-2::before,
+    #stack::before {
+      animation: stack2-blob-move 30s ease-in-out infinite;
+    }
+  }
+</style>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="name">Shivam Anand</span>
+        </h1>
+        <div class="hero-subtitle">
+          <span class="typing-text"></span>
+          <span class="cursor"></span>
+        </div>
+        <p class="hero-description">
+          SRE and Cloud engineer focused on building resilient, secure,
+          multi‑region platforms. I design and operate identity and security
+          products with 99.95%+ availability, deep observability, and strong
+          compliance.
+        </p>
+        <div class="hero-buttons">
+          <a
+            href="#skills"
+            class="btn btn-primary"
+            aria-label="Jump to skills section"
+          >
+            <i class="fas fa-arrow-right"></i> About Me
+          </a>
+          <a
+            href="https://www.linkedin.com/in/anandshivam44/"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-secondary"
+            aria-label="Open LinkedIn profile in a new tab"
+          >
+            <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
+          </a>
+        </div>
+        <div class="social-links">
+          <a
+            href="https://www.linkedin.com/in/anandshivam44/"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            aria-label="LinkedIn"
+          >
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a
+            href="https://github.com/anandshivam44"
+            target="_blank"
+            rel="noopener"
+            class="social-link"
+            aria-label="GitHub"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
       </div>
-      <div class="hero-bg">
-          <div class="bg-shape shape-1"></div>
-          <div class="bg-shape shape-2"></div>
-          <div class="bg-shape shape-3"></div>
+      <div class="hero-image">
+        <div class="image-container">
+          <img
+            src="{{ 'home/assets/images/shivam-image.png' | url }}"
+            alt="Shivam Anand"
+            class="profile-image"
+          />
+          <div class="image-bg"></div>
+          <div class="floating-elements">
+            <div class="floating-element element-1">
+              <i class="fab fa-aws"></i>
+            </div>
+            <div class="floating-element element-2">
+              <i class="fab fa-docker"></i>
+            </div>
+            <div class="floating-element element-3">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="floating-element element-4">
+              <i class="fas fa-chart-line"></i>
+            </div>
+          </div>
+        </div>
       </div>
-  </section>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-arrow">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bg">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+  </div>
+</section>
 
-  <!-- About Section -->
-  <section id="about" class="about">
-      <div class="container">
-          <div class="section-header">
-              <h2 class="section-title">About Me</h2>
-              <p class="section-subtitle">Get to know me better</p>
+<!-- Technology Orbit Section -->
+<section id="stack" class="about tech-orbit" aria-labelledby="stack-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="stack-title" class="section-title">
+        Shivam Anand <span class="cursor" aria-hidden="true"></span>
+      </h2>
+      <!-- subtitle removed -->
+    </div>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div
+          class="orbit"
+          role="img"
+          aria-label="Rotating orbit of my technical skills"
+        >
+          <div class="core">
+            <img
+              src="{{ 'home/assets/images/shivam-image.png' | url }}"
+              alt=""
+              aria-hidden="true"
+            />
           </div>
-          <div class="about-content">
-              <div class="about-text">
-                  <h3>Passionate Developer & Problem Solver</h3>
-                  <p>
-                      I'm a dedicated software developer with a passion for creating innovative solutions 
-                      that make a difference. With expertise in modern web technologies and a keen eye for 
-                      user experience, I bring ideas to life through clean, efficient code.
-                  </p>
-                  <p>
-                      My journey in technology has been driven by curiosity and a constant desire to learn. 
-                      I enjoy tackling complex challenges and collaborating with teams to build products 
-                      that users love.
-                  </p>
-                  <div class="stats">
-                      <div class="stat">
-                          <span class="stat-number">50+</span>
-                          <span class="stat-label">Projects Completed</span>
-                      </div>
-                      <div class="stat">
-                          <span class="stat-number">3+</span>
-                          <span class="stat-label">Years Experience</span>
-                      </div>
-                      <div class="stat">
-                          <span class="stat-number">100%</span>
-                          <span class="stat-label">Client Satisfaction</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="about-skills">
-                  <h3>What I Do</h3>
-                  <div class="skills-grid">
-                      <div class="skill-card">
-                          <div class="skill-icon">
-                              <i class="fas fa-code"></i>
-                          </div>
-                          <h4>Web Development</h4>
-                          <p>Creating responsive, modern web applications with the latest technologies.</p>
-                      </div>
-                      <div class="skill-card">
-                          <div class="skill-icon">
-                              <i class="fas fa-mobile-alt"></i>
-                          </div>
-                          <h4>Mobile Development</h4>
-                          <p>Building cross-platform mobile applications for iOS and Android.</p>
-                      </div>
-                      <div class="skill-card">
-                          <div class="skill-icon">
-                              <i class="fas fa-database"></i>
-                          </div>
-                          <h4>Backend Development</h4>
-                          <p>Designing scalable server-side solutions and database architectures.</p>
-                      </div>
-                      <div class="skill-card">
-                          <div class="skill-icon">
-                              <i class="fas fa-paint-brush"></i>
-                          </div>
-                          <h4>UI/UX Design</h4>
-                          <p>Creating intuitive and beautiful user interfaces and experiences.</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-ring ring-2"></div>
+          <div class="orbit-ring ring-3"></div>
+          <!-- Satellites will be injected by script.js -->
+        </div>
       </div>
-  </section>
+      <div class="about-summary">
+        <!-- Vertical Skills Carousel (moved here) -->
+        <div
+          class="skills-carousel"
+          aria-label="Vertically scrolling list of key skills with logos"
+        >
+          <div class="carousel-viewport" tabindex="0">
+            <div class="carousel-track" role="list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Skills Section -->
-  <section id="skills" class="skills">
-      <div class="container">
-          <div class="section-header">
-              <h2 class="section-title">Technical Skills</h2>
-              <p class="section-subtitle">Technologies I work with</p>
+<!-- Technology Orbit Section (Duplicate) -->
+<section id="stack-2" class="about tech-orbit" aria-labelledby="stack-2-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="stack-2-title" class="section-title">Technology Orbit</h2>
+      <!-- subtitle removed -->
+    </div>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div
+          class="orbit"
+          role="img"
+          aria-label="Rotating orbit of my technical skills"
+        >
+          <div class="core">
+            <img
+              src="{{ 'home/assets/images/shivam-image.png' | url }}"
+              alt=""
+              aria-hidden="true"
+            />
           </div>
-          <div class="skills-container">
-              <div class="skill-category">
-                  <h3>Frontend</h3>
-                  <div class="skill-items">
-                      <div class="skill-item">
-                          <i class="fab fa-react"></i>
-                          <span>React</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fab fa-js-square"></i>
-                          <span>JavaScript</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fab fa-html5"></i>
-                          <span>HTML5</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fab fa-css3-alt"></i>
-                          <span>CSS3</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="skill-category">
-                  <h3>Backend</h3>
-                  <div class="skill-items">
-                      <div class="skill-item">
-                          <i class="fab fa-python"></i>
-                          <span>Python</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fab fa-node-js"></i>
-                          <span>Node.js</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fas fa-database"></i>
-                          <span>MongoDB</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fas fa-server"></i>
-                          <span>Express.js</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="skill-category">
-                  <h3>Tools & Others</h3>
-                  <div class="skill-items">
-                      <div class="skill-item">
-                          <i class="fab fa-git-alt"></i>
-                          <span>Git</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fab fa-docker"></i>
-                          <span>Docker</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fab fa-aws"></i>
-                          <span>AWS</span>
-                      </div>
-                      <div class="skill-item">
-                          <i class="fas fa-cloud"></i>
-                          <span>Cloud Services</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-ring ring-2"></div>
+          <div class="orbit-ring ring-3"></div>
+          <!-- Satellites will be injected by script.js -->
+        </div>
       </div>
-  </section>
+      <div class="about-summary">
+        <!-- Vertical Skills Carousel (moved here) -->
+        <div
+          class="skills-carousel"
+          aria-label="Vertically scrolling list of key skills with logos"
+        >
+          <div class="carousel-viewport" tabindex="0">
+            <div class="carousel-track" role="list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="projects">
-      <div class="container">
-          <div class="section-header">
-              <h2 class="section-title">Featured Projects</h2>
-              <p class="section-subtitle">Some of my recent work</p>
-          </div>
-          <div class="projects-grid">
-              <div class="project-card">
-                  <div class="project-image">
-                      <div class="project-overlay">
-                          <div class="project-links">
-                              <a href="#" class="project-link">
-                                  <i class="fas fa-external-link-alt"></i>
-                              </a>
-                              <a href="#" class="project-link">
-                                  <i class="fab fa-github"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="project-content">
-                      <h3>E-Commerce Platform</h3>
-                      <p>A full-stack e-commerce solution with modern UI and secure payment integration.</p>
-                      <div class="project-tech">
-                          <span class="tech-tag">React</span>
-                          <span class="tech-tag">Node.js</span>
-                          <span class="tech-tag">MongoDB</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="project-card">
-                  <div class="project-image">
-                      <div class="project-overlay">
-                          <div class="project-links">
-                              <a href="#" class="project-link">
-                                  <i class="fas fa-external-link-alt"></i>
-                              </a>
-                              <a href="#" class="project-link">
-                                  <i class="fab fa-github"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="project-content">
-                      <h3>Task Management App</h3>
-                      <p>A collaborative task management application with real-time updates and team features.</p>
-                      <div class="project-tech">
-                          <span class="tech-tag">Vue.js</span>
-                          <span class="tech-tag">Python</span>
-                          <span class="tech-tag">PostgreSQL</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="project-card">
-                  <div class="project-image">
-                      <div class="project-overlay">
-                          <div class="project-links">
-                              <a href="#" class="project-link">
-                                  <i class="fas fa-external-link-alt"></i>
-                              </a>
-                              <a href="#" class="project-link">
-                                  <i class="fab fa-github"></i>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="project-content">
-                      <h3>Data Analytics Dashboard</h3>
-                      <p>An interactive dashboard for data visualization and business intelligence.</p>
-                      <div class="project-tech">
-                          <span class="tech-tag">React</span>
-                          <span class="tech-tag">D3.js</span>
-                          <span class="tech-tag">Python</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+<!-- Skills Section -->
+<section id="skills" class="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="skills-title" class="section-title">Technical Skills</h2>
+      <p class="section-subtitle">
+        Cloud, platform, security and observability
+      </p>
+    </div>
+    <div class="skills-grid" role="list">
+      <!-- Cloud & Infra -->
+      <button
+        class="skill-pill"
+        role="listitem"
+        aria-label="Amazon Web Services"
+      >
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/aws.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">AWS</span>
+      </button>
+      <button
+        class="skill-pill"
+        role="listitem"
+        aria-label="Google Cloud Platform"
+      >
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/gcp.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">GCP</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Microsoft Azure">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/azure.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Azure</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Linux">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/linux.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Linux</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Kubernetes">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/kubernetes.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Kubernetes</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Terraform">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/terraform.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Terraform</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="CloudFormation">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/cloudformation.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">CloudFormation</span>
+      </button>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
-      <div class="container">
-          <div class="section-header">
-              <h2 class="section-title">Get In Touch</h2>
-              <p class="section-subtitle">Let's work together</p>
-          </div>
-          <div class="contact-content">
-              <div class="contact-info">
-                  <h3>Let's Connect</h3>
-                  <p>
-                      I'm always interested in new opportunities and exciting projects. 
-                      Whether you have a question or just want to say hi, feel free to reach out!
-                  </p>
-                  <div class="contact-details">
-                      <div class="contact-item">
-                          <i class="fas fa-envelope"></i>
-                          <span>your.email@example.com</span>
-                      </div>
-                      <div class="contact-item">
-                          <i class="fas fa-phone"></i>
-                          <span>+1 (555) 123-4567</span>
-                      </div>
-                      <div class="contact-item">
-                          <i class="fas fa-map-marker-alt"></i>
-                          <span>Your City, Country</span>
-                      </div>
-                  </div>
-              </div>
-              <form class="contact-form">
-                  <div class="form-group">
-                      <input type="text" id="name" name="name" placeholder="Your Name" required>
-                  </div>
-                  <div class="form-group">
-                      <input type="email" id="email" name="email" placeholder="Your Email" required>
-                  </div>
-                  <div class="form-group">
-                      <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                  </div>
-                  <div class="form-group">
-                      <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary">
-                      <i class="fas fa-paper-plane"></i>
-                      Send Message
-                  </button>
-              </form>
-          </div>
-      </div>
-  </section>
+      <!-- Platform & Automation -->
+      <button class="skill-pill" role="listitem" aria-label="Jenkins">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/jenkins.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Jenkins</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="GitHub Actions">
+        <!-- Inline SVG: GitHub mark for reliable rendering -->
+        <svg
+          viewBox="0 0 16 16"
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8Z"
+          ></path>
+        </svg>
+        <span class="label">GitHub Actions</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Ansible">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/ansible.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Ansible</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="ArgoCD">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/argo.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">ArgoCD</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Docker">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/docker.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Docker</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="CI slash CD">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/cicd.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">CI/CD</span>
+      </button>
 
-  <!-- Footer -->
-  <footer class="footer">
-      <div class="container">
-          <div class="footer-content">
-              <p>&copy; 2024 Shivam Anand. All rights reserved.</p>
-              <div class="footer-links">
-                  <a href="#home">Home</a>
-                  <a href="#about">About</a>
-                  <a href="#projects">Projects</a>
-                  <a href="#contact">Contact</a>
-              </div>
-          </div>
+      <!-- Datastores & Messaging -->
+      <button class="skill-pill" role="listitem" aria-label="PostgreSQL">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/postgresql.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">PostgreSQL</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Redis">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/redis.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Redis</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Apache Kafka">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/kafka.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Kafka</span>
+      </button>
+
+      <!-- Observability & Security -->
+      <button class="skill-pill" role="listitem" aria-label="Prometheus">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/prometheus.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Prometheus</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Grafana">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/grafana.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Grafana</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="OpenTelemetry">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/opentelemetry.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">OpenTelemetry</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="PagerDuty">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/pagerduty.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">PagerDuty</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="OpenSearch">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/opensearch.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">OpenSearch</span>
+      </button>
+
+      <!-- Languages & Tooling -->
+      <button class="skill-pill" role="listitem" aria-label="Python">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/python.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Python</span>
+      </button>
+
+      <button class="skill-pill" role="listitem" aria-label="JFrog">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/jfrog.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">JFrog</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="OpenSSL">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/openssl.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">OpenSSL</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="SQL">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/sql.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">SQL</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="Scripting">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/scripting.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Scripting</span>
+      </button>
+
+      <!-- Practices -->
+      <button class="skill-pill" role="listitem" aria-label="DevOps">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/devops.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">DevOps</span>
+      </button>
+      <button class="skill-pill" role="listitem" aria-label="DevSecOps">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/devsecops.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">DevSecOps</span>
+      </button>
+
+      <!-- Not in Devicon or generic fallbacks -->
+      <button class="skill-pill" role="listitem" aria-label="Jeli">
+        <img
+          class="brand-icon"
+          src="{{ 'home/assets/icons/jeli.svg' | url }}"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="label">Jeli</span>
+      </button>
+    </div>
+    <p class="skills-legend">
+      Logos via Devicon & Font Awesome. Motion is minimized for accessibility.
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <p>&copy; 2025 Shivam Anand. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#skills">Skills</a>
       </div>
-  </footer>
- 
- {% endblock %}
- {% block content %}{% endblock %}
- {% block footer %}{% endblock %}
+    </div>
+  </div>
+</footer>
+
+{% endblock %} {% block content %}{% endblock %} {% block footer %}{% endblock
+%}
