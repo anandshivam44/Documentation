@@ -55,9 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // immediately after the actual text content (not after a wide box)
         const container = typingText.parentElement; // .hero-subtitle
         if (container) {
-            container.style.display = 'inline-flex';
+            // Use block-level flex so it stacks under the H2, and center contents
+            container.style.display = 'flex';
             container.style.alignItems = 'center';
-            container.style.minWidth = width + 'px';
+            container.style.justifyContent = 'center';
+            // Avoid forcing a wide inline box which can place it on the same line as the H2
+            container.style.minWidth = '';
         }
 
         // Let the text span size to its content
@@ -74,10 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reduce motion: skip typewriter animation and show a stable role
     if (prefersReducedMotion) {
         typingText.textContent = 'Site Reliability Engineering';
-        // Disable cursor blink via CSS override
-        const styleRM = document.createElement('style');
-        styleRM.textContent = '@media (prefers-reduced-motion: reduce){ .cursor{ animation: none !important; } }';
-        document.head.appendChild(styleRM);
+
         return; // abort typewriter
     }
 
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!carouselRoot || !track || !viewport) return;
 
     // Source skills from existing grid
-    const sourceItems = Array.from(document.querySelectorAll('#skills .skills-grid .skill-pill'));
+    const sourceItems = Array.from(document.querySelectorAll('#skills-data .skill-pill'));
     if (sourceItems.length === 0) return;
 
     // Build item elements
@@ -704,9 +704,10 @@ const preloaderStyle = document.createElement('style');
 preloaderStyle.textContent = preloaderCSS;
 document.head.appendChild(preloaderStyle);
 
-// Particle effect for hero section
+// Particle effect for hero section (guard when hero is removed)
 function createParticles() {
     const hero = document.querySelector('.hero');
+    if (!hero) return; // no hero present, skip
     const particleCount = 50;
 
     for (let i = 0; i < particleCount; i++) {
@@ -749,7 +750,8 @@ const particleCSS = `
 `;
 
 // Inject particle CSS and create particles
-if (!prefersReducedMotion) {
+const hasHero = document.querySelector('.hero');
+if (!prefersReducedMotion && hasHero) {
     const particleStyle = document.createElement('style');
     particleStyle.textContent = particleCSS;
     document.head.appendChild(particleStyle);
@@ -763,13 +765,28 @@ if (!prefersReducedMotion) {
 // Build the Technology Orbit from the Skills grid
 document.addEventListener('DOMContentLoaded', () => {
     const orbitRoots = Array.from(document.querySelectorAll('.tech-orbit .orbit'));
-    const skills = Array.from(document.querySelectorAll('#skills .skills-grid .skill-pill'));
+    const rawSkills = Array.from(document.querySelectorAll('#skills-data .skill-pill'));
+    const seen = new Set();
+    const skills = rawSkills.filter(btn => {
+        const label = btn.getAttribute('aria-label') || btn.querySelector('.label')?.textContent?.trim() || 'Skill';
+        if (seen.has(label)) return false;
+        seen.add(label);
+        return true;
+    });
     if (orbitRoots.length === 0 || skills.length === 0) return;
 
     // Respect reduced motion: skip float animations only (rings already disabled via CSS media query)
     const rm = prefersReducedMotion;
 
     orbitRoots.forEach((orbitRoot) => {
+        // Guard: prevent double-initialization if script runs again (e.g., HMR/live reload)
+        if (orbitRoot.dataset.orbitBuilt === 'true') {
+            return;
+        }
+        orbitRoot.dataset.orbitBuilt = 'true';
+
+        // If satellites already present (from previous runs), clear them to avoid duplicates
+        orbitRoot.querySelectorAll('.satellite').forEach(n => n.remove());
         // Gather ring elements and their radii
         const rings = [
             orbitRoot.querySelector('.ring-1'),
