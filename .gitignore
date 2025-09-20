@@ -130,3 +130,6 @@ dmypy.json
 
 **DS_Store**
 no-git
+
+# Personal files (do not version)
+/Resume Shivam Anand.md
