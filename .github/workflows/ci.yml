@@ -2,21 +2,30 @@ name: ci
 on:
   push:
     branches:
+      # Track both common default branch names to trigger on push
       - master 
       - main
 permissions:
+  # Allow the workflow to push to the gh-pages branch during deployment
   contents: write
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Check out repository code so MkDocs can build the site
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
+          # Use latest Python 3.x to build and deploy the MkDocs site
           python-version: 3.x
       - uses: actions/cache@v4
         with:
+          # Cache MkDocs build artifacts per ref to speed up subsequent runs
           key: ${{ github.ref }}
+          # Default cache directory used by MkDocs and some plugins
           path: .cache
+      # Install MkDocs and any theme/plugins defined in requirements.txt
       - run: pip install -r requirements.txt
+      # Build and publish the site to the gh-pages branch
+      # --force overwrites the remote history of gh-pages for a clean deploy
       - run: mkdocs gh-deploy --force

@@ -12,7 +12,6 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: var(--sa-text-primary);
     overflow-x: hidden;

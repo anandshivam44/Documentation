@@ -129,58 +129,11 @@
   --sa-chrome-contrast: #E2E8F0;
 }
 
-/* Header */
+/* Header & nav are intentionally NOT overridden here to keep site-wide
+   consistency. Home-specific design should not affect the global
+   Material navigation or footer. */
 body { background: var(--sa-bg-gradient); }
-.md-header {
-  background-color: var(--sa-chrome);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--sa-chrome-contrast);
-  box-shadow: none;
-  border-bottom: 1px solid var(--sa-chrome-border);
-}
-.md-header .md-header__title,
-.md-header .md-header__button,
-.md-header .md-search__input,
-.md-header .md-search__icon {
-  color: var(--sa-chrome-contrast);
-}
-.md-search__input::placeholder { color: var(--sa-chrome-contrast); opacity: .6; }
-.md-search__input:focus { background-color: var(--sa-bg); }
 
-/* Tabs under header */
-.md-tabs {
-  background: transparent;
-  border-bottom: 1px solid var(--sa-chrome-border);
-}
-.md-tabs__link {
-  color: var(--sa-chrome-contrast);
-  opacity: .8;
-  transition: color .2s ease, opacity .2s ease;
-}
-.md-tabs__link:hover, .md-tabs__link:focus {
-  color: var(--sa-accent);
-  opacity: 1;
-}
-.md-tabs__link--active {
-  color: var(--sa-accent) !important;
-  opacity: 1;
-  font-weight: 600;
-  border-bottom: 2px solid var(--sa-accent);
-}
-
-/* Footer */
-.md-footer {
-  background-color: var(--sa-chrome);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--sa-chrome-contrast);
-  border-top: 1px solid var(--sa-chrome-border);
-}
-.md-footer-meta { background-color: transparent; }
-.md-footer a {
-  color: var(--sa-accent);
-  transition: color .2s ease;
-}
-.md-footer a:hover { color: var(--sa-accent); opacity: 0.8; }
-
+/* Navigation and footer overrides removed. If you need to style parts of the
+   home page, scope your selectors to elements within the page content (e.g.,
+   .mdx-container.hero, #stack, .about, etc.). */
