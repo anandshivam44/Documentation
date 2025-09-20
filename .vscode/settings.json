@@ -1,0 +1,41 @@
+{
+  "python.languageServer": "None",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.next": true,
+
+    "**/out": true,
+    "**/.turbo": true,
+    "**/.vercel": true,
+    "**/.eslintcache": true,
+    "**/.cache": true,
+    "**/coverage": true,
+    "**/.nyc_output": true,
+    "**/cypress/videos/**": true,
+    "**/cypress/screenshots/**": true,
+    "**/playwright-report/**": true,
+    "**/test-results/**": true,
+
+    "**/__pycache__/**": true,
+    "**/.pytest_cache/**": true,
+    "**/.mypy_cache/**": true,
+    "**/.ruff_cache/**": true,
+    "**/.tox/**": true,
+    "**/.venv/**": true,
+    "**/venv/**": true,
+
+    "**/.terraform/**": true,
+    "**/*.tfstate": true,
+    "**/*.tfstate.*": true,
+    "**/*.tfplan": true,
+    "**/crash.log": true,
+    "**/.terragrunt-cache/**": true,
+
+    "**/*.log": true,
+    "**/logs/**": true,
+    "**/tmp/**": true,
+    "**/site/**": true,
+    "**/.DS_Store": true
+  }
+}
