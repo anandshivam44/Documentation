@@ -25,11 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const texts = [
         'Site Reliability Engineering',
-        'Cloud Architecture (AWS & GCP)',
-        'Identity Security',
-        'Kubernetes & Terraform',
-        'Observability',
-        'DevSecOps & GitOps'
+        'Cybersecurity',
+        'Cloud Architect',
+        'DevSecOps, Cloud Infrastructure and Platform Engineering'
     ];
 
     // Stabilize layout: set min-width to longest word to avoid container reflow
