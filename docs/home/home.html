@@ -1050,12 +1050,61 @@
   <!-- Not in Devicon or generic fallbacks -->
   <button class="skill-pill" role="listitem" aria-label="Jeli">
     <img
-      class="brand-icon"
       src="{{ 'home/assets/icons/jeli.svg' | url }}"
       alt=""
     />
   </button>
-</div>
+  </div>
+
+<!-- Timeline Section -->
+<section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="timeline-title" class="section-title">Timeline</h2>
+    </div>
+
+    <!-- External data source for timeline -->
+    <div data-timeline-src="{{ 'home/assets/data/timeline.json' | url }}"></div>
+
+    <ul class="timeline" role="list">
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2021</span></div>
+          <h3 class="headline">Platform Launch</h3>
+          <p class="description">Kicked off the journey with a secure, reliable foundation.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2022</span></div>
+          <h3 class="headline">Scale & Reliability</h3>
+          <p class="description">Hardened SRE practices and scaled services globally.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2023</span></div>
+          <h3 class="headline">Security by Design</h3>
+          <p class="description">Shift-left security and DevSecOps integrated across pipelines.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2024</span></div>
+          <h3 class="headline">Multi-Cloud Footprint</h3>
+          <p class="description">Multi-region automation, failover, and observability excellence.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2025</span></div>
+          <h3 class="headline">AI-Driven Ops</h3>
+          <p class="description">Proactive incident analysis and self-healing systems.</p>
+        </article>
+      </li>
+    </ul>
+  </div>
+</section>
 
 <!-- Footer -->
 <footer class="footer">
@@ -1069,14 +1118,15 @@
   </div>
 </footer>
 
-{% endblock %} {% block content %}{% endblock %} {% block footer %}{% endblock
-%}
+{% endblock %} {% block content %}{% endblock %} {% block footer %}{% endblock %}
 {% block styles %}
   {{ super() }}
   <link rel="stylesheet" href="{{ 'home/assets/stylesheets/extra.css' | url }}">
   <link rel="stylesheet" href="{{ 'home/assets/stylesheets/portfolio/styles.css' | url }}">
+  <link rel="stylesheet" href="{{ 'home/assets/stylesheets/timeline.css' | url }}">
 {% endblock %}
 {% block scripts %}
   {{ super() }}
   <script src="{{ 'home/assets/javascript/script.js' | url }}"></script>
+  <script src="{{ 'home/assets/javascript/timeline.js' | url }}"></script>
 {% endblock %}
