@@ -46,5 +46,8 @@ your git config file should look like
 [push]
         autoSetupRemote = true
 ```
-
+### delete a key if not required
+```bash
+gpg --delete-secret-keys $KEY_ID
+```
 

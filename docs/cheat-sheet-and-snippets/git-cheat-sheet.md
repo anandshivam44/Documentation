@@ -251,11 +251,3 @@ Accept all current changes and ignore any incoming changes
 ```bash
 git log -2 --oneline
 ```
-#### Sign commits
-Sign commits
-```bash
-git config --global gpg.format ssh
-git config --global user.signingkey ~/.ssh/id_ed25519.pub
-git config --global commit.gpgsign true
-
-```
