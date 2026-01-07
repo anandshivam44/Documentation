@@ -1,0 +1,274 @@
+/* Timeline Component Styles */
+:root {
+  --timeline-accent: #2563eb; /* blue accent */
+  --timeline-border: rgba(148, 163, 184, 0.25); /* subtle border */
+  --timeline-line: rgba(148, 163, 184, 0.3);
+  --timeline-card-bg: rgba(255, 255, 255, 0.06);
+  --timeline-card-bg-solid: #ffffff;
+  --timeline-card-bg-dark: rgba(17, 24, 39, 0.6);
+  --timeline-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  --timeline-shadow-soft: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --timeline-card-bg: var(--timeline-card-bg-solid);
+    --timeline-border: rgba(15, 23, 42, 0.08);
+    --timeline-line: rgba(15, 23, 42, 0.12);
+    --timeline-shadow: var(--timeline-shadow-soft);
+  }
+}
+
+.timeline-section {
+  position: relative;
+  padding: clamp(40px, 6vw, 96px) 0;
+}
+
+.timeline-section .section-header {
+  text-align: center;
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.timeline-section .section-title {
+  margin: 0 0 6px 0;
+}
+
+.timeline-section .section-subtitle {
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Core timeline */
+.timeline {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* progress height (px) will be set by JS */
+  --progress-px: 0px;
+}
+
+/* Center line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--timeline-line) 10%,
+    var(--timeline-line) 90%,
+    transparent 100%
+  );
+}
+
+/* Scroll progress fill line */
+.timeline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: var(--progress-px, 0px);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--timeline-accent), #ffffff 10%) 0%,
+    var(--timeline-accent) 100%
+  );
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--timeline-accent), transparent 85%),
+              0 6px 18px color-mix(in oklab, var(--timeline-accent), transparent 60%);
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2.5vw, 32px);
+  align-items: center;
+  padding: clamp(12px, 2.2vw, 22px) 0;
+}
+
+/* Connector arms from spine to cards */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  background: var(--timeline-line);
+}
+.timeline-item:nth-child(odd)::before {
+  left: 50%;
+  transform: translateX(-100%);
+  width: clamp(48px, 12vw, 140px);
+}
+.timeline-item:nth-child(even)::before {
+  left: 50%;
+  width: clamp(48px, 12vw, 140px);
+}
+
+/* Marker for each event */
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--timeline-accent);
+  border: 2px solid color-mix(in oklab, var(--timeline-accent), #fff 30%);
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--timeline-accent), transparent 80%),
+              0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+/* Ripple effect when progress passes a marker */
+@keyframes marker-ripple {
+  0% {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--timeline-accent), transparent 75%),
+                0 0 0 10px color-mix(in oklab, var(--timeline-accent), transparent 92%),
+                0 4px 16px rgba(0, 0, 0, 0.18);
+  }
+  100% {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--timeline-accent), transparent 90%),
+                0 0 0 20px color-mix(in oklab, var(--timeline-accent), transparent 100%),
+                0 4px 16px rgba(0, 0, 0, 0.18);
+  }
+}
+.timeline-item.passed::after {
+  animation: marker-ripple 850ms ease-out 1;
+}
+
+.timeline-card {
+  background: var(--timeline-card-bg);
+  border: 1px solid var(--timeline-border);
+  border-radius: 16px;
+  box-shadow: var(--timeline-shadow);
+  padding: clamp(12px, 1.8vw, 20px);
+  max-width: min(960px, 96vw);
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* Keep long titles to a single line on wide viewports */
+@media (min-width: 1200px) {
+  .timeline-card .headline {
+    white-space: nowrap;
+  }
+}
+
+.timeline-card .meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.timeline-card .year {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--timeline-accent);
+}
+
+.timeline-card .year::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--timeline-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--timeline-accent), transparent 75%);
+}
+
+.timeline-card .headline {
+  margin: 4px 0 4px 0;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+}
+
+.timeline-card .description {
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.45;
+}
+
+/* Alternating placement */
+.timeline-item:nth-child(odd) .timeline-card {
+  grid-column: 1 / 2;
+  justify-self: end;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-card {
+  grid-column: 2 / 3;
+  justify-self: start;
+  text-align: left;
+}
+
+/* Reveal animation */
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-card {
+    transition: opacity 480ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+.timeline-item.in-view .timeline-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile layout */
+@media (max-width: 900px) {
+  .timeline::before {
+    left: 24px;
+    transform: none;
+  }
+  .timeline::after {
+    left: 24px;
+    transform: none;
+  }
+  .timeline-item::before {
+    left: 24px;
+    transform: none;
+    width: 16px;
+  }
+  .timeline-item {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding-left: 12px; /* room for marker */
+  }
+  .timeline-item::after {
+    left: 24px;
+  }
+  .timeline-card {
+    grid-column: 1 / -1 !important;
+    justify-self: start !important;
+    text-align: left !important;
+    margin-left: 32px; /* offset from center line */
+    max-width: 720px;
+  }
+}
+
+/* Focus styles for accessibility */
+.timeline-card:focus-within,
+.timeline-card:focus {
+  outline: 2px solid color-mix(in oklab, var(--timeline-accent), #ffffff 20%);
+  outline-offset: 2px;
+}
+
+/* Utility container alignment to match site's layout */
+.timeline-section .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: clamp(16px, 4vw, 32px);
+  padding-right: clamp(16px, 4vw, 32px);
+}

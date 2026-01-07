@@ -1,0 +1,1132 @@
+{% extends "main.html" %} {% block tabs %} {{ super() }}
+<div class="aurora" aria-hidden="true"></div>
+<!-- Devicon icon set for technology logos -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+/>
+<style>
+  .md-main__inner {
+    margin: 0;
+  }
+  .md-content {
+    display: none;
+  }
+  @media screen and (min-width: 60em) {
+    .md-sidebar--secondary {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+      display: none;
+    }
+  }
+  /* Typing effect styles */
+  .hero-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: center;
+    /* Reserve a stable single-line height to prevent vertical reflow when text length changes */
+    line-height: 1.2;
+    height: 1.2em;
+  }
+  .typing-text {
+    white-space: nowrap;
+    display: inline-block;
+    will-change: contents;
+    contain: layout paint;
+    font-variant-ligatures: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transform: translateZ(
+      0
+    ); /* promote to its own layer to reduce paint flicker */
+  }
+
+  /* Use a CSS caret (pseudo-element) to avoid layout shifts */
+
+  /* Import Devicon icon set for technology logos */
+  @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css");
+
+  /* Skills section styles (logo cloud) */
+  .skills {
+    position: relative;
+    padding: 4rem 0;
+  }
+  .skills .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  @media (min-width: 600px) {
+    .skills-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 900px) {
+    .skills-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  .skill-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    color: var(--md-default-fg-color);
+    transition: transform 200ms ease, background 200ms ease,
+      border-color 200ms ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-clip: padding-box;
+    border-width: 1px;
+    border-style: solid;
+    cursor: default;
+  }
+  .skill-pill i {
+    font-size: 1.15rem;
+  }
+  .skill-pill svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: inline-block;
+    fill: currentColor;
+  }
+  .skill-pill .label {
+    font-size: 0.9rem;
+  }
+  .skill-pill img.brand-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: inline-block;
+    object-fit: contain;
+  }
+  .skill-pill:hover,
+  .skill-pill:focus-within {
+    border-color: rgba(59, 130, 246, 0.35);
+  }
+  .skill-pill:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.6);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .skill-pill:hover {
+      transform: translateY(-2px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skill-pill {
+      transition: none;
+    }
+  }
+  .skills-legend {
+    text-align: center;
+    margin-top: 1rem;
+    opacity: 0.8;
+    font-size: 0.85rem;
+  }
+
+  /* About section: compact, visual, animated (with reduced-motion support) */
+  .about {
+    position: relative;
+    padding: 4rem 0;
+    overflow: hidden;
+  }
+  .about .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    /* Ensure children stack vertically and are centered */
+    display: grid;
+    justify-items: center;
+  }
+  /* Left-align ONLY the Technology Orbit section header/title */
+  section#stack.about.tech-orbit .section-header {
+    text-align: left;
+    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    /* Pleasant left offset and vertical rhythm */
+    padding-left: clamp(16px, 4vw, 48px);
+    padding-top: clamp(8px, 1.5vw, 16px);
+    gap: 0.35rem;
+  }
+  section#stack.about.tech-orbit .section-header .section-title {
+    justify-self: start;
+    align-self: flex-start;
+    text-align: left;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    display: inline-block;
+    /* Tighten bottom margin since header provides gap */
+    margin-bottom: 0;
+  }
+  /* Reset theme's absolute centering for stack title within Tech Orbit */
+  section#stack.about.tech-orbit .section-header #stack-title {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    width: auto;
+  }
+  section#stack.about.tech-orbit .hero-subtitle {
+    justify-content: flex-start !important;
+    /* Nudge down slightly for better visual rhythm */
+    margin-top: 0.2rem;
+    gap: 0.35rem;
+    align-items: baseline;
+    padding-left: 2px; /* tiny optical inset */
+  }
+  /* Full-bleed: make the Tech Orbit section span the viewport width */
+  section#stack.about.tech-orbit {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+  section#stack.about.tech-orbit > .container {
+    max-width: none;
+    width: 100vw;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Left-align just the Tech Orbit header and subtitle */
+  .tech-orbit .section-header {
+    text-align: left;
+    justify-items: start;
+  }
+  .tech-orbit .section-header .section-title {
+    justify-self: start;
+    text-align: left;
+  }
+  .tech-orbit .hero-subtitle {
+    justify-content: flex-start;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Orbit visual */
+  .about-visual {
+    display: grid;
+    place-items: center;
+  }
+  .orbit {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+  .orbit .core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+  .orbit .core img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .orbit .orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    border: 1px dashed rgba(255, 255, 255, 0.18);
+  }
+  .orbit .ring-1 {
+    width: 220px;
+    height: 220px;
+    animation: slow-rotate 40s linear infinite;
+  }
+  .orbit .ring-2 {
+    width: 300px;
+    height: 300px;
+    animation: slow-rotate-rev 60s linear infinite;
+  }
+  .orbit .ring-3 {
+    width: 360px;
+    height: 360px;
+    animation: slow-rotate 80s linear infinite;
+  }
+  /* Technology Orbit specific sizing */
+  .tech-orbit .orbit {
+    width: 420px;
+    height: 420px;
+  }
+  .tech-orbit .ring-1 {
+    width: 260px;
+    height: 260px;
+  }
+  .tech-orbit .ring-2 {
+    width: 360px;
+    height: 360px;
+  }
+  .tech-orbit .ring-3 {
+    width: 420px;
+    height: 420px;
+  }
+  .tech-orbit .satellite {
+    width: 40px;
+    height: 40px;
+  }
+  .orbit .satellite {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  .orbit .satellite img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  .orbit .satellite svg {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    fill: currentColor;
+  }
+  /* Satellite positions */
+  .orbit .s1 {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .orbit .s2 {
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+  }
+  .orbit .s3 {
+    bottom: 12px;
+    left: 12px;
+  }
+
+  /* Gentle float animations */
+  @keyframes float-y {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes float-x {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  .orbit .s1 {
+    animation: float-y 6s ease-in-out infinite;
+  }
+  .orbit .s2 {
+    animation: float-x 7s ease-in-out infinite;
+  }
+  .orbit .s3 {
+    animation: float-y 5.5s ease-in-out infinite reverse;
+  }
+  @keyframes slow-rotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+  @keyframes slow-rotate-rev {
+    from {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  /* Summary side */
+  .about-summary {
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+  .about-summary .tagline {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .badge {
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.85rem;
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .tile {
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: transform 200ms ease;
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+  }
+  .tile .stat-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  .tile .tile-label {
+    display: block;
+    opacity: 0.85;
+    font-size: 0.8rem;
+    margin-top: 0.15rem;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .orbit .s1,
+    .orbit .s2,
+    .orbit .s3 {
+      animation: none;
+    }
+    .orbit .ring-1,
+    .orbit .ring-2,
+    .orbit .ring-3 {
+      animation: none;
+    }
+    .tile {
+      transition: none;
+    }
+  }
+
+  /* Responsive sizing for Technology Orbit */
+  @media (max-width: 599px) {
+    .tech-orbit .orbit {
+      width: 320px;
+      height: 320px;
+    }
+    .tech-orbit .ring-1 {
+      width: 200px;
+      height: 200px;
+    }
+    .tech-orbit .ring-2 {
+      width: 280px;
+      height: 280px;
+    }
+    .tech-orbit .ring-3 {
+      width: 320px;
+      height: 320px;
+    }
+  }
+
+  /* Vertical Skills Carousel */
+  .skills-carousel {
+    position: relative;
+    margin: 1.5rem auto 0;
+    max-width: 560px;
+  }
+  .skills-carousel .vc-viewport {
+    position: relative;
+    height: 300px; /* ~5-6 items visible */
+    overflow: hidden;
+    margin-inline: auto;
+    /* Top/bottom gradient fade for a smooth, modern look */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+  .skills-carousel .vc-track {
+    list-style: none;
+    margin: 0;
+    padding: 0.25rem 0;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+  }
+  .skills-carousel .vc-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(100, 116, 139, 0.15); /* subtle border */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+    margin: 0.4rem auto;
+    width: 92%;
+    color: var(--md-default-fg-color);
+    transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+    min-height: 52px;
+  }
+  .skills-carousel .vc-item:hover,
+  .skills-carousel .vc-item:focus-within {
+    border-color: rgba(37, 99, 235, 0.5); /* #2563eb */
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08), 0 1px 1px rgba(0, 0, 0, 0.06);
+    background: rgba(37, 99, 235, 0.06);
+  }
+  .skills-carousel .vc-item img,
+  .skills-carousel .vc-item svg {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: inline-block;
+  }
+  .skills-carousel .vc-item .text {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .skills-carousel .vc-viewport:focus {
+    outline: 2px solid rgba(37, 99, 235, 0.55);
+    outline-offset: 2px;
+  }
+  /* Reduced motion: disable JS-driven movement; allow manual scroll with snap */
+  @media (prefers-reduced-motion: reduce) {
+    .skills-carousel .vc-viewport {
+      overflow: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+      scroll-snap-type: y mandatory;
+    }
+    .skills-carousel .vc-item { scroll-snap-align: start; }
+  }
+
+  /* Animated gradient background for Technology Orbit section (#stack / #stack-2) */
+  #stack-2,
+  #stack {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate; /* create a stacking context so ::before sits behind content */
+  }
+  #stack-2::before,
+  #stack::before {
+    content: none; /* disable pseudo-element gradient field */
+    filter: saturate(115%);
+    opacity: 1;
+    pointer-events: none;
+  }
+  @keyframes stack2-blob-move {
+    0% {
+      background-position: 12% 28%, 88% 18%, 78% 72%, 22% 78%, 50% 46%, 100% 50%;
+    }
+    50% {
+      background-position: 18% 22%, 82% 26%, 72% 66%, 28% 84%, 46% 52%, 0% 50%;
+    }
+    100% {
+      background-position: 12% 28%, 88% 18%, 78% 72%, 22% 78%, 50% 46%, 100% 50%;
+    }
+  }
+  /* Force animation for everyone on this section, even when reduced-motion is enabled */
+  @media (prefers-reduced-motion: reduce) {
+    #stack-2::before,
+    #stack::before {
+      animation: stack2-blob-move 30s ease-in-out infinite;
+    }
+  }
+</style>
+
+<!-- Hidden data source for technology orbit -->
+<div id="skills-data" style="display: none" aria-hidden="true">
+  <!-- This div is a hidden data source for the JS animations -->
+  <button class="skill-pill" role="listitem" aria-label="Amazon Web Services">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/aws.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Google Cloud Platform">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/gcp.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Microsoft Azure">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/azure.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Linux">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/linux.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Kubernetes">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/kubernetes.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Terraform">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/terraform.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="CloudFormation">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/cloudformation.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Jenkins">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/jenkins.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="GitHub Actions">
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="img">
+      <path
+        fill-rule="evenodd"
+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8Z"
+      ></path>
+    </svg>
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Ansible">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/ansible.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="ArgoCD">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/argo.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Docker">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/docker.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="CI slash CD">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/cicd.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="PostgreSQL">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/postgresql.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Redis">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/redis.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Apache Kafka">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/kafka.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Prometheus">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/prometheus.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Grafana">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/grafana.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="OpenTelemetry">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/opentelemetry.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="PagerDuty">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/pagerduty.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="OpenSearch">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/opensearch.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Python">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/python.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="JFrog">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/jfrog.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="OpenSSL">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/openssl.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="SQL">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/sql.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Scripting">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/scripting.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="DevOps">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/devops.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="DevSecOps">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/devsecops.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Jeli">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/jeli.svg' | url }}"
+      alt=""
+    />
+  </button>
+</div>
+
+<!-- Hero Section -->
+<!-- Removed hero section -->
+
+<!-- Technology Orbit Section -->
+<section id="stack" class="about tech-orbit" aria-labelledby="stack-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="stack-title" class="section-title">Shivam Anand</h2>
+      <div class="hero-subtitle">
+        <span class="typing-text"></span>
+        <span class="cursor" aria-hidden="true"></span>
+      </div>
+      <!-- subtitle removed -->
+    </div>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div
+          class="orbit"
+          role="img"
+          aria-label="Rotating orbit of my technical skills"
+        >
+          <div class="core">
+            <img
+              src="{{ 'home/assets/images/shivam-image.png' | url }}"
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
+          <div class="orbit-ring ring-1"></div>
+          <div class="orbit-ring ring-2"></div>
+          <div class="orbit-ring ring-3"></div>
+          <!-- Satellites will be injected by script.js -->
+        </div>
+      </div>
+      <div class="about-summary">
+        <!-- Vertical Skills Ticker (redesigned) -->
+        <div class="skills-carousel" aria-label="Vertically scrolling list of key skills">
+          <div class="vc-viewport" tabindex="0">
+            <ul class="vc-track" role="list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Hidden data source for technology orbit -->
+<div id="skills-data" style="display: none" aria-hidden="true">
+  <!-- This div is a hidden data source for the JS animations -->
+  <!-- Cloud & Infra -->
+  <button class="skill-pill" role="listitem" aria-label="Amazon Web Services">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/aws.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Google Cloud Platform">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/gcp.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Microsoft Azure">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/azure.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Linux">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/linux.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Kubernetes">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/kubernetes.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Terraform">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/terraform.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="CloudFormation">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/cloudformation.svg' | url }}"
+      alt=""
+    />
+  </button>
+
+  <!-- Platform & Automation -->
+  <button class="skill-pill" role="listitem" aria-label="Jenkins">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/jenkins.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="GitHub Actions">
+    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="img">
+      <path
+        fill-rule="evenodd"
+        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8Z"
+      ></path>
+    </svg>
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Ansible">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/ansible.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="ArgoCD">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/argo.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Docker">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/docker.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="CI slash CD">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/cicd.svg' | url }}"
+      alt=""
+    />
+  </button>
+
+  <!-- Datastores & Messaging -->
+  <button class="skill-pill" role="listitem" aria-label="PostgreSQL">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/postgresql.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Redis">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/redis.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Apache Kafka">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/kafka.svg' | url }}"
+      alt=""
+    />
+  </button>
+
+  <!-- Observability & Security -->
+  <button class="skill-pill" role="listitem" aria-label="Prometheus">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/prometheus.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Grafana">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/grafana.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="OpenTelemetry">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/opentelemetry.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="PagerDuty">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/pagerduty.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="OpenSearch">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/opensearch.svg' | url }}"
+      alt=""
+    />
+  </button>
+
+  <!-- Languages & Tooling -->
+  <button class="skill-pill" role="listitem" aria-label="Python">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/python.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="JFrog">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/jfrog.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="OpenSSL">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/openssl.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="SQL">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/sql.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="Scripting">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/scripting.svg' | url }}"
+      alt=""
+    />
+  </button>
+
+  <!-- Practices -->
+  <button class="skill-pill" role="listitem" aria-label="DevOps">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/devops.svg' | url }}"
+      alt=""
+    />
+  </button>
+  <button class="skill-pill" role="listitem" aria-label="DevSecOps">
+    <img
+      class="brand-icon"
+      src="{{ 'home/assets/icons/devsecops.svg' | url }}"
+      alt=""
+    />
+  </button>
+
+  <!-- Not in Devicon or generic fallbacks -->
+  <button class="skill-pill" role="listitem" aria-label="Jeli">
+    <img
+      src="{{ 'home/assets/icons/jeli.svg' | url }}"
+      alt=""
+    />
+  </button>
+  </div>
+
+<!-- Timeline Section -->
+<section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="timeline-title" class="section-title">Timeline</h2>
+    </div>
+
+    <!-- External data source for timeline -->
+    <div data-timeline-src="{{ 'home/assets/data/timeline.json' | url }}"></div>
+
+    <ul class="timeline" role="list">
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2021</span></div>
+          <h3 class="headline">Platform Launch</h3>
+          <p class="description">Kicked off the journey with a secure, reliable foundation.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2022</span></div>
+          <h3 class="headline">Scale & Reliability</h3>
+          <p class="description">Hardened SRE practices and scaled services globally.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2023</span></div>
+          <h3 class="headline">Security by Design</h3>
+          <p class="description">Shift-left security and DevSecOps integrated across pipelines.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2024</span></div>
+          <h3 class="headline">Multi-Cloud Footprint</h3>
+          <p class="description">Multi-region automation, failover, and observability excellence.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2025</span></div>
+          <h3 class="headline">AI-Driven Ops</h3>
+          <p class="description">Proactive incident analysis and self-healing systems.</p>
+        </article>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <p>&copy; 2025 Shivam Anand. All rights reserved.</p>
+      <div class="footer-links">
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% endblock %} {% block content %}{% endblock %} {% block footer %}{% endblock %}
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ 'home/assets/stylesheets/extra.css' | url }}">
+  <link rel="stylesheet" href="{{ 'home/assets/stylesheets/portfolio/styles.css' | url }}">
+  <link rel="stylesheet" href="{{ 'home/assets/stylesheets/timeline.css' | url }}">
+{% endblock %}
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'home/assets/javascript/script.js' | url }}"></script>
+  <script src="{{ 'home/assets/javascript/timeline.js' | url }}"></script>
+{% endblock %}
