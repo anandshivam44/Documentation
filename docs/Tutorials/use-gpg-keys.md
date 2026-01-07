@@ -31,4 +31,20 @@ KEY_ID=$(gpg --list-secret-keys --keyid-format LONG | grep -E "^sec" | tail -1 |
 git config --global user.signingkey $KEY_ID
 git config --global commit.gpgsign true
 ```
+### gitconfig file at ~/.gitconfig
+your git config file should look like
+```
+[user]
+        name = anandshivam44
+        email = anand.shivam44@yahoo.com
+        signingkey = xxxxxxxxxxx
+[gpg]
+        format = openpgp
+        program = /Users/user/.brew/bin/gpg
+[commit]
+        gpgsign = true
+[push]
+        autoSetupRemote = true
+```
+
 
