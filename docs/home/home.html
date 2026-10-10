@@ -578,483 +578,112 @@
       animation: stack2-blob-move 30s ease-in-out infinite;
     }
   }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 2.75rem;
+    align-items: center;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .intro-portrait {
+    margin: 0;
+  }
+  .intro-portrait img {
+    display: block;
+    width: 220px;
+    height: 268px;
+    object-fit: cover;
+    object-position: center 12%;
+    border-radius: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+  }
+  .intro-copy {
+    min-width: 0;
+  }
+  #stack .intro-copy #stack-title {
+    position: static;
+    left: auto;
+    transform: none;
+    margin: 0 0 0.4rem;
+    text-align: left;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .intro-role {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--md-typeset-a-color, #2563eb);
+  }
+  .intro-bio {
+    margin: 0 0 1.25rem;
+    max-width: 38rem;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    opacity: 0.88;
+  }
+  .intro-focus {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .intro-focus li {
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: rgba(148, 163, 184, 0.08);
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+  @media (max-width: 720px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      gap: 1.5rem;
+    }
+    .intro-portrait img {
+      width: 180px;
+      height: 220px;
+    }
+  }
 </style>
 
-<!-- Hidden data source for technology orbit -->
-<div id="skills-data" style="display: none" aria-hidden="true">
-  <!-- This div is a hidden data source for the JS animations -->
-  <button class="skill-pill" role="listitem" aria-label="Amazon Web Services">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/aws.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Google Cloud Platform">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/gcp.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Microsoft Azure">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/azure.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Linux">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/linux.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Kubernetes">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/kubernetes.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Terraform">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/terraform.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="CloudFormation">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/cloudformation.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Jenkins">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/jenkins.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="GitHub Actions">
-    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="img">
-      <path
-        fill-rule="evenodd"
-        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8Z"
-      ></path>
-    </svg>
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Ansible">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/ansible.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="ArgoCD">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/argo.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Docker">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/docker.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="CI slash CD">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/cicd.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="PostgreSQL">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/postgresql.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Redis">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/redis.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Apache Kafka">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/kafka.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Prometheus">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/prometheus.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Grafana">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/grafana.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="OpenTelemetry">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/opentelemetry.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="PagerDuty">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/pagerduty.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="OpenSearch">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/opensearch.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Python">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/python.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="JFrog">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/jfrog.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="OpenSSL">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/openssl.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="SQL">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/sql.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Scripting">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/scripting.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="DevOps">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/devops.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="DevSecOps">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/devsecops.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Jeli">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/jeli.svg' | url }}"
-      alt=""
-    />
-  </button>
-</div>
-
-<!-- Hero Section -->
-<!-- Removed hero section -->
-
-<!-- Technology Orbit Section -->
-<section id="stack" class="about tech-orbit" aria-labelledby="stack-title">
+<!-- Intro -->
+<section id="stack" class="about intro" aria-labelledby="stack-title">
   <div class="container">
-    <div class="section-header">
-      <h2 id="stack-title" class="section-title">Shivam Anand</h2>
-      <div class="hero-subtitle">
-        <span class="typing-text"></span>
-        <span class="cursor" aria-hidden="true"></span>
-      </div>
-      <!-- subtitle removed -->
-    </div>
-    <div class="about-grid">
-      <div class="about-visual">
-        <div
-          class="orbit"
-          role="img"
-          aria-label="Rotating orbit of my technical skills"
-        >
-          <div class="core">
-            <img
-              src="{{ 'home/assets/images/shivam-image.png' | url }}"
-              alt=""
-              aria-hidden="true"
-            />
-          </div>
-          <div class="orbit-ring ring-1"></div>
-          <div class="orbit-ring ring-2"></div>
-          <div class="orbit-ring ring-3"></div>
-          <!-- Satellites will be injected by script.js -->
-        </div>
-      </div>
-      <div class="about-summary">
-        <!-- Vertical Skills Ticker (redesigned) -->
-        <div class="skills-carousel" aria-label="Vertically scrolling list of key skills">
-          <div class="vc-viewport" tabindex="0">
-            <ul class="vc-track" role="list"></ul>
-          </div>
-        </div>
+    <div class="intro-grid">
+      <figure class="intro-portrait">
+        <img
+          src="{{ 'home/assets/images/shivam-image.png' | url }}"
+          alt="Shivam Anand"
+        />
+      </figure>
+      <div class="intro-copy">
+        <h2 id="stack-title" class="section-title">Shivam Anand</h2>
+        <p class="intro-role">Sr Site Reliability Engineer at Swimlane</p>
+        <p class="intro-bio">
+          I work on reliability, cloud infrastructure, and cybersecurity products.
+        </p>
+        <ul class="intro-focus" aria-label="Focus areas">
+          <li>Site Reliability</li>
+          <li>Cloud Infrastructure</li>
+          <li>Cybersecurity</li>
+          <li>Kubernetes</li>
+          <li>Observability</li>
+          <li>DevSecOps</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Hidden data source for technology orbit -->
-<div id="skills-data" style="display: none" aria-hidden="true">
-  <!-- This div is a hidden data source for the JS animations -->
-  <!-- Cloud & Infra -->
-  <button class="skill-pill" role="listitem" aria-label="Amazon Web Services">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/aws.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Google Cloud Platform">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/gcp.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Microsoft Azure">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/azure.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Linux">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/linux.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Kubernetes">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/kubernetes.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Terraform">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/terraform.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="CloudFormation">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/cloudformation.svg' | url }}"
-      alt=""
-    />
-  </button>
-
-  <!-- Platform & Automation -->
-  <button class="skill-pill" role="listitem" aria-label="Jenkins">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/jenkins.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="GitHub Actions">
-    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" role="img">
-      <path
-        fill-rule="evenodd"
-        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8Z"
-      ></path>
-    </svg>
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Ansible">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/ansible.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="ArgoCD">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/argo.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Docker">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/docker.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="CI slash CD">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/cicd.svg' | url }}"
-      alt=""
-    />
-  </button>
-
-  <!-- Datastores & Messaging -->
-  <button class="skill-pill" role="listitem" aria-label="PostgreSQL">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/postgresql.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Redis">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/redis.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Apache Kafka">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/kafka.svg' | url }}"
-      alt=""
-    />
-  </button>
-
-  <!-- Observability & Security -->
-  <button class="skill-pill" role="listitem" aria-label="Prometheus">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/prometheus.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Grafana">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/grafana.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="OpenTelemetry">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/opentelemetry.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="PagerDuty">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/pagerduty.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="OpenSearch">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/opensearch.svg' | url }}"
-      alt=""
-    />
-  </button>
-
-  <!-- Languages & Tooling -->
-  <button class="skill-pill" role="listitem" aria-label="Python">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/python.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="JFrog">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/jfrog.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="OpenSSL">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/openssl.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="SQL">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/sql.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="Scripting">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/scripting.svg' | url }}"
-      alt=""
-    />
-  </button>
-
-  <!-- Practices -->
-  <button class="skill-pill" role="listitem" aria-label="DevOps">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/devops.svg' | url }}"
-      alt=""
-    />
-  </button>
-  <button class="skill-pill" role="listitem" aria-label="DevSecOps">
-    <img
-      class="brand-icon"
-      src="{{ 'home/assets/icons/devsecops.svg' | url }}"
-      alt=""
-    />
-  </button>
-
-  <!-- Not in Devicon or generic fallbacks -->
-  <button class="skill-pill" role="listitem" aria-label="Jeli">
-    <img
-      src="{{ 'home/assets/icons/jeli.svg' | url }}"
-      alt=""
-    />
-  </button>
-  </div>
 
 <!-- Timeline Section -->
 <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
@@ -1100,6 +729,13 @@
           <div class="meta"><span class="year">2025</span></div>
           <h3 class="headline">AI-Driven Ops</h3>
           <p class="description">Proactive incident analysis and self-healing systems.</p>
+        </article>
+      </li>
+      <li class="timeline-item">
+        <article class="timeline-card" tabindex="0">
+          <div class="meta"><span class="year">2026</span></div>
+          <h3 class="headline">Sr Site Reliability Engineer — Swimlane</h3>
+          <p class="description"></p>
         </article>
       </li>
     </ul>
