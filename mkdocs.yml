@@ -156,6 +156,7 @@ nav:
       - Generate SSH Key pair & Add to Agent: Tutorials/GenerateKeysAndSSH.md
       - SSH to Docker: Tutorials/SSHToDocker.md
       - Install Kubernetes with KubeAdm: Tutorials/KubernetesWithKubeadm.md
+      - Hacktoberfest 2026: Tutorials/Hacktoberfest2026.md
       - EncryptEC2FromCloudFormation: Playbooks/EncryptEC2FromCloudFormation/EBSEncryption.md
 
 copyright: |
