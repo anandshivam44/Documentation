@@ -77,9 +77,11 @@ extra:
     - icon: fontawesome/brands/github-alt
       link: https://github.com/anandshivam44
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/anandshivam44
+      link: https://x.com/anandshivam44
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/anandshivam44/
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/shivamanand.com_/
     - icon: fontawesome/solid/paper-plane
       link: mailto:anand.shivam44@yahoo.com
 
