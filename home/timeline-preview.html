@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timeline Preview</title>
+  <link rel="stylesheet" href="assets/stylesheets/timeline.css" />
+  <style>
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: #0b1020; color: #e5e7eb; border-bottom: 1px solid rgba(148,163,184,0.15);
+      padding: 10px 16px;
+    }
+    header h1 { font-size: 1rem; margin: 0; }
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px 800px at 10% 20%, rgba(37,99,235,0.08), transparent 60%),
+                  radial-gradient(1200px 800px at 80% 10%, rgba(99,102,241,0.06), transparent 60%),
+                  linear-gradient(180deg, rgba(2,6,23,1) 0%, rgba(2,6,23,0.94) 100%);
+      color: #e5e7eb;
+    }
+    .timeline-section .section-title { color: #e5e7eb; }
+    .timeline-section .section-subtitle { color: rgba(229,231,235,0.8); }
+    @media (prefers-color-scheme: light) {
+      .page { background: #f8fafc; color: #0f172a; }
+      .timeline-section .section-title { color: #0f172a; }
+      .timeline-section .section-subtitle { color: rgba(15,23,42,0.8); }
+      header { background: #ffffff; color: #0f172a; border-bottom-color: rgba(15,23,42,0.08); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Timeline Component Preview</h1>
+    </header>
+
+    <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="timeline-title" class="section-title">Milestones</h2>
+          <p class="section-subtitle">Key events and achievements</p>
+        </div>
+
+        <ul class="timeline" role="list"></ul>
+
+        <!-- Provide data to render; edit freely -->
+        <div data-timeline='[
+          {"year":"2021","title":"Founded the Platform","description":"Launched our core platform with a focus on reliability and security."},
+          {"year":"2022","title":"Scaled to Millions","description":"Handled millions of events per day with robust SRE practices and observability."},
+          {"year":"2023","title":"Security First","description":"Introduced DevSecOps pipelines and continuous compliance automation."},
+          {"year":"2024","title":"Global Footprint","description":"Expanded multi-region, multi-cloud presence with automated failover."},
+          {"year":"2025","title":"AI-Driven Ops","description":"Adopted proactive incident analysis and self-healing automations."}
+        ]'></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="assets/javascript/timeline.js"></script>
+</body>
+</html>
