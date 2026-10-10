@@ -6,9 +6,12 @@ See [ollama.com](https://ollama.com/) for installers.
 
 ### macOS
 
-1. Run: `curl -fsSL https://ollama.com/install.sh | sh`  
-   Or download **Ollama.dmg** from the site and open it.
-2. Check: `ollama --version`
+Pick one install method:
+
+- `curl -fsSL https://ollama.com/install.sh | sh`
+- `brew install ollama`, then `brew services start ollama`
+
+Check: `ollama --version`
 
 ### Ubuntu
 
